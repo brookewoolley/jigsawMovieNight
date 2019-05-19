@@ -5,7 +5,7 @@ const API = require("./config.json");
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { value: "" };
+    this.state = { value: "", movieSearchResult: [] };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,8 +23,7 @@ class App extends Component {
   componentDidMount(value) {
     fetch(`${API.baseUrl}search/movie?api_key=${API.apiKey}&query=${value}`)
       .then(response => response.json())
-      .then(response => console.log(response));
-    // data => this.setState({ movies: data.movieRequest })
+      .then(response => this.setState({ movieSearchResult: response.results }));
   }
 
   render() {
