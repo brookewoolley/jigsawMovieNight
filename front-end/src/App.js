@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ListOfMovies from "./ListOfMovies";
 
 const API = require("./config.json");
 
@@ -28,17 +29,20 @@ class App extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Search for a film:
-          <input
-            type="text"
-            value={this.state.value}
-            onChange={this.handleChange}
-          />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            Search for a film:
+            <input
+              type="text"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+        <ListOfMovies movieSearchResult={this.state.movieSearchResult} />
+      </div>
     );
   }
 }
