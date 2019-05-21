@@ -3,7 +3,7 @@ import Movie from "./Movie";
 
 import useMovies from "../src/hooks/movies";
 
-const ListOfMovies = ({ movieList, favouriteMovie }) => {
+const ListOfMovies = ({ movieList, favouriteMovie, isFavourite }) => {
   // const { favouriteMovie } = useMovies();
   const movies = movieList.map(movie => {
     return (
@@ -13,6 +13,7 @@ const ListOfMovies = ({ movieList, favouriteMovie }) => {
         overview={movie.overview}
         image={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
         onFavouriteMovie={() => favouriteMovie(movie)}
+        isFavourite={isFavourite(movie)}
       />
     );
   });

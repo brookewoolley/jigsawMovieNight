@@ -9,21 +9,35 @@ const App = () => {
     movieList,
     searchMovies,
     favourite,
-    favouriteMovie
+    favouriteMovie,
+    isFavourite
   } = useMovies();
   // const { popularMoviesList } = usePopularMovies();
 
   // console.log("------> PM", popularMoviesList);
 
   return (
-    <div>
-      <label>
-        Search for a film:
-        <input type="text" value={value} onChange={searchMovies} />
-      </label>
+    <div style={{ display: "flex", flexDirection: "row" }}>
+      <div>
+        <label>
+          Search for a film:
+          <input type="text" value={value} onChange={searchMovies} />
+        </label>
 
-      {!!movieList && (
-        <ListOfMovies movieList={movieList} favouriteMovie={favouriteMovie} />
+        {!!movieList && (
+          <ListOfMovies
+            movieList={movieList}
+            favouriteMovie={favouriteMovie}
+            isFavourite={isFavourite}
+          />
+        )}
+      </div>
+      {!!favourite && (
+        <ListOfMovies
+          movieList={favourite}
+          favouriteMovie={favouriteMovie}
+          isFavourite={isFavourite}
+        />
       )}
     </div>
   );

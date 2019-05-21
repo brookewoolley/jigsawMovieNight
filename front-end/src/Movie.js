@@ -9,13 +9,32 @@ const localStyles = {
   movie: {
     height: "300px",
     width: "500px",
-    position: "relative"
+    position: "relative",
+    overflow: "hidden"
   },
 
   movieButton: {
     position: "absolute",
     right: 10,
     top: 10
+  },
+
+  buttonOn: {
+    backgroundColor: "transparent",
+    border: "none",
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "red",
+    textTransform: "uppercase"
+  },
+
+  buttonOff: {
+    backgroundColor: "transparent",
+    border: "none",
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "white",
+    textTransform: "uppercase"
   },
 
   movieImageColumn: { height: "100%" },
@@ -39,12 +58,17 @@ const localStyles = {
   movieOverview: { fontSize: 12 }
 };
 
-const Movie = ({ image, title, overview, onFavouriteMovie }) => {
+const Movie = ({ image, title, overview, onFavouriteMovie, isFavourite }) => {
   return (
     <div style={localStyles.movie}>
       <div style={localStyles.movieImageColumn}>
         <div style={localStyles.movieButton}>
-          <button onClick={onFavouriteMovie}>Fave</button>
+          <button
+            style={!isFavourite ? localStyles.buttonOff : localStyles.buttonOn}
+            onClick={onFavouriteMovie}
+          >
+            Fave
+          </button>
         </div>
         <img style={localStyles.movieImage} src={image} alt={title} />
       </div>
