@@ -5,7 +5,7 @@ import { baseUrl, apiKey } from "../config";
 const useMovies = () => {
   const [value, setValue] = useState("");
   const [movieList, setMovieList] = useState([]);
-  const [favourite, setFavourite] = useState([]);
+  const [favourites, setFavourite] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,17 +30,17 @@ const useMovies = () => {
   };
 
   const favouriteMovie = movie => {
-    const newFavourites = [...favourite, movie];
+    const newFavourites = [...favourites, movie];
+    console.log("------ new Favourites", newFavourites);
     isFavourite(movie)
       ? alert("Already in your favourites")
       : setFavourite(newFavourites);
   };
 
   const isFavourite = movie => {
-    const result = favourite.filter(
+    const result = favourites.filter(
       favouriteMovie => favouriteMovie.id === movie.id
     );
-    console.log(result);
     return !!result.length;
   };
 
@@ -49,7 +49,7 @@ const useMovies = () => {
     movieList,
     searchMovies,
     favouriteMovie,
-    favourite,
+    favourites,
     isFavourite
   };
 };
