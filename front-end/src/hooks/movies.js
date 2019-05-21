@@ -5,6 +5,7 @@ import { baseUrl, apiKey } from "../config";
 const useMovies = () => {
   const [value, setValue] = useState("");
   const [movieList, setMovieList] = useState([]);
+  const [favourite, setFavourite] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +29,14 @@ const useMovies = () => {
     return setMovieList(parsedRes.results);
   };
 
-  return { value, movieList, searchMovies };
+  const favouriteMovie = movie => {
+    const newFavourites = [...favourite, movie];
+    !favourite.includes(movie)
+      ? setFavourite(newFavourites)
+      : alert("Already in your favourites");
+  };
+
+  return { value, movieList, searchMovies, favouriteMovie, favourite };
 };
 
 export default useMovies;

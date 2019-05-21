@@ -1,4 +1,5 @@
 import React from "react";
+import useMovies from "../src/hooks/movies";
 
 const localStyles = {
   // container: {
@@ -38,27 +39,21 @@ const localStyles = {
   movieOverview: { fontSize: 12 }
 };
 
-class Movie extends React.Component {
-  render() {
-    return (
-      <div style={localStyles.movie}>
-        <div style={localStyles.movieImageColumn}>
-          <div style={localStyles.movieButton}>
-            <button>Fave</button>
-          </div>
-          <img
-            style={localStyles.movieImage}
-            src={this.props.image}
-            alt={this.props.title}
-          />
+const Movie = ({ image, title, overview, onFavouriteMovie }) => {
+  return (
+    <div style={localStyles.movie}>
+      <div style={localStyles.movieImageColumn}>
+        <div style={localStyles.movieButton}>
+          <button onClick={onFavouriteMovie}>Fave</button>
         </div>
-        <div style={localStyles.movieDetails}>
-          <h2 style={localStyles.movieTitle}>{this.props.title}</h2>
-          <span style={localStyles.movieOverview}>{this.props.overview}</span>
-        </div>
+        <img style={localStyles.movieImage} src={image} alt={title} />
       </div>
-    );
-  }
-}
+      <div style={localStyles.movieDetails}>
+        <h2 style={localStyles.movieTitle}>{title}</h2>
+        <span style={localStyles.movieOverview}>{overview}</span>
+      </div>
+    </div>
+  );
+};
 
 export default Movie;
