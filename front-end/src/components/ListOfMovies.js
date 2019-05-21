@@ -1,7 +1,7 @@
 import React from "react";
 import Movie from "./Movie";
 
-import useMovies from "../src/hooks/movies";
+import useMovies from "../hooks/movies";
 
 const ListOfMovies = ({ movieList, favouriteMovie, isFavourite }) => {
   // const { favouriteMovie } = useMovies();

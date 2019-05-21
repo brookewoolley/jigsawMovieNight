@@ -1,5 +1,5 @@
 import React from "react";
-import useMovies from "../src/hooks/movies";
+import useMovies from "../hooks/movies";
 
 const localStyles = {
   // container: {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ListOfMovies from "./ListOfMovies";
+import ListOfMovies from "./components/ListOfMovies";
 
 import useMovies from "../src/hooks/movies";
 
