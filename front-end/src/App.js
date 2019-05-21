@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ListOfMovies from "./components/ListOfMovies";
-
+import Navbar from "./components/Navbar";
+import SearchForm from "./components/SearchForm"
 import useMovies from "../src/hooks/movies";
 
 const App = () => {
@@ -19,10 +20,10 @@ const App = () => {
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
       <div>
-        <label>
-          Search for a film:
-          <input type="text" value={value} onChange={searchMovies} />
-        </label>
+        <Navbar>
+          MovieFinder
+          <SearchForm value={value} searchMovies={searchMovies}/>
+        </Navbar>
 
         {!!movieList && (
           <ListOfMovies
