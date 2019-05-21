@@ -3,7 +3,7 @@ import Movie from "./Movie";
 
 class ListOfMovies extends React.Component {
   render() {
-    let movies = this.props.movieSearchResult.map(function(movie) {
+    let movies = this.props.movieList.map(function(movie) {
       return (
         <Movie
           key={movie.id}

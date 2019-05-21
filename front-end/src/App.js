@@ -1,50 +1,25 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import ListOfMovies from "./ListOfMovies";
 
-const API = require("./config.json");
+import useMovies from "../src/hooks/movies";
+import usePopularMovies from "../src/hooks/popularMovies";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { value: "", movieSearchResult: [] };
+const App = () => {
+  const { value, movieList, searchMovies } = useMovies();
+  // const { popularMoviesList } = usePopularMovies();
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  // console.log("------> PM", popularMoviesList);
 
-  handleChange(event) {
-    this.setState({ value: event.target.value });
-  }
+  return (
+    <div>
+      <label>
+        Search for a film:
+        <input type="text" value={value} onChange={searchMovies} />
+      </label>
 
-  handleSubmit(event) {
-    this.componentDidMount(this.state.value);
-    event.preventDefault();
-  }
-
-  componentDidMount(value) {
-    fetch(`${API.baseUrl}search/movie?api_key=${API.apiKey}&query=${value}`)
-      .then(response => response.json())
-      .then(response => this.setState({ movieSearchResult: response.results }));
-  }
-
-  render() {
-    return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Search for a film:
-            <input
-              type="text"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
-        <ListOfMovies movieSearchResult={this.state.movieSearchResult} />
-      </div>
-    );
-  }
-}
+      {!!movieList && <ListOfMovies movieList={movieList} />}
+    </div>
+  );
+};
 
 export default App;
