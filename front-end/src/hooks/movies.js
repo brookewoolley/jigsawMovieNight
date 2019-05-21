@@ -31,16 +31,17 @@ const useMovies = () => {
 
   const favouriteMovie = movie => {
     const newFavourites = [...favourite, movie];
-    !isFavourite(movie)
-      ? setFavourite(newFavourites)
-      : alert("Already in your favourites");
+    isFavourite(movie)
+      ? alert("Already in your favourites")
+      : setFavourite(newFavourites);
   };
 
   const isFavourite = movie => {
     const result = favourite.filter(
       favouriteMovie => favouriteMovie.id === movie.id
     );
-    return result.length;
+    console.log(result);
+    return !!result.length;
   };
 
   return {

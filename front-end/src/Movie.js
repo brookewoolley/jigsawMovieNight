@@ -19,22 +19,13 @@ const localStyles = {
     top: 10
   },
 
-  buttonOn: {
+  button: {
     backgroundColor: "transparent",
     border: "none",
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "red",
-    textTransform: "uppercase"
-  },
-
-  buttonOff: {
-    backgroundColor: "transparent",
-    border: "none",
-    fontSize: 14,
-    fontWeight: "bold",
+    fontSize: 20,
     color: "white",
-    textTransform: "uppercase"
+    textTransform: "uppercase",
+    cursor: "pointer"
   },
 
   movieImageColumn: { height: "100%" },
@@ -63,11 +54,8 @@ const Movie = ({ image, title, overview, onFavouriteMovie, isFavourite }) => {
     <div style={localStyles.movie}>
       <div style={localStyles.movieImageColumn}>
         <div style={localStyles.movieButton}>
-          <button
-            style={!isFavourite ? localStyles.buttonOff : localStyles.buttonOn}
-            onClick={onFavouriteMovie}
-          >
-            Fave
+          <button style={localStyles.button} onClick={onFavouriteMovie}>
+            <span>{isFavourite ? "★" : "☆"}</span>
           </button>
         </div>
         <img style={localStyles.movieImage} src={image} alt={title} />
