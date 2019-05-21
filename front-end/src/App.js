@@ -21,11 +21,37 @@ const App = () => {
 
   const filters = [
     { id: "popular", text: "All movies" },
-    { id: favourites, text: `Favourites (${favourites.length})` }
+    { id: "favourites", text: `Favourites (${favourites.length})` }
   ];
+
+  const icons = ["😀", "🐬", "🦐"];
+
+  const FootBar = () => (
+    <div
+      style={{
+        padding: 10,
+        position: "fixed",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: 50,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: "#212121",
+        zIndex: 2
+      }}
+    >
+      {icons.map(item => (
+        <span>{item}</span>
+      ))}
+    </div>
+  );
 
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
+      <FootBar />
       <Navbar height={NAV_HEIGHT}>
         <div
           style={{
@@ -51,6 +77,7 @@ const App = () => {
         isFavourite={isFavourite}
         favourites={favourites}
         navOffset={NAV_HEIGHT}
+        variant
       />
     </div>
   );
