@@ -1,11 +1,9 @@
 import React from "react";
-import Movie from "./Movie";
+import Movie from "../MovieCard";
 
-import useMovies from "../hooks/movies";
-
-const ListOfMovies = ({ movieList, favouriteMovie, isFavourite }) => {
+const ListOfMovies = ({ popularList, favouriteMovie, isFavourite }) => {
   // const { favouriteMovie } = useMovies();
-  const movies = movieList.map(movie => {
+  const movies = popularList.map(movie => {
     return (
       <Movie
         key={movie.id}

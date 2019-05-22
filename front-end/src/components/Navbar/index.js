@@ -36,6 +36,7 @@ const Navbar = ({ children, height, buttons }) => {
                   ? { marginRight: 20 }
                   : { marginRight: 0 }
               }
+              key={index}
             >
               {button.text}
             </div>

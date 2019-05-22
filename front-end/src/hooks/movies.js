@@ -4,13 +4,13 @@ import { baseUrl, apiKey } from "../config";
 
 const useMovies = () => {
   const [value, setValue] = useState("");
-  const [movieList, setMovieList] = useState([]);
-  const [favourites, setFavourite] = useState([]);
+  const [popularList, setPopularList] = useState([]);
+  const [favouriteList, setFavouriteList] = useState([]);
 
   const fetchPopularData = async () => {
     const res = await axios(`${baseUrl}movie/popular?api_key=${apiKey}`);
 
-    setMovieList(res.data.results);
+    setPopularList(res.data.results);
 
     console.log(res.data.results);
   };
@@ -28,32 +28,29 @@ const useMovies = () => {
 
     const parsedRes = await res.json();
 
-    return setMovieList(parsedRes.results);
+    return setPopularList(parsedRes.results);
   };
 
   const favouriteMovie = movie => {
-    const newFavourites = [...favourites, movie];
-    console.log("------ new Favourites", newFavourites);
+    const newFavourites = [...favouriteList, movie];
     isFavourite(movie)
       ? alert("Already in your favourites")
-      : setFavourite(newFavourites);
+      : setFavouriteList(newFavourites);
   };
 
   const isFavourite = movie => {
-    const result = favourites.filter(
+    const result = favouriteList.filter(
       favouriteMovie => favouriteMovie.id === movie.id
     );
     return !!result.length;
   };
 
-  console.log("------ movi", movieList);
-
   return {
     value,
-    movieList,
+    popularList,
     searchMovies,
     favouriteMovie,
-    favourites,
+    favouriteList,
     isFavourite
   };
 };

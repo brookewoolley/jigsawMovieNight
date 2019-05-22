@@ -1,15 +1,15 @@
 import React from "react";
-import ListOfMovies from "./ListOfMovies";
+import ListOfMovies from "../ListOfMovies";
 
 const Feed = ({
-  movieList,
+  popularList,
   favouriteMovie,
   isFavourite,
-  favourites,
+  favouriteList,
   navOffset,
   variant
 }) => {
-  console.log("-------- |", favourites);
+  
   return (
     <div
       style={{
@@ -21,18 +21,18 @@ const Feed = ({
       }}
     >
       <div>
-        {variant === "popular" && !!movieList && (
+        {variant === "popular" && !!popularList && (
           <ListOfMovies
-            movieList={movieList}
+            popularList={popularList}
             favouriteMovie={favouriteMovie}
             isFavourite={isFavourite}
           />
         )}
       </div>
       <div>
-        {variant === "favourites" && !!favourites && (
+        {variant === "favourites" && !!favouriteList && (
           <ListOfMovies
-            movieList={favourites}
+            popularList={favouriteList}
             favouriteMovie={favouriteMovie}
             isFavourite={isFavourite}
           />
