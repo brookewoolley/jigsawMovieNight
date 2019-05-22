@@ -23,7 +23,7 @@ const localStyles = {
   }
 };
 
-const Navbar = ({ children, height, buttons }) => {
+const Navbar = ({ children, height, buttons, variant }) => {
   return (
     <div>
       <div style={{ ...localStyles.container, height }}>
@@ -33,8 +33,11 @@ const Navbar = ({ children, height, buttons }) => {
               onClick={button.onClick}
               style={
                 index !== buttons.length - 1
-                  ? { marginRight: 20 }
-                  : { marginRight: 0 }
+                  ? {
+                      marginRight: 20,
+                      opacity: button.id === variant ? 1 : 0.6
+                    }
+                  : { marginRight: 0, opacity: button.id === variant ? 1 : 0.6 }
               }
               key={index}
             >

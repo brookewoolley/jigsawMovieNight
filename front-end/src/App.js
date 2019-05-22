@@ -58,7 +58,7 @@ const App = () => {
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
       {/* <FootBar /> */}
-      <Navbar height={NAV_HEIGHT} buttons={displayFilters}>
+      <Navbar height={NAV_HEIGHT} buttons={displayFilters} variant={variant}>
         {variant === "popular" ? (
           <SearchForm
             value={value}
