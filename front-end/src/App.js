@@ -5,7 +5,7 @@ import useMovies from "../src/hooks/movies";
 import Feed from "../src/components/Feed";
 import useNavigation from "./hooks/navigation";
 
-const NAV_HEIGHT = 110 ;
+const NAV_HEIGHT = 110;
 
 const App = () => {
   const {
@@ -15,7 +15,8 @@ const App = () => {
     favouriteList,
     favouriteMovie,
     isFavourite,
-    clearSearch
+    clearSearch,
+    setRating
   } = useMovies();
 
   const { variant, setVariant } = useNavigation();
@@ -29,36 +30,44 @@ const App = () => {
     }
   ];
 
-  // const icons = ["😀", "🐬", "🦐"];
+  const icons = ["😀", "🐬", "🦐"];
 
-  // const FootBar = () => (
-  //   <div
-  //     style={{
-  //       padding: 10,
-  //       position: "fixed",
-  //       bottom: 0,
-  //       left: 0,
-  //       right: 0,
-  //       height: 50,
-  //       display: "flex",
-  //       flexDirection: "row",
-  //       justifyContent: "space-between",
-  //       alignItems: "center",
-  //       backgroundColor: "#212121",
-  //       zIndex: 2
-  //     }}
-  //   >
-  //     {icons.map(item => (
-  //       <span>{item}</span>
-  //     ))}
-  //   </div>
-  // );
+  const FootBar = () => (
+    <div
+      style={{
+        padding: 10,
+        position: "fixed",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: 50,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: "#212121",
+        zIndex: 2
+      }}
+    >
+      {icons.map(item => (
+        <span>{item}</span>
+      ))}
+    </div>
+  );
 
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
       {/* <FootBar /> */}
       <Navbar height={NAV_HEIGHT} buttons={displayFilters}>
-        {variant === "popular" ? <SearchForm value={value} searchMovies={searchMovies} onClear={clearSearch} /> : "" }
+        {variant === "popular" ? (
+          <SearchForm
+            value={value}
+            searchMovies={searchMovies}
+            onClear={clearSearch}
+          />
+        ) : (
+          ""
+        )}
       </Navbar>
       <Feed
         popularList={popularList}
@@ -67,6 +76,7 @@ const App = () => {
         favouriteList={favouriteList}
         navOffset={NAV_HEIGHT}
         variant={variant}
+        setRating={setRating}
       />
     </div>
   );

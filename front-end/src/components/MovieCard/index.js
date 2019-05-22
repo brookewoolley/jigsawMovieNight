@@ -1,4 +1,6 @@
 import React from "react";
+import StarButton from "../StarButton";
+import RatingsButton from "../RatingsButton";
 
 const localStyles = {
   // container: {
@@ -11,21 +13,6 @@ const localStyles = {
     position: "relative",
     overflow: "hidden",
     marginBottom: 10
-  },
-
-  movieButton: {
-    position: "absolute",
-    right: 10,
-    top: 10
-  },
-
-  button: {
-    backgroundColor: "transparent",
-    border: "none",
-    fontSize: 20,
-    color: "white",
-    textTransform: "uppercase",
-    cursor: "pointer"
   },
 
   movieImageColumn: { height: "100%" },
@@ -51,15 +38,27 @@ const localStyles = {
   movieOverview: { fontSize: 12 }
 };
 
-const Movie = ({ image, title, overview, onFavouriteMovie, isFavourite }) => {
+const Movie = ({
+  image,
+  title,
+  overview,
+  onFavouriteMovie,
+  isFavourite,
+  variant,
+  rating,
+  setRating
+}) => {
   return (
     <div style={localStyles.movie}>
       <div style={localStyles.movieImageColumn}>
-        <div style={localStyles.movieButton}>
-          <button style={localStyles.button} onClick={onFavouriteMovie}>
-            <span>{isFavourite ? "★" : "☆"}</span>
-          </button>
+        <div style={{ position: "absolute", right: 10, top: 10 }}>
+          {variant === "popular" ? (
+            <StarButton isFilled={isFavourite} onClick={onFavouriteMovie} />
+          ) : (
+            <RatingsButton setRating={setRating} rating={rating} />
+          )}
         </div>
+
         <img style={localStyles.movieImage} src={image} alt={title} />
       </div>
       <div style={localStyles.movieDetails}>

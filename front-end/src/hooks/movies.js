@@ -50,6 +50,16 @@ const useMovies = () => {
     fetchPopularData();
   };
 
+  const setRating = (movie, rating) => {
+    const newFavourites = [...favouriteList].map(favouriteMovie => {
+      if (favouriteMovie.id === movie.id) {
+        favouriteMovie.rating = rating;
+      }
+      return favouriteMovie;
+    });
+    setFavouriteList(newFavourites);
+  };
+
   return {
     value,
     popularList,
@@ -57,7 +67,8 @@ const useMovies = () => {
     favouriteMovie,
     favouriteList,
     isFavourite,
-    clearSearch
+    clearSearch,
+    setRating
   };
 };
 

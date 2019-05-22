@@ -7,9 +7,10 @@ const Feed = ({
   isFavourite,
   favouriteList,
   navOffset,
-  variant
+  variant,
+  rating,
+  setRating
 }) => {
-  
   return (
     <div
       style={{
@@ -26,6 +27,8 @@ const Feed = ({
             popularList={popularList}
             favouriteMovie={favouriteMovie}
             isFavourite={isFavourite}
+            variant={variant}
+            rating={rating}
           />
         )}
       </div>
@@ -35,6 +38,9 @@ const Feed = ({
             popularList={favouriteList}
             favouriteMovie={favouriteMovie}
             isFavourite={isFavourite}
+            variant={variant}
+            rating={rating}
+            setRating={setRating}
           />
         )}
       </div>
