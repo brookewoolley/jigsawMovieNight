@@ -1,5 +1,6 @@
 import React from "react";
 import magnifyingGlass from "../../images/magnifyingGlass.png";
+import deleteIcon from "../../images/deleteIcon.png"
 
 const BACKGROUND_COLOR = "#F5F5F5"
 
@@ -23,6 +24,11 @@ const localStyles = {
     height: 22,
     marginLeft: 10
   },
+  deleteIcon: {
+    height: 18,
+    marginRight: 10,
+    cursor: "pointer"
+  },
   daddyDiv: {
     padding: 10,
     paddingBottom: 0,
@@ -30,7 +36,7 @@ const localStyles = {
   }
 }
 
-const SearchForm = ({ value, searchMovies }) => {
+const SearchForm = ({ value, searchMovies, onClear }) => {
   return (
     <div style={localStyles.daddyDiv}>
       <div style={localStyles.container}>
@@ -41,6 +47,7 @@ const SearchForm = ({ value, searchMovies }) => {
           value={value}
           onChange={searchMovies}
         />
+        <img style={localStyles.deleteIcon} src={!!value ? deleteIcon : ""} alt="" onClick={onClear}/>
      </div>
     </div>
   );

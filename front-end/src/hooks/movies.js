@@ -45,13 +45,19 @@ const useMovies = () => {
     return !!result.length;
   };
 
+  const clearSearch = () => {
+    setValue("");
+    fetchPopularData();
+  };
+
   return {
     value,
     popularList,
     searchMovies,
     favouriteMovie,
     favouriteList,
-    isFavourite
+    isFavourite,
+    clearSearch
   };
 };
 

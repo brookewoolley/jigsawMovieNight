@@ -5,7 +5,7 @@ import useMovies from "../src/hooks/movies";
 import Feed from "../src/components/Feed";
 import useNavigation from "./hooks/navigation";
 
-const NAV_HEIGHT = 110;
+const NAV_HEIGHT = 110 ;
 
 const App = () => {
   const {
@@ -14,7 +14,8 @@ const App = () => {
     searchMovies,
     favouriteList,
     favouriteMovie,
-    isFavourite
+    isFavourite,
+    clearSearch
   } = useMovies();
 
   const { variant, setVariant } = useNavigation();
@@ -57,7 +58,7 @@ const App = () => {
     <div style={{ display: "flex", flexDirection: "row" }}>
       {/* <FootBar /> */}
       <Navbar height={NAV_HEIGHT} buttons={displayFilters}>
-        <SearchForm value={value} searchMovies={searchMovies} />
+        {variant === "popular" ? <SearchForm value={value} searchMovies={searchMovies} onClear={clearSearch} /> : "" }
       </Navbar>
       <Feed
         popularList={popularList}
