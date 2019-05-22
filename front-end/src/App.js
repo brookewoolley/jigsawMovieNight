@@ -5,7 +5,7 @@ import useMovies from "../src/hooks/movies";
 import Feed from "../src/components/Feed";
 import useNavigation from "./hooks/navigation";
 
-const NAV_HEIGHT = 100;
+const NAV_HEIGHT = 110;
 
 const App = () => {
   const {
