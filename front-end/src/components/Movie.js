@@ -6,10 +6,11 @@ const localStyles = {
   // }
 
   movie: {
-    height: "300px",
-    width: "500px",
+    // height: "300px",
+    // width: "100%",
     position: "relative",
-    overflow: "hidden"
+    overflow: "hidden",
+    marginBottom: 10
   },
 
   movieButton: {
@@ -29,7 +30,9 @@ const localStyles = {
 
   movieImageColumn: { height: "100%" },
 
-  movieImage: {},
+  movieImage: {
+    width: "100%"
+  },
 
   movieDetails: {
     position: "absolute",

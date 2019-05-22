@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import SearchForm from "./components/SearchForm";
 import useMovies from "../src/hooks/movies";
 import Feed from "./components/Feed";
+import useNavigation from "./hooks/navigation";
 
 const NAV_HEIGHT = 100;
 
@@ -15,13 +16,20 @@ const App = () => {
     favouriteMovie,
     isFavourite
   } = useMovies();
+
+  const { variant, setVariant } = useNavigation();
+
   // const { popularMoviesList } = usePopularMovies();
 
   // console.log("------> PM", popularMoviesList);
 
   const filters = [
-    { id: "popular", text: "All movies" },
-    { id: "favourites", text: `Favourites (${favourites.length})` }
+    { id: "popular", text: "All movies", onClick: () => setVariant("popular") },
+    {
+      id: "favourites",
+      text: `Favourites (${favourites.length})`,
+      onClick: () => setVariant("favourites")
+    }
   ];
 
   const icons = ["😀", "🐬", "🦐"];
@@ -52,23 +60,7 @@ const App = () => {
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
       <FootBar />
-      <Navbar height={NAV_HEIGHT}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "flex-end",
-            padding: 10,
-            backgroundColor: "#212121",
-            color: "#00fd97"
-          }}
-        >
-          {filters.map((filter, index) => (
-            <div style={index !== filter.length - 1 && { marginRight: 40 }}>
-              {filter.text}
-            </div>
-          ))}
-        </div>
+      <Navbar height={NAV_HEIGHT} buttons={filters}>
         <SearchForm value={value} searchMovies={searchMovies} />
       </Navbar>
       <Feed
@@ -77,7 +69,7 @@ const App = () => {
         isFavourite={isFavourite}
         favourites={favourites}
         navOffset={NAV_HEIGHT}
-        variant
+        variant={variant}
       />
     </div>
   );

@@ -7,14 +7,16 @@ const useMovies = () => {
   const [movieList, setMovieList] = useState([]);
   const [favourites, setFavourite] = useState([]);
 
+  const fetchPopularData = async () => {
+    const res = await axios(`${baseUrl}movie/popular?api_key=${apiKey}`);
+
+    setMovieList(res.data.results);
+
+    console.log(res.data.results);
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await axios(`${baseUrl}movie/popular?api_key=${apiKey}`);
-
-      setMovieList(res.data.results);
-    };
-
-    fetchData();
+    fetchPopularData();
   }, []);
 
   const searchMovies = async event => {
@@ -43,6 +45,8 @@ const useMovies = () => {
     );
     return !!result.length;
   };
+
+  console.log("------ movi", movieList);
 
   return {
     value,

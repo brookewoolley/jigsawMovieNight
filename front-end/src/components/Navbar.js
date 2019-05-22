@@ -5,14 +5,46 @@ const localStyles = {
     display: "flex",
     flexDirection: "column",
     position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
     zIndex: "1",
     // height: "100px",
     width: "100%"
+  },
+  button: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    padding: 10,
+    backgroundColor: "#212121",
+    color: "#00fd97",
+    cursor: "pointer"
   }
 };
 
-const Navbar = ({ children, height }) => {
-  return <div style={{ ...localStyles.container, height }}>{children}</div>;
+const Navbar = ({ children, height, buttons }) => {
+  return (
+    <div>
+      <div style={{ ...localStyles.container, height }}>
+        <div style={localStyles.button}>
+          {buttons.map((button, index) => (
+            <div
+              onClick={button.onClick}
+              style={
+                index !== buttons.length - 1
+                  ? { marginRight: 20 }
+                  : { marginRight: 0 }
+              }
+            >
+              {button.text}
+            </div>
+          ))}
+        </div>
+        {children}
+      </div>
+    </div>
+  );
 };
 
 export default Navbar;

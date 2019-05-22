@@ -6,13 +6,22 @@ const Feed = ({
   favouriteMovie,
   isFavourite,
   favourites,
-  navOffset
+  navOffset,
+  variant
 }) => {
   console.log("-------- |", favourites);
   return (
-    <div style={{ paddingTop: navOffset }}>
+    <div
+      style={{
+        paddingTop: navOffset,
+        width: "100%",
+        maxWidth: 500,
+        marginLeft: "auto",
+        marginRight: "auto"
+      }}
+    >
       <div>
-        {!!movieList && (
+        {variant === "popular" && !!movieList && (
           <ListOfMovies
             movieList={movieList}
             favouriteMovie={favouriteMovie}
@@ -21,7 +30,7 @@ const Feed = ({
         )}
       </div>
       <div>
-        {!!favourites && (
+        {variant === "favourites" && !!favourites && (
           <ListOfMovies
             movieList={favourites}
             favouriteMovie={favouriteMovie}
