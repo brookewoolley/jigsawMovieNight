@@ -9,7 +9,8 @@ const Feed = ({
   navOffset,
   variant,
   rating,
-  setRating
+  setRating,
+  setModalMovie
 }) => {
   return (
     <div
@@ -41,6 +42,7 @@ const Feed = ({
             variant={variant}
             rating={rating}
             setRating={setRating}
+            setModalMovie={setModalMovie}
           />
         )}
       </div>

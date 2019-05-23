@@ -6,9 +6,9 @@ const ListOfMovies = ({
   favouriteMovie,
   isFavourite,
   variant,
-  setRating
+  setRating,
+  setModalMovie
 }) => {
-  // const { favouriteMovie } = useMovies();
   const movies = popularList.map(movie => {
     return (
       <Movie
@@ -21,6 +21,7 @@ const ListOfMovies = ({
         variant={variant}
         rating={movie.rating}
         setRating={rating => setRating(movie, rating)}
+        setModalMovie={setModalMovie ? () => setModalMovie(movie) : null}
       />
     );
   });
