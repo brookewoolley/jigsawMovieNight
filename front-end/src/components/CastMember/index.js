@@ -7,14 +7,30 @@ const localStyles = {
     flexDirection: "column",
     margin: 10,
     backgroundColor: "white",
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10
+    borderRadius: 10,
+    border: "1px solid #C7C7CD",
+    boxShadow: "rgba(0, 0, 0, 0.1) 2px 2px 6px 2px"
   },
 
   image: {
     height: 180,
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10
+  },
+
+  broDiv: {
+    padding: 5
+  },
+
+  charName: {
+    fontSize: 15,
+    fontWeight: "bold"
+  },
+
+  actorName: {
+    marginTop: 5,
+    fontSize: 12,
+    fontWeight: 300
   }
 };
 
@@ -30,8 +46,10 @@ const CastMember = ({ characterName, actorName, image }) => {
         src={!image ? DEFAULT_PROFILE : `${IMG_PATH}${image}`}
         alt={""}
       />
-      <div style={localStyles.charName}>{characterName}</div>
-      <div style={localStyles.actorName}>{actorName}</div>
+      <div style={localStyles.broDiv}>
+        <div style={localStyles.charName}>{characterName}</div>
+        <div style={localStyles.actorName}>{actorName}</div>
+      </div>
     </div>
   );
 };

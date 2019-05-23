@@ -27,7 +27,7 @@ const localStyles = {
     marginLeft: "auto",
     marginRight: "auto",
     overflow: "hidden",
-    backgroundColor: "green"
+    backgroundColor: "white"
   },
 
   movieImageColumn: {
