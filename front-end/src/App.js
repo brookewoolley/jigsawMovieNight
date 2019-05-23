@@ -68,6 +68,7 @@ const App = () => {
         {modalMovie && (
           <ModalMovie 
             modalMovie={modalMovie} 
+            setModalMovie={setModalMovie}
             />
           )}
         </div>

@@ -18,7 +18,8 @@ const localStyles = {
   movieImageColumn: { height: "100%" },
 
   movieImage: {
-    width: "100%"
+    width: "100%",
+    cursor: "pointer"
   },
 
   movieDetails: {
@@ -50,7 +51,7 @@ const Movie = ({
   setModalMovie
 }) => {
   return (
-      <div style={localStyles.movie} onClick={setModalMovie}>
+      <div style={localStyles.movie}>
         <div style={localStyles.movieImageColumn}>
           <div style={{ position: "absolute", right: 10, top: 10 }}>
             {variant === "popular" ? (
@@ -60,7 +61,7 @@ const Movie = ({
             )}
           </div>
 
-          <img style={localStyles.movieImage} src={image} alt={title} />
+          <img style={localStyles.movieImage} src={image} alt={title} onClick={setModalMovie}/>
         </div>
         <div style={localStyles.movieDetails}>
           <h2 style={localStyles.movieTitle}>{title}</h2>
