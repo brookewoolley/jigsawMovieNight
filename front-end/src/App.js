@@ -85,7 +85,7 @@ const App = () => {
             ""
           )}
         </Navbar>
-        <Feed
+        {!modalMovie && (<Feed
           popularList={popularList}
           favouriteMovie={favouriteMovie}
           isFavourite={isFavourite}
@@ -94,7 +94,7 @@ const App = () => {
           variant={variant}
           setRating={setRating}
           setModalMovie={setModalMovie}
-        />
+        />)}
       </div>
     </div>
   );

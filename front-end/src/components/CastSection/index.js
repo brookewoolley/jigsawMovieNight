@@ -1,19 +1,21 @@
 import React from "react";
 import CastMember from "../CastMember";
-import { DEFAULT_PROFILE } from "../../config";
 
-const CastSection = ({ castList, loading }) => (
-  <div
-    style={{
-      display: "flex",
+const localStyles = {
+  container: {
+    display: "flex",
       flexDirection: "row",
       width: 500,
       overflowX: "scroll"
-    }}
-  >
+  }
+}
+
+const CastSection = ({ castList, loading }) => (
+  <div style={localStyles.container} onClick={""}>
     {castList.map(castMember => {
       return (
         <CastMember
+          key={castMember.id}
           characterName={castMember.character}
           actorName={castMember.name}
           image={castMember.profile_path}

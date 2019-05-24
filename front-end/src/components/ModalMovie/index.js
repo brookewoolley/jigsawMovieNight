@@ -1,8 +1,10 @@
-import React from "react";
+import {React} from "react";
 import { IMG_PATH } from "../../config.js";
 import closeButton from "../../images/closeButton.png";
 import useCast from "../../hooks/cast";
 import CastSection from "../CastSection";
+import useCollapsible from "../../hooks/collapsible";
+import Collapsible from "../Collapsible";
 
 const localStyles = {
   daddyDiv: {
@@ -26,8 +28,9 @@ const localStyles = {
     borderTopRightRadius: 20,
     marginLeft: "auto",
     marginRight: "auto",
-    overflow: "hidden",
-    backgroundColor: "white"
+    overflowY: "scroll",
+    backgroundColor: "white",
+    paddingBottom: 40
   },
 
   movieImageColumn: {
@@ -66,6 +69,7 @@ const localStyles = {
 
 const ModalMovie = ({ modalMovie, setModalMovie }) => {
   const { castList, loading } = useCast(modalMovie);
+  const { isOpen, setIsOpen } = useCollapsible();
 
   return (
     <div style={localStyles.daddyDiv}>
@@ -88,7 +92,13 @@ const ModalMovie = ({ modalMovie, setModalMovie }) => {
           <span style={localStyles.movieOverview}>{modalMovie.overview}</span>
         </div>
         <div style={localStyles.castSection}>
-          <CastSection castList={castList} loading={loading} />
+          <Collapsible isOpen={isOpen} onClick={setIsOpen}>
+            {isOpen && (
+            <CastSection 
+              castList={castList} 
+              loading={loading} 
+              />)}
+          </Collapsible>
         </div>
       </div>
     </div>
