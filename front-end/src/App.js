@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Navbar from "../src/components/Navbar";
 import SearchForm from "../src/components/SearchForm";
 import useMovies from "../src/hooks/movies";
@@ -36,71 +37,51 @@ const App = () => {
     }
   ];
 
-  // const icons = ["😀", "🐬", "🦐"];
-
-  // const FootBar = () => (
-  //   <div
-  //     style={{
-  //       padding: 10,
-  //       position: "fixed",
-  //       bottom: 0,
-  //       left: 0,
-  //       right: 0,
-  //       height: 50,
-  //       display: "flex",
-  //       flexDirection: "row",
-  //       justifyContent: "space-between",
-  //       alignItems: "center",
-  //       backgroundColor: "#212121",
-  //       zIndex: 2
-  //     }}
-  //   >
-  //     {icons.map(item => (
-  //       <span>{item}</span>
-  //     ))}
-  //   </div>
-  // );
-
   return (
-    <div>
+    <Router>
       <div>
-        {modalMovie && (
-          <ModalMovie
-            setWatched={setWatched}
-            modalMovie={modalMovie}
-            setModalMovie={setModalMovie}
-            setReview={setReview}
-          />
-        )}
-      </div>
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        {/* <FootBar /> */}
-        <Navbar height={NAV_HEIGHT} buttons={displayFilters} variant={variant}>
-          {variant === "popular" ? (
-            <SearchForm
-              value={value}
-              searchMovies={searchMovies}
-              onClear={clearSearch}
+        <div>
+          {modalMovie && (
+            <ModalMovie
+              setWatched={setWatched}
+              modalMovie={modalMovie}
+              setModalMovie={setModalMovie}
+              setReview={setReview}
             />
-          ) : (
-            ""
           )}
-        </Navbar>
-        {!modalMovie && (
-          <Feed
-            popularList={popularList}
-            favouriteMovie={favouriteMovie}
-            isFavourite={isFavourite}
-            favouriteList={favouriteList}
-            navOffset={NAV_HEIGHT}
+        </div>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <Navbar
+            height={NAV_HEIGHT}
+            buttons={displayFilters}
             variant={variant}
-            setRating={setRating}
-            setModalMovie={setModalMovie}
-            setWatched={setWatched}
-          />
-        )}
+          >
+            {variant === "popular" ? (
+              <SearchForm
+                value={value}
+                searchMovies={searchMovies}
+                onClear={clearSearch}
+              />
+            ) : (
+              ""
+            )}
+          </Navbar>
+          {!modalMovie && (
+            <Feed
+              popularList={popularList}
+              favouriteMovie={favouriteMovie}
+              isFavourite={isFavourite}
+              favouriteList={favouriteList}
+              navOffset={NAV_HEIGHT}
+              variant={variant}
+              setRating={setRating}
+              setModalMovie={setModalMovie}
+              setWatched={setWatched}
+            />
+          )}
+        </div>
       </div>
-    </div>
+    </Router>
   );
 };
 
