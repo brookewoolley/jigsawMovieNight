@@ -7,7 +7,8 @@ const localStyles = {
     fontSize: 20,
     color: "white",
     textTransform: "uppercase",
-    cursor: "pointer"
+    cursor: "pointer",
+    marginLeft: "auto"
   }
 };
 

@@ -1,7 +1,11 @@
 import React from "react";
 import StarButton from "../StarButton";
 
-const localStyles = {};
+const localStyles = {
+  movieButton: {
+    marginLeft: "auto"
+  }
+};
 
 const stars = [1, 2, 3, 4, 5];
 
@@ -20,7 +24,3 @@ const RatingsButton = ({ setRating, rating }) => {
 };
 
 export default RatingsButton;
-
-{
-  /* <span>{isFavourite ? "★" : "☆"}</span>; */
-}

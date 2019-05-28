@@ -1,24 +1,30 @@
 import React from "react";
 import StarButton from "../StarButton";
 import RatingsButton from "../RatingsButton";
+import Eyecon from "../Eyecon";
 
 const localStyles = {
-  // container: {
-  //   display: "flex"
-  // }
-
   movie: {
-    // height: "300px",
-    // width: "100%",
     position: "relative",
     overflow: "hidden",
     marginBottom: 10
   },
 
-  movieImageColumn: { height: "100%" },
+  movieButtons: {
+    position: "absolute",
+    right: 0,
+    top: 0,
+    left: 0,
+    padding: 10,
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    backgroundImage: "linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0)"
+  },
 
   movieImage: {
-    width: "100%"
+    width: "100%",
+    cursor: "pointer"
   },
 
   movieDetails: {
@@ -46,21 +52,28 @@ const Movie = ({
   isFavourite,
   variant,
   rating,
-  setRating
+  setRating,
+  setModalMovie,
+  setWatched,
+  movie
 }) => {
   return (
     <div style={localStyles.movie}>
-      <div style={localStyles.movieImageColumn}>
-        <div style={{ position: "absolute", right: 10, top: 10 }}>
-          {variant === "popular" ? (
-            <StarButton isFilled={isFavourite} onClick={onFavouriteMovie} />
-          ) : (
-            <RatingsButton setRating={setRating} rating={rating} />
-          )}
-        </div>
-
-        <img style={localStyles.movieImage} src={image} alt={title} />
+      <div style={localStyles.movieButtons}>
+        {!!movie.watched && <Eyecon />}
+        {variant === "popular" ? (
+          <StarButton isFilled={isFavourite} onClick={onFavouriteMovie} />
+        ) : (
+          <RatingsButton setRating={setRating} rating={rating} />
+        )}
       </div>
+
+      <img
+        style={localStyles.movieImage}
+        src={image}
+        alt={title}
+        onClick={setModalMovie}
+      />
       <div style={localStyles.movieDetails}>
         <h2 style={localStyles.movieTitle}>{title}</h2>
         <span style={localStyles.movieOverview}>{overview}</span>

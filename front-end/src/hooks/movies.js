@@ -60,6 +60,27 @@ const useMovies = () => {
     setFavouriteList(newFavourites);
   };
 
+  const setWatched = movie => {
+    const newFavourites = [...favouriteList].map(favouriteMovie => {
+      if (favouriteMovie.id === movie.id) {
+        favouriteMovie.watched = !favouriteMovie.watched;
+      }
+      return favouriteMovie;
+    });
+    setFavouriteList(newFavourites);
+  };
+
+  const setReview = (movie, review) => {
+    const newFavourites = [...favouriteList].map(favouriteMovie => {
+      if (favouriteMovie.id === movie.id) {
+        favouriteMovie.review = review;
+      }
+      console.log("LOOOOOOOOL", favouriteMovie.review);
+      return favouriteMovie;
+    });
+    setFavouriteList(newFavourites);
+  };
+
   return {
     value,
     popularList,
@@ -68,7 +89,9 @@ const useMovies = () => {
     favouriteList,
     isFavourite,
     clearSearch,
-    setRating
+    setRating,
+    setWatched,
+    setReview
   };
 };
 
