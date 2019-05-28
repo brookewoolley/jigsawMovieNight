@@ -26,6 +26,7 @@ const ListOfMovies = ({
             setRating={rating => setRating(movie, rating)}
             setModalMovie={setModalMovie ? () => setModalMovie(movie) : null}
             setWatched={setWatched}
+            movie={movie}
           />
         );
       })}

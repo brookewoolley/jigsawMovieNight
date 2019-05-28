@@ -1,12 +1,25 @@
 import React from "react";
 import StarButton from "../StarButton";
 import RatingsButton from "../RatingsButton";
+import Eyecon from "../Eyecon";
 
 const localStyles = {
   movie: {
     position: "relative",
     overflow: "hidden",
     marginBottom: 10
+  },
+
+  movieButtons: {
+    position: "absolute",
+    right: 0,
+    top: 0,
+    left: 0,
+    padding: 10,
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    backgroundImage: "linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0)"
   },
 
   movieImage: {
@@ -41,11 +54,13 @@ const Movie = ({
   rating,
   setRating,
   setModalMovie,
-  setWatched
+  setWatched,
+  movie
 }) => {
   return (
     <div style={localStyles.movie}>
-      <div style={{ position: "absolute", right: 10, top: 10 }}>
+      <div style={localStyles.movieButtons}>
+        {!!movie.watched && <Eyecon />}
         {variant === "popular" ? (
           <StarButton isFilled={isFavourite} onClick={onFavouriteMovie} />
         ) : (
