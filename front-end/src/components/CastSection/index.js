@@ -4,14 +4,14 @@ import CastMember from "../CastMember";
 const localStyles = {
   container: {
     display: "flex",
-      flexDirection: "row",
-      width: 500,
-      overflowX: "scroll"
+    flexDirection: "row",
+    width: 500,
+    overflowX: "scroll"
   }
-}
+};
 
 const CastSection = ({ castList, loading }) => (
-  <div style={localStyles.container} onClick={""}>
+  <div style={localStyles.container}>
     {castList.map(castMember => {
       return (
         <CastMember

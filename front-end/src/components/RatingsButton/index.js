@@ -20,7 +20,3 @@ const RatingsButton = ({ setRating, rating }) => {
 };
 
 export default RatingsButton;
-
-{
-  /* <span>{isFavourite ? "★" : "☆"}</span>; */
-}

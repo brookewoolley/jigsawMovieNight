@@ -1,5 +1,5 @@
-import {React} from "react";
-import { IMG_PATH } from "../../config.js";
+import React from "react";
+import { IMG_PATH, COLLAPSIBLE_HEADER } from "../../config.js";
 import closeButton from "../../images/closeButton.png";
 import useCast from "../../hooks/cast";
 import CastSection from "../CastSection";
@@ -92,12 +92,12 @@ const ModalMovie = ({ modalMovie, setModalMovie }) => {
           <span style={localStyles.movieOverview}>{modalMovie.overview}</span>
         </div>
         <div style={localStyles.castSection}>
-          <Collapsible isOpen={isOpen} onClick={setIsOpen}>
-            {isOpen && (
-            <CastSection 
-              castList={castList} 
-              loading={loading} 
-              />)}
+          <Collapsible
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            text={COLLAPSIBLE_HEADER}
+          >
+            <CastSection castList={castList} loading={loading} />
           </Collapsible>
         </div>
       </div>
