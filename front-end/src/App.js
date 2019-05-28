@@ -18,13 +18,12 @@ const App = () => {
     favouriteMovie,
     isFavourite,
     clearSearch,
-    setRating
+    setRating,
+    setWatched,
+    setReview
   } = useMovies();
 
-  const {
-    setModalMovie,
-    modalMovie
-  } = useModal();
+  const { setModalMovie, modalMovie } = useModal();
 
   const { variant, setVariant } = useNavigation();
 
@@ -66,12 +65,14 @@ const App = () => {
     <div>
       <div>
         {modalMovie && (
-          <ModalMovie 
-            modalMovie={modalMovie} 
+          <ModalMovie
+            setWatched={setWatched}
+            modalMovie={modalMovie}
             setModalMovie={setModalMovie}
-            />
-          )}
-        </div>
+            setReview={setReview}
+          />
+        )}
+      </div>
       <div style={{ display: "flex", flexDirection: "row" }}>
         {/* <FootBar /> */}
         <Navbar height={NAV_HEIGHT} buttons={displayFilters} variant={variant}>
@@ -85,16 +86,19 @@ const App = () => {
             ""
           )}
         </Navbar>
-        {!modalMovie && (<Feed
-          popularList={popularList}
-          favouriteMovie={favouriteMovie}
-          isFavourite={isFavourite}
-          favouriteList={favouriteList}
-          navOffset={NAV_HEIGHT}
-          variant={variant}
-          setRating={setRating}
-          setModalMovie={setModalMovie}
-        />)}
+        {!modalMovie && (
+          <Feed
+            popularList={popularList}
+            favouriteMovie={favouriteMovie}
+            isFavourite={isFavourite}
+            favouriteList={favouriteList}
+            navOffset={NAV_HEIGHT}
+            variant={variant}
+            setRating={setRating}
+            setModalMovie={setModalMovie}
+            setWatched={setWatched}
+          />
+        )}
       </div>
     </div>
   );

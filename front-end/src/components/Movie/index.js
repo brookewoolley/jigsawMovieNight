@@ -3,19 +3,11 @@ import StarButton from "../StarButton";
 import RatingsButton from "../RatingsButton";
 
 const localStyles = {
-  // container: {
-  //   display: "flex"
-  // }
-
   movie: {
-    // height: "300px",
-    // width: "100%",
     position: "relative",
     overflow: "hidden",
     marginBottom: 10
   },
-
-  movieImageColumn: { height: "100%" },
 
   movieImage: {
     width: "100%",
@@ -48,27 +40,30 @@ const Movie = ({
   variant,
   rating,
   setRating,
-  setModalMovie
+  setModalMovie,
+  setWatched
 }) => {
   return (
-      <div style={localStyles.movie}>
-        <div style={localStyles.movieImageColumn}>
-          <div style={{ position: "absolute", right: 10, top: 10 }}>
-            {variant === "popular" ? (
-              <StarButton isFilled={isFavourite} onClick={onFavouriteMovie} />
-            ) : (
-              <RatingsButton setRating={setRating} rating={rating} />
-            )}
-          </div>
-
-          <img style={localStyles.movieImage} src={image} alt={title} onClick={setModalMovie}/>
-        </div>
-        <div style={localStyles.movieDetails}>
-          <h2 style={localStyles.movieTitle}>{title}</h2>
-          <span style={localStyles.movieOverview}>{overview}</span>
-        </div>
+    <div style={localStyles.movie}>
+      <div style={{ position: "absolute", right: 10, top: 10 }}>
+        {variant === "popular" ? (
+          <StarButton isFilled={isFavourite} onClick={onFavouriteMovie} />
+        ) : (
+          <RatingsButton setRating={setRating} rating={rating} />
+        )}
       </div>
-    
+
+      <img
+        style={localStyles.movieImage}
+        src={image}
+        alt={title}
+        onClick={setModalMovie}
+      />
+      <div style={localStyles.movieDetails}>
+        <h2 style={localStyles.movieTitle}>{title}</h2>
+        <span style={localStyles.movieOverview}>{overview}</span>
+      </div>
+    </div>
   );
 };
 

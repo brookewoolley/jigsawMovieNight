@@ -4,19 +4,26 @@ const localStyles = {
   container: {
     display: "flex",
     flexDirection: "column",
-    width: "100%"
+    width: "100%",
+    borderTop: "1px solid #C7C7CD",
+    borderBottom: "1px solid #C7C7CD"
   },
   collapsibleHeader: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
     fontSize: 16,
-    alignItems: "center"
+    alignItems: "center",
+    fontWeight: 700,
+    color: "black",
+    opacity: 0.6
   },
   button: {
-    backgroundColor: "transparent",
-    border: "none",
+    backgroundColor: "white",
+    border: 0,
     fontSize: 20,
     cursor: "pointer"
   }

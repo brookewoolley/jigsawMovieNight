@@ -5,6 +5,7 @@ import useCast from "../../hooks/cast";
 import CastSection from "../CastSection";
 import useCollapsible from "../../hooks/collapsible";
 import Collapsible from "../Collapsible";
+import WatchedSection from "../WatchedSection";
 
 const localStyles = {
   daddyDiv: {
@@ -39,35 +40,47 @@ const localStyles = {
 
   movieImage: {
     width: "100%",
-    height: 400,
+    height: 200,
     objectFit: "cover"
   },
-
-  movieDetails: {
-    fontFamily: "Helvetica",
-
-    backgroundColor: "black",
-    color: "white",
-    padding: 10,
-    paddingTop: 20,
-    display: "flex",
-    flexDirection: "column"
-  },
-  movieTitle: {
-    margin: 5,
-    color: "#00fd97"
-  },
-  movieOverview: { fontSize: 12 },
 
   closeButton: {
     height: 20,
     position: "absolute",
     right: 15,
     top: 15
-  }
+  },
+
+  fade: {
+    backgroundImage:
+      "linear-gradient(to top, rgba(255,255,255,1), rgba(255,255,255,0)",
+    position: "absolute",
+    bottom: 3.5,
+    left: 0,
+    right: 0,
+    height: 150
+  },
+
+  movieDetails: {
+    fontFamily: "Helvetica",
+    backgroundColor: "white",
+    color: "black",
+    padding: 20,
+    paddingTop: 0,
+    paddingBottom: 15,
+    display: "flex",
+    flexDirection: "column"
+  },
+  movieTitle: {
+    color: "black",
+    fontSize: 18,
+    marginTop: 0
+  },
+
+  movieOverview: { fontSize: 14 }
 };
 
-const ModalMovie = ({ modalMovie, setModalMovie }) => {
+const ModalMovie = ({ modalMovie, setModalMovie, setWatched, setReview }) => {
   const { castList, loading } = useCast(modalMovie);
   const { isOpen, setIsOpen } = useCollapsible();
 
@@ -86,20 +99,24 @@ const ModalMovie = ({ modalMovie, setModalMovie }) => {
             src={`${IMG_PATH}${modalMovie.poster_path}`}
             alt={modalMovie.title}
           />
+          <div style={localStyles.fade} />
         </div>
         <div style={localStyles.movieDetails}>
           <h2 style={localStyles.movieTitle}>{modalMovie.title}</h2>
           <span style={localStyles.movieOverview}>{modalMovie.overview}</span>
         </div>
-        <div style={localStyles.castSection}>
-          <Collapsible
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            text={COLLAPSIBLE_HEADER}
-          >
-            <CastSection castList={castList} loading={loading} />
-          </Collapsible>
-        </div>
+        <Collapsible
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          text={COLLAPSIBLE_HEADER}
+        >
+          <CastSection castList={castList} loading={loading} />
+        </Collapsible>
+        <WatchedSection
+          movie={modalMovie}
+          setWatched={setWatched}
+          setReview={setReview}
+        />
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import Movie from "../MovieCard";
+import Movie from "../Movie";
 
 const ListOfMovies = ({
   popularList,
@@ -7,7 +7,8 @@ const ListOfMovies = ({
   isFavourite,
   variant,
   setRating,
-  setModalMovie
+  setModalMovie,
+  setWatched
 }) => {
   return (
     <div>
@@ -24,6 +25,7 @@ const ListOfMovies = ({
             rating={movie.rating}
             setRating={rating => setRating(movie, rating)}
             setModalMovie={setModalMovie ? () => setModalMovie(movie) : null}
+            setWatched={setWatched}
           />
         );
       })}
