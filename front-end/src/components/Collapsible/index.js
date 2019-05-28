@@ -22,7 +22,6 @@ const localStyles = {
     opacity: 0.6
   },
   button: {
-    backgroundColor: "white",
     border: 0,
     fontSize: 20,
     cursor: "pointer"
