@@ -4,9 +4,13 @@ import Feed from "../src/components/Feed";
 import ModalMovie from "../src/components/ModalMovie";
 import useModal from "./hooks/modal";
 import ConnectedNavBar from "../src/components/ConnectedNavbar";
+import LandingPage from "../src/components/LandingPage";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import SignUp from "../src/components/SignUp";
+import Login from "../src/components/Login";
 
 const NAV_HEIGHT = 110;
+
 const localStyles = {
   container: {
     fontFamily: "Helvetica"
@@ -60,7 +64,9 @@ const App = props => {
     }
   ];
 
-  console.log("------ app props", props);
+  if (!window.localStorage.getItem("token")) {
+    props.history.push("/");
+  }
 
   return (
     <Router>
@@ -74,8 +80,11 @@ const App = props => {
             NAV_HEIGHT={NAV_HEIGHT}
           />
           <Switch>
+            <Route path="/" exact render={() => <LandingPage />} />
+            <Route path="/signup" render={props => <SignUp {...props} />} />
+            <Route path="/login" render={props => <Login {...props} />} />
             <Route
-              path={"/(popular|favourites|)"}
+              path={"/(popular|favourites)"}
               exact
               render={props => (
                 <Feed
