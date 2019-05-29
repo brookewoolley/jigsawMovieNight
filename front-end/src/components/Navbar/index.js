@@ -12,21 +12,36 @@ const localStyles = {
     // height: "100px",
     width: "100%"
   },
+  wrapper: {
+    display: "flex",
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#212121",
+    color: "#00fd97"
+  },
+
+  username: {
+    marginLeft: 20
+  },
+
   button: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "flex-end",
     padding: 10,
-    backgroundColor: "#212121",
-    color: "#00fd97",
     cursor: "pointer"
   }
 };
 
 const Navbar = ({ children, height, buttons, match }) => {
   return (
-    <div>
-      <div style={{ ...localStyles.container, height }}>
+    <div style={{ ...localStyles.container, height }}>
+      <div style={localStyles.wrapper}>
+        <div style={localStyles.username}>
+          Hi {window.localStorage.getItem("username")}!
+        </div>
         <div style={localStyles.button}>
           {buttons.map((button, index) => (
             <div
@@ -47,8 +62,8 @@ const Navbar = ({ children, height, buttons, match }) => {
             </div>
           ))}
         </div>
-        {children}
       </div>
+      {children}
     </div>
   );
 };

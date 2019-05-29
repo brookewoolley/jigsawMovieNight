@@ -17,7 +17,7 @@ const Feed = ({
   return (
     <div
       style={{
-        paddingTop: navOffset,
+        paddingTop: navOffset + 10,
         width: "100%",
         maxWidth: 500,
         marginLeft: "auto",

@@ -9,7 +9,7 @@ const localStyles = {
 };
 
 const Eyecon = () => {
-  return <img src={eyecon} style={localStyles.eyecon} />;
+  return <img src={eyecon} style={localStyles.eyecon} alt={""} />;
 };
 
 export default Eyecon;

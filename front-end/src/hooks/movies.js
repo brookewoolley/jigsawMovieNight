@@ -73,7 +73,6 @@ const useMovies = () => {
       if (favouriteMovie.id === movie.id) {
         favouriteMovie.review = review;
       }
-      console.log("LOOOOOOOOL", favouriteMovie.review);
       return favouriteMovie;
     });
     setFavouriteList(newFavourites);
@@ -82,9 +81,9 @@ const useMovies = () => {
   const getFavourite = id => {
     return favouriteList.filter(movie => {
       if (movie.id.toString() === id) {
-        console.log("----> getFavourite movie", movie);
         return movie;
       }
+      return null;
     })[0];
   };
 
