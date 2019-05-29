@@ -32,7 +32,7 @@ const localStyles = {
   }
 };
 
-const Review = ({ onReview }) => {
+const Review = ({ onReview, value }) => {
   const [isFocussed, setIsFocussed] = useState(false);
 
   return (
@@ -45,6 +45,7 @@ const Review = ({ onReview }) => {
         onChange={onReview}
         onFocus={() => setIsFocussed(true)}
         onBlur={() => setIsFocussed(false)}
+        value={value}
       />
     </div>
   );

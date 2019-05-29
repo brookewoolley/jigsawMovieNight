@@ -7,11 +7,12 @@ const Feed = ({
   isFavourite,
   favouriteList,
   navOffset,
-  variant,
   rating,
   setRating,
   setModalMovie,
-  setWatched
+  setWatched,
+  history,
+  match
 }) => {
   return (
     <div
@@ -24,28 +25,32 @@ const Feed = ({
       }}
     >
       <div>
-        {variant === "popular" && !!popularList && (
+        {match.url === "/popular" && !!popularList.length && (
           <ListOfMovies
             popularList={popularList}
             favouriteMovie={favouriteMovie}
             isFavourite={isFavourite}
-            variant={variant}
+            variant={match.params[0]}
             rating={rating}
+            history={history}
           />
         )}
       </div>
       <div>
-        {variant === "favourites" && !!favouriteList && (
+        {match.url === "/favourites" && !!favouriteList.length ? (
           <ListOfMovies
             popularList={favouriteList}
             favouriteMovie={favouriteMovie}
             isFavourite={isFavourite}
-            variant={variant}
+            variant={match.params[0]}
             rating={rating}
             setRating={setRating}
             setModalMovie={setModalMovie}
             setWatched={setWatched}
+            history={history}
           />
+        ) : (
+          <div>No faves. Click star to favourite a movie.</div>
         )}
       </div>
     </div>

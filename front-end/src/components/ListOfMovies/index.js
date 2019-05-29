@@ -8,7 +8,8 @@ const ListOfMovies = ({
   variant,
   setRating,
   setModalMovie,
-  setWatched
+  setWatched,
+  history
 }) => {
   return (
     <div>
@@ -24,7 +25,7 @@ const ListOfMovies = ({
             variant={variant}
             rating={movie.rating}
             setRating={rating => setRating(movie, rating)}
-            setModalMovie={setModalMovie ? () => setModalMovie(movie) : null}
+            setModalMovie={() => history.push(`/movies/${movie.id}`)}
             setWatched={setWatched}
             movie={movie}
           />

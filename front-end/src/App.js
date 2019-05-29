@@ -1,16 +1,30 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Navbar from "../src/components/Navbar";
-import SearchForm from "../src/components/SearchForm";
 import useMovies from "../src/hooks/movies";
 import Feed from "../src/components/Feed";
-import useNavigation from "./hooks/navigation";
 import ModalMovie from "../src/components/ModalMovie";
 import useModal from "./hooks/modal";
+import ConnectedNavBar from "../src/components/ConnectedNavbar";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 const NAV_HEIGHT = 110;
+const localStyles = {
+  container: {
+    fontFamily: "Helvetica"
+  },
 
-const App = () => {
+  link: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    padding: 10,
+    backgroundColor: "#212121",
+    color: "#00fd97",
+    cursor: "pointer",
+    textDecoration: "none"
+  }
+};
+
+const App = props => {
   const {
     value,
     popularList,
@@ -21,64 +35,77 @@ const App = () => {
     clearSearch,
     setRating,
     setWatched,
-    setReview
+    setReview,
+    getFavourite
   } = useMovies();
 
   const { setModalMovie, modalMovie } = useModal();
 
-  const { variant, setVariant } = useNavigation();
-
   const displayFilters = [
-    { id: "popular", text: "All movies", onClick: () => setVariant("popular") },
     {
-      id: "favourites",
-      text: `Favourites (${favouriteList.length})`,
-      onClick: () => setVariant("favourites")
+      component: (
+        <Link style={localStyles.link} to="/popular">
+          All movies
+        </Link>
+      ),
+      id: "popular"
+    },
+    {
+      component: (
+        <Link style={localStyles.link} to="/favourites">
+          {`Favourites (${favouriteList.length})`}
+        </Link>
+      ),
+      id: "favourites"
     }
   ];
 
+  console.log("------ app props", props);
+
   return (
     <Router>
-      <div>
-        <div>
-          {modalMovie && (
-            <ModalMovie
-              setWatched={setWatched}
-              modalMovie={modalMovie}
-              setModalMovie={setModalMovie}
-              setReview={setReview}
-            />
-          )}
-        </div>
+      <div style={localStyles.container}>
         <div style={{ display: "flex", flexDirection: "row" }}>
-          <Navbar
-            height={NAV_HEIGHT}
-            buttons={displayFilters}
-            variant={variant}
-          >
-            {variant === "popular" ? (
-              <SearchForm
-                value={value}
-                searchMovies={searchMovies}
-                onClear={clearSearch}
-              />
-            ) : (
-              ""
-            )}
-          </Navbar>
-          {!modalMovie && (
-            <Feed
-              popularList={popularList}
-              favouriteMovie={favouriteMovie}
-              isFavourite={isFavourite}
-              favouriteList={favouriteList}
-              navOffset={NAV_HEIGHT}
-              variant={variant}
-              setRating={setRating}
-              setModalMovie={setModalMovie}
-              setWatched={setWatched}
+          <ConnectedNavBar
+            displayFilters={displayFilters}
+            value={value}
+            searchMovies={searchMovies}
+            clearSearch={clearSearch}
+            NAV_HEIGHT={NAV_HEIGHT}
+          />
+          <Switch>
+            <Route
+              path={"/(popular|favourites|)"}
+              exact
+              render={props => (
+                <Feed
+                  popularList={popularList}
+                  favouriteMovie={favouriteMovie}
+                  isFavourite={isFavourite}
+                  favouriteList={favouriteList}
+                  navOffset={NAV_HEIGHT}
+                  setRating={setRating}
+                  setModalMovie={setModalMovie}
+                  setWatched={setWatched}
+                  {...props}
+                />
+              )}
             />
-          )}
+            <Route
+              path="/movies/:id"
+              render={props => (
+                <ModalMovie
+                  {...props}
+                  setWatched={setWatched}
+                  modalMovie={modalMovie}
+                  setModalMovie={setModalMovie}
+                  setReview={setReview}
+                  getFavourite={getFavourite}
+                />
+              )}
+            />
+            <Route path="/blah" render={() => <div>hey</div>} />
+          </Switch>
         </div>
       </div>
     </Router>

@@ -1,7 +1,7 @@
 import React from "react";
 import { IMG_PATH, COLLAPSIBLE_HEADER } from "../../config.js";
 import closeButton from "../../images/closeButton.png";
-import useCast from "../../hooks/cast";
+import useMovie from "../../hooks/movie";
 import CastSection from "../CastSection";
 import useCollapsible from "../../hooks/collapsible";
 import Collapsible from "../Collapsible";
@@ -80,46 +80,52 @@ const localStyles = {
   movieOverview: { fontSize: 14 }
 };
 
-const ModalMovie = ({ modalMovie, setModalMovie, setWatched, setReview }) => {
-  const { castList, loading } = useCast(modalMovie);
+const ModalMovie = props => {
+  const { movie, loading, onUpdate } = useMovie(
+    props.match.params.id,
+    props.getFavourite
+  );
   const { isOpen, setIsOpen } = useCollapsible();
 
-  return (
+  return movie ? (
     <div style={localStyles.daddyDiv}>
       <div style={localStyles.movie}>
         <div style={localStyles.movieImageColumn}>
           <img
             style={localStyles.closeButton}
             src={closeButton}
-            onClick={() => setModalMovie(null)}
+            onClick={props.history.goBack}
             alt={""}
           />
           <img
             style={localStyles.movieImage}
-            src={`${IMG_PATH}${modalMovie.poster_path}`}
-            alt={modalMovie.title}
+            src={`${IMG_PATH}${movie.poster_path}`}
+            alt={movie.title}
           />
           <div style={localStyles.fade} />
         </div>
         <div style={localStyles.movieDetails}>
-          <h2 style={localStyles.movieTitle}>{modalMovie.title}</h2>
-          <span style={localStyles.movieOverview}>{modalMovie.overview}</span>
+          <h2 style={localStyles.movieTitle}>{movie.title}</h2>
+          <span style={localStyles.movieOverview}>{movie.overview}</span>
         </div>
         <Collapsible
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           text={COLLAPSIBLE_HEADER}
         >
-          <CastSection castList={castList} loading={loading} />
+          <CastSection castList={movie.cast} loading={loading} />
         </Collapsible>
         <WatchedSection
-          movie={modalMovie}
-          setWatched={setWatched}
-          setReview={setReview}
+          movie={movie}
+          setWatched={() => {
+            onUpdate();
+            props.setWatched(movie);
+          }}
+          setReview={props.setReview}
         />
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default ModalMovie;

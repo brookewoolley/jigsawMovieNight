@@ -33,7 +33,10 @@ const WatchedSection = ({ setWatched, movie, setReview }) => {
   return (
     <div style={localStyles.container}>
       {movie.watched === true ? (
-        <Review onReview={event => setReview(movie, event.target.value)} />
+        <Review
+          onReview={event => setReview(movie, event.target.value)}
+          value={movie.review}
+        />
       ) : (
         <div style={localStyles.buttonContainer}>
           <button style={localStyles.button} onClick={() => setWatched(movie)}>

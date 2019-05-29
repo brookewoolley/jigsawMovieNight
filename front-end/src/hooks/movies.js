@@ -11,8 +11,6 @@ const useMovies = () => {
     const res = await axios(`${baseUrl}movie/popular?api_key=${apiKey}`);
 
     setPopularList(res.data.results);
-
-    console.log(res.data.results);
   };
 
   useEffect(() => {
@@ -81,6 +79,15 @@ const useMovies = () => {
     setFavouriteList(newFavourites);
   };
 
+  const getFavourite = id => {
+    return favouriteList.filter(movie => {
+      if (movie.id.toString() === id) {
+        console.log("----> getFavourite movie", movie);
+        return movie;
+      }
+    })[0];
+  };
+
   return {
     value,
     popularList,
@@ -91,7 +98,8 @@ const useMovies = () => {
     clearSearch,
     setRating,
     setWatched,
-    setReview
+    setReview,
+    getFavourite
   };
 };
 

@@ -23,25 +23,27 @@ const localStyles = {
   }
 };
 
-const Navbar = ({ children, height, buttons, variant }) => {
+const Navbar = ({ children, height, buttons, match }) => {
   return (
     <div>
       <div style={{ ...localStyles.container, height }}>
         <div style={localStyles.button}>
           {buttons.map((button, index) => (
             <div
-              onClick={button.onClick}
               style={
                 index !== buttons.length - 1
                   ? {
                       marginRight: 20,
-                      opacity: button.id === variant ? 1 : 0.6
+                      opacity: button.id === match.params[0] ? 1 : 0.6
                     }
-                  : { marginRight: 0, opacity: button.id === variant ? 1 : 0.6 }
+                  : {
+                      marginRight: 0,
+                      opacity: button.id === match.params[0] ? 1 : 0.6
+                    }
               }
               key={index}
             >
-              {button.text}
+              {button.component}
             </div>
           ))}
         </div>
