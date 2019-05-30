@@ -7,7 +7,9 @@ const localStyles = {
   movie: {
     position: "relative",
     overflow: "hidden",
-    marginBottom: 10
+    marginBottom: 20,
+    borderRadius: 10,
+    width: "100%"
   },
 
   movieButtons: {
@@ -31,9 +33,7 @@ const localStyles = {
     position: "absolute",
     fontFamily: "Helvetica",
     bottom: 0,
-
     backgroundImage: "linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)",
-    // backgroundColor: "rgb(0,0,0,0.5)",
     color: "white",
     padding: 10,
     paddingTop: 20,

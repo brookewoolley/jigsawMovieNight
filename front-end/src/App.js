@@ -9,11 +9,11 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import SignUp from "../src/components/SignUp";
 import Login from "../src/components/Login";
 
-const NAV_HEIGHT = 110;
+const NAV_HEIGHT = 120;
 
 const localStyles = {
   container: {
-    fontFamily: "Helvetica"
+    fontFamily: "Inter var, sans-serif"
   },
 
   link: {
@@ -21,10 +21,14 @@ const localStyles = {
     flexDirection: "row",
     justifyContent: "flex-end",
     padding: 10,
-    backgroundColor: "#212121",
-    color: "#00fd97",
+    paddingBottom: 5,
+    backgroundColor: "none",
+    color: "white",
     cursor: "pointer",
-    textDecoration: "none"
+    textDecoration: "none",
+    fontWeight: 700,
+    letterSpacing: "2px",
+    fontSize: 14
   }
 };
 
@@ -49,7 +53,7 @@ const App = props => {
     {
       component: (
         <Link style={localStyles.link} to="/popular">
-          All movies
+          POPULAR
         </Link>
       ),
       id: "popular"
@@ -57,7 +61,7 @@ const App = props => {
     {
       component: (
         <Link style={localStyles.link} to="/favourites">
-          {`Favourites (${favouriteList.length})`}
+          {`FAVES (${favouriteList.length})`}
         </Link>
       ),
       id: "favourites"

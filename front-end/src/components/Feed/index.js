@@ -1,6 +1,14 @@
 import React from "react";
 import ListOfMovies from "../ListOfMovies";
 
+const localStyles = {
+  container: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap"
+  }
+};
+
 const Feed = ({
   popularList,
   favouriteMovie,
@@ -17,14 +25,14 @@ const Feed = ({
   return (
     <div
       style={{
-        paddingTop: navOffset + 10,
+        paddingTop: navOffset,
         width: "100%",
         maxWidth: 500,
         marginLeft: "auto",
         marginRight: "auto"
       }}
     >
-      <div>
+      <div style={localStyles.container}>
         {match.url === "/popular" && !!popularList.length && (
           <ListOfMovies
             popularList={popularList}

@@ -1,4 +1,5 @@
 import React from "react";
+import clapper from "../../images/clapper.png";
 
 const localStyles = {
   container: {
@@ -9,8 +10,10 @@ const localStyles = {
     left: 0,
     right: 0,
     zIndex: 1,
-    // height: "100px",
-    width: "100%"
+    width: "100%",
+    backgroundColor: "white",
+    backgroundImage:
+      "linear-gradient(.75turn, rgba(15,214,175, 1), 80%, rgba(0,253,151,0.6)"
   },
   wrapper: {
     display: "flex",
@@ -18,12 +21,16 @@ const localStyles = {
     width: "100%",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#212121",
-    color: "#00fd97"
+    color: "white"
   },
 
   username: {
-    marginLeft: 20
+    marginLeft: 10,
+    letterSpacing: "2px",
+    fontSize: 10,
+    fontWeight: 700,
+    paddingTop: 10,
+    paddingBottom: 5
   },
 
   button: {
@@ -31,7 +38,17 @@ const localStyles = {
     flexDirection: "row",
     justifyContent: "flex-end",
     padding: 10,
+    paddingRight: 0,
     cursor: "pointer"
+  },
+  icon: {
+    height: 25
+  },
+  leftIcons: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: 15
   }
 };
 
@@ -39,8 +56,11 @@ const Navbar = ({ children, height, buttons, match }) => {
   return (
     <div style={{ ...localStyles.container, height }}>
       <div style={localStyles.wrapper}>
-        <div style={localStyles.username}>
-          Hi {window.localStorage.getItem("username")}!
+        <div style={localStyles.leftIcons}>
+          <img style={localStyles.icon} src={clapper} />
+          <div style={localStyles.username}>
+            HI {window.localStorage.getItem("username").toUpperCase()}!
+          </div>
         </div>
         <div style={localStyles.button}>
           {buttons.map((button, index) => (
@@ -48,7 +68,7 @@ const Navbar = ({ children, height, buttons, match }) => {
               style={
                 index !== buttons.length - 1
                   ? {
-                      marginRight: 20,
+                      marginRight: 15,
                       opacity: button.id === match.params[0] ? 1 : 0.6
                     }
                   : {
