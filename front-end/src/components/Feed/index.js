@@ -1,5 +1,6 @@
 import React from "react";
 import ListOfMovies from "../ListOfMovies";
+import NoFavouritesWarning from "../NoFavouritesWarning";
 
 const localStyles = {
   container: {
@@ -32,6 +33,11 @@ const Feed = ({
         marginRight: "auto"
       }}
     >
+      <div>
+        {match.url === "/favourites" && !favouriteList.length && (
+          <NoFavouritesWarning />
+        )}
+      </div>
       <div style={localStyles.container}>
         {match.url === "/popular" && !!popularList.length && (
           <ListOfMovies
@@ -45,7 +51,7 @@ const Feed = ({
         )}
       </div>
       <div>
-        {match.url === "/favourites" && !!favouriteList.length ? (
+        {match.url === "/favourites" && !!favouriteList.length && (
           <ListOfMovies
             popularList={favouriteList}
             favouriteMovie={favouriteMovie}
@@ -57,8 +63,6 @@ const Feed = ({
             setWatched={setWatched}
             history={history}
           />
-        ) : (
-          <div>No faves. Click star to favourite a movie.</div>
         )}
       </div>
     </div>
