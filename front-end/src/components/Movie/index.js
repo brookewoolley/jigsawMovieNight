@@ -54,7 +54,6 @@ const Movie = ({
   rating,
   setRating,
   setModalMovie,
-  setWatched,
   movie
 }) => {
   return (

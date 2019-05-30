@@ -41,6 +41,7 @@ const localStyles = {
   movieImage: {
     width: "100%",
     height: 200,
+    objectPosition: "100% 20%",
     objectFit: "cover"
   },
 
@@ -85,6 +86,7 @@ const ModalMovie = props => {
     props.match.params.id,
     props.getFavourite
   );
+
   const { isOpen, setIsOpen } = useCollapsible();
 
   return movie ? (
@@ -115,14 +117,16 @@ const ModalMovie = props => {
         >
           <CastSection castList={movie.cast} loading={loading} />
         </Collapsible>
-        <WatchedSection
-          movie={movie}
-          setWatched={() => {
-            onUpdate();
-            props.setWatched(movie);
-          }}
-          setReview={props.setReview}
-        />
+        {!!props.getFavourite(props.match.params.id) && (
+          <WatchedSection
+            movie={movie}
+            setWatched={() => {
+              onUpdate();
+              props.setWatched(movie);
+            }}
+            setReview={props.setReview}
+          />
+        )}
       </div>
     </div>
   ) : null;

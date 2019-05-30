@@ -7,7 +7,6 @@ const ListOfMovies = ({
   isFavourite,
   variant,
   setRating,
-  setModalMovie,
   setWatched,
   history
 }) => {
