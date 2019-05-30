@@ -5,6 +5,8 @@ import { backendUrl } from "../config";
 const useAuthorisation = history => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const login = async () => {
     //post request to DB, returns token and username - error if incorrect datatypes
@@ -18,13 +20,16 @@ const useAuthorisation = history => {
           password
         }
       };
+      setLoading(true);
       const { data } = await axios(params);
+      setLoading(false);
 
       window.localStorage.setItem("token", data.token);
       window.localStorage.setItem("username", data.username);
       history.push("/popular");
     } catch (err) {
       console.error("nahh mate", err);
+      setError({ text: "WRONG LOGIN DETAILS, MATE." });
     }
   };
 
@@ -50,13 +55,20 @@ const useAuthorisation = history => {
     }
   };
 
+  const onFocus = () => {
+    setError(null);
+  };
+
   return {
     signUp,
     setPassword,
     setUsername,
     password,
     username,
-    login
+    login,
+    loading,
+    error,
+    onFocus
   };
 };
 

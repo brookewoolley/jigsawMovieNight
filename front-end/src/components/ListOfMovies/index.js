@@ -11,7 +11,7 @@ const ListOfMovies = ({
   history
 }) => {
   return (
-    <div>
+    <div style={{ paddingLeft: 20, paddingRight: 20 }}>
       {popularList.map(movie => {
         return (
           <Movie

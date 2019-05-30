@@ -8,6 +8,7 @@ import LandingPage from "../src/components/LandingPage";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import SignUp from "../src/components/SignUp";
 import Login from "../src/components/Login";
+import "./App.css";
 
 const NAV_HEIGHT = 120;
 

@@ -4,7 +4,13 @@ import AuthForm from "../AuthForm";
 
 const localStyles = {
   container: {
-    backgroundColor: "blue"
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    height: "100vh",
+    width: "100%",
+    backgroundImage:
+      "linear-gradient(to bottom, rgba(15,214,175, 1), 20%, rgba(0,253,151,0.5)"
   }
 };
 
@@ -14,7 +20,9 @@ const Login = props => {
     setUsername,
     login,
     password,
-    username
+    username,
+    error,
+    onFocus
   } = useAuthorisation(props.history);
   return (
     <div style={localStyles.container}>
@@ -24,10 +32,12 @@ const Login = props => {
         onClick={login}
         password={password}
         username={username}
-        buttonText={"Login"}
-        formText={"Please Login: "}
-        usernamePlaceholder={"Enter your username..."}
-        passwordPlaceholder={"Enter your password..."}
+        buttonText={"LOGIN"}
+        formText={"LOGIN"}
+        usernamePlaceholder={"Username"}
+        passwordPlaceholder={"Password"}
+        error={error}
+        onFocus={onFocus}
       />
     </div>
   );
