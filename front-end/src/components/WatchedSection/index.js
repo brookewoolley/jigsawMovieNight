@@ -1,5 +1,6 @@
 import React from "react";
 import Review from "../Review";
+import Button from "../Button";
 
 const localStyles = {
   container: {
@@ -14,18 +15,6 @@ const localStyles = {
     flexDirection: "row",
     justifyContent: "space-around",
     padding: 10
-  },
-
-  button: {
-    backgroundColor: "black",
-    color: "white",
-    cursor: "pointer",
-    width: "100%",
-    fontSize: 16,
-    fontWeight: "bold",
-    borderRadius: 10,
-    padding: 15,
-    margin: 10
   }
 };
 
@@ -39,9 +28,9 @@ const WatchedSection = ({ setWatched, movie, setReview }) => {
         />
       ) : (
         <div style={localStyles.buttonContainer}>
-          <button style={localStyles.button} onClick={() => setWatched(movie)}>
+          <Button onClick={() => setWatched(movie)}>
             I'VE WATCHED THIS MOVIE
-          </button>
+          </Button>
         </div>
       )}
     </div>
