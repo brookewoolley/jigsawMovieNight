@@ -1,7 +1,7 @@
 import React from "react";
 import useMovies from "../src/hooks/movies";
 import Feed from "../src/components/Feed";
-import ModalMovie from "../src/components/ModalMovie";
+import Modal from "../src/components/Modal";
 import useModal from "./hooks/modal";
 import ConnectedNavBar from "../src/components/ConnectedNavbar";
 import LandingPage from "../src/components/LandingPage";
@@ -110,7 +110,7 @@ const App = props => {
             <Route
               path="/movies/:id"
               render={props => (
-                <ModalMovie
+                <Modal
                   {...props}
                   setWatched={setWatched}
                   modalMovie={modalMovie}

@@ -37,7 +37,6 @@ const useMovies = () => {
       if (favouriteMovie.id === movie.id) {
         favouriteMovie.review = event.target.value;
       }
-      console.log("----> REVIEWED", favouriteMovie);
       return favouriteMovie;
     });
     setFavouriteList(newFavourites);
@@ -51,7 +50,6 @@ const useMovies = () => {
       }
       return favouriteMovie;
     });
-    console.log("----> DELETED REVIEW", movie);
     setFavouriteList(newFavourites);
   };
 
