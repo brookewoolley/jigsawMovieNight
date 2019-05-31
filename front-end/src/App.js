@@ -44,7 +44,9 @@ const App = props => {
     clearSearch,
     setRating,
     setWatched,
-    setReview,
+    createReview,
+    deleteReview,
+    review,
     getFavourite
   } = useMovies();
 
@@ -113,7 +115,9 @@ const App = props => {
                   setWatched={setWatched}
                   modalMovie={modalMovie}
                   setModalMovie={setModalMovie}
-                  setReview={setReview}
+                  createReview={createReview}
+                  deleteReview={deleteReview}
+                  review={review}
                   getFavourite={getFavourite}
                 />
               )}

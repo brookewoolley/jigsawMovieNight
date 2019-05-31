@@ -6,6 +6,7 @@ const useMovies = () => {
   const [value, setValue] = useState("");
   const [popularList, setPopularList] = useState([]);
   const [favouriteList, setFavouriteList] = useState([]);
+  const [review, setReview] = useState("");
 
   const fetchPopularData = async () => {
     const res = await axios(`${baseUrl}movie/popular?api_key=${apiKey}`);
@@ -27,6 +28,31 @@ const useMovies = () => {
     const parsedRes = await res.json();
 
     return setPopularList(parsedRes.results);
+  };
+
+  const createReview = (movie, event) => {
+    setReview(event.target.value);
+
+    const newFavourites = [...favouriteList].map(favouriteMovie => {
+      if (favouriteMovie.id === movie.id) {
+        favouriteMovie.review = event.target.value;
+      }
+      console.log("----> REVIEWED", favouriteMovie);
+      return favouriteMovie;
+    });
+    setFavouriteList(newFavourites);
+  };
+
+  const deleteReview = movie => {
+    setReview("");
+    const newFavourites = [...favouriteList].map(favouriteMovie => {
+      if (favouriteMovie.id === movie.id) {
+        delete favouriteMovie.review;
+      }
+      return favouriteMovie;
+    });
+    console.log("----> DELETED REVIEW", movie);
+    setFavouriteList(newFavourites);
   };
 
   const favouriteMovie = movie => {
@@ -68,16 +94,6 @@ const useMovies = () => {
     setFavouriteList(newFavourites);
   };
 
-  const setReview = (movie, review) => {
-    const newFavourites = [...favouriteList].map(favouriteMovie => {
-      if (favouriteMovie.id === movie.id) {
-        favouriteMovie.review = review;
-      }
-      return favouriteMovie;
-    });
-    setFavouriteList(newFavourites);
-  };
-
   const getFavourite = id => {
     return favouriteList.filter(movie => {
       if (movie.id.toString() === id) {
@@ -92,6 +108,7 @@ const useMovies = () => {
       if (favouriteMovie.id !== movie.id) {
         return favouriteMovie;
       }
+      return null;
     });
     setFavouriteList(newFavourites);
   };
@@ -106,8 +123,10 @@ const useMovies = () => {
     clearSearch,
     setRating,
     setWatched,
-    setReview,
-    getFavourite
+    createReview,
+    getFavourite,
+    review,
+    deleteReview
   };
 };
 

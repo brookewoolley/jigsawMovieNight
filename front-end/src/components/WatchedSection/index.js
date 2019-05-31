@@ -18,13 +18,20 @@ const localStyles = {
   }
 };
 
-const WatchedSection = ({ setWatched, movie, setReview }) => {
+const WatchedSection = ({
+  setWatched,
+  movie,
+  createReview,
+  review,
+  deleteReview
+}) => {
   return (
     <div style={localStyles.container}>
       {movie.watched === true ? (
         <Review
-          onReview={event => setReview(movie, event.target.value)}
-          value={movie.review}
+          onReview={event => createReview(movie, event)}
+          review={review}
+          onDelete={() => deleteReview(movie)}
         />
       ) : (
         <div style={localStyles.buttonContainer}>
