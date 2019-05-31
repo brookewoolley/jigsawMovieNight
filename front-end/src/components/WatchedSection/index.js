@@ -1,13 +1,11 @@
 import React from "react";
-import Review from "../Review";
 import Button from "../Button";
 
 const localStyles = {
   container: {
     display: "flex",
     flexDirection: "column",
-    width: "100%",
-    paddingTop: 20
+    width: "100%"
   },
 
   buttonContainer: {
@@ -15,31 +13,22 @@ const localStyles = {
     flexDirection: "row",
     justifyContent: "space-around",
     padding: 10
+  },
+
+  button: {
+    fontSize: 12,
+    padding: 8
   }
 };
 
-const WatchedSection = ({
-  setWatched,
-  movie,
-  createReview,
-  review,
-  deleteReview
-}) => {
+const WatchedSection = ({ setWatched, movie }) => {
   return (
     <div style={localStyles.container}>
-      {movie.watched === true ? (
-        <Review
-          onReview={event => createReview(movie, event)}
-          review={review}
-          onDelete={() => deleteReview(movie)}
-        />
-      ) : (
-        <div style={localStyles.buttonContainer}>
-          <Button onClick={() => setWatched(movie)}>
-            I'VE WATCHED THIS MOVIE
-          </Button>
-        </div>
-      )}
+      <div style={localStyles.buttonContainer}>
+        <Button onClick={() => setWatched(movie)} style={localStyles.button}>
+          {!!movie.watched ? "WATCHED" : "NEED TO WATCH"}
+        </Button>
+      </div>
     </div>
   );
 };

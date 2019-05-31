@@ -6,6 +6,7 @@ import CastSection from "../CastSection";
 import useCollapsible from "../../hooks/collapsible";
 import Collapsible from "../Collapsible";
 import WatchedSection from "../WatchedSection";
+import Review from "../Review";
 
 const localStyles = {
   daddyDiv: {
@@ -39,8 +40,7 @@ const localStyles = {
     display: "flex",
     flexDirection: "row",
     position: "relative",
-    alignItems: "center",
-    justifyContent: "space-around",
+    alignItems: "flex-start",
     padding: 15
   },
 
@@ -60,13 +60,16 @@ const localStyles = {
 
   movieDetails: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    paddingLeft: 16
   },
 
   detailsList: {
     listStyle: "none",
     padding: 0,
-    fontSize: 14
+    fontSize: 12,
+    lineHeight: 1.5,
+    margin: 0
   },
 
   movieTitle: {
@@ -77,11 +80,20 @@ const localStyles = {
   },
 
   movieOverview: {
-    position: "relative"
+    position: "relative",
+    padding: 15,
+    paddingTop: 0,
+    fontSize: 15
   },
 
   lowerContainer: {
     position: "relative"
+  },
+
+  strong: {
+    fontWeight: 600,
+    textTransform: "uppercase",
+    letterSpacing: "1px"
   }
 };
 
@@ -111,10 +123,17 @@ const Modal = props => {
           <div style={localStyles.movieDetails}>
             <h2 style={localStyles.movieTitle}>{movie.title.toUpperCase()}</h2>
             <ul style={localStyles.detailsList}>
-              <li>Release Date: {movie.release_date}</li>
-              <li>Runtime: {movie.runtime} minutes</li>
               <li>
-                Genre: {movie.genres[0].name}, {movie.genres[1].name}
+                <strong style={localStyles.strong}>Release Date:</strong>{" "}
+                {movie.release_date}
+              </li>
+              <li>
+                <strong style={localStyles.strong}>Runtime:</strong>{" "}
+                {movie.runtime} minutes
+              </li>
+              <li>
+                <strong style={localStyles.strong}>Genre:</strong>{" "}
+                {movie.genres[0].name}, {movie.genres[1].name}
               </li>
             </ul>
             {!!props.getFavourite(props.match.params.id) && (
@@ -132,7 +151,7 @@ const Modal = props => {
           </div>
         </div>
         <div style={localStyles.lowerContainer}>
-          <span style={localStyles.movieOverview}>{movie.overview}</span>
+          <p style={localStyles.movieOverview}>{movie.overview}</p>
           <Collapsible
             isOpen={isOpen}
             setIsOpen={setIsOpen}
@@ -140,6 +159,15 @@ const Modal = props => {
           >
             <CastSection castList={movie.cast} loading={loading} />
           </Collapsible>
+          {movie.watched === true ? (
+            <Review
+              onReview={event => props.createReview(movie, event)}
+              review={props.review}
+              onDelete={() => props.deleteReview(movie)}
+            />
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>
