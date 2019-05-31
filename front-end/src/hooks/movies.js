@@ -32,7 +32,7 @@ const useMovies = () => {
   const favouriteMovie = movie => {
     const newFavourites = [...favouriteList, movie];
     isFavourite(movie)
-      ? alert("Already in your favourites")
+      ? deleteFavouriteMovie(movie)
       : setFavouriteList(newFavourites);
   };
 
@@ -85,6 +85,15 @@ const useMovies = () => {
       }
       return null;
     })[0];
+  };
+
+  const deleteFavouriteMovie = movie => {
+    const newFavourites = favouriteList.filter(favouriteMovie => {
+      if (favouriteMovie.id !== movie.id) {
+        return favouriteMovie;
+      }
+    });
+    setFavouriteList(newFavourites);
   };
 
   return {
