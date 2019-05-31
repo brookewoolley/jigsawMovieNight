@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+import "./index.css";
 import { Router } from "react-router-dom";
 import registerServiceWorker from "./registerServiceWorker";
 
@@ -9,7 +10,7 @@ const history = createHistory();
 
 ReactDOM.render(
   <Router history={history}>
-    <App />
+    <App history={history} />
   </Router>,
   document.getElementById("root")
 );

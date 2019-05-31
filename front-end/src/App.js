@@ -4,12 +4,17 @@ import Feed from "../src/components/Feed";
 import ModalMovie from "../src/components/ModalMovie";
 import useModal from "./hooks/modal";
 import ConnectedNavBar from "../src/components/ConnectedNavbar";
+import LandingPage from "../src/components/LandingPage";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import SignUp from "../src/components/SignUp";
+import Login from "../src/components/Login";
+import "./App.css";
 
-const NAV_HEIGHT = 110;
+const NAV_HEIGHT = 120;
+
 const localStyles = {
   container: {
-    fontFamily: "Helvetica"
+    fontFamily: "Inter var, sans-serif"
   },
 
   link: {
@@ -17,10 +22,14 @@ const localStyles = {
     flexDirection: "row",
     justifyContent: "flex-end",
     padding: 10,
-    backgroundColor: "#212121",
-    color: "#00fd97",
+    paddingBottom: 5,
+    backgroundColor: "none",
+    color: "white",
     cursor: "pointer",
-    textDecoration: "none"
+    textDecoration: "none",
+    fontWeight: 700,
+    letterSpacing: "2px",
+    fontSize: 14
   }
 };
 
@@ -45,7 +54,7 @@ const App = props => {
     {
       component: (
         <Link style={localStyles.link} to="/popular">
-          All movies
+          POPULAR
         </Link>
       ),
       id: "popular"
@@ -53,14 +62,16 @@ const App = props => {
     {
       component: (
         <Link style={localStyles.link} to="/favourites">
-          {`Favourites (${favouriteList.length})`}
+          {`FAVES (${favouriteList.length})`}
         </Link>
       ),
       id: "favourites"
     }
   ];
 
-  console.log("------ app props", props);
+  if (!window.localStorage.getItem("token")) {
+    props.history.push("/");
+  }
 
   return (
     <Router>
@@ -74,8 +85,11 @@ const App = props => {
             NAV_HEIGHT={NAV_HEIGHT}
           />
           <Switch>
+            <Route path="/" exact render={() => <LandingPage />} />
+            <Route path="/signup" render={props => <SignUp {...props} />} />
+            <Route path="/login" render={props => <Login {...props} />} />
             <Route
-              path={"/(popular|favourites|)"}
+              path={"/(popular|favourites)"}
               exact
               render={props => (
                 <Feed
