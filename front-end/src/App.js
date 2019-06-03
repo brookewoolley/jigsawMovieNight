@@ -1,5 +1,6 @@
 import React from "react";
 import useMovies from "../src/hooks/movies";
+import useFilters from "../src/hooks/filters";
 import Feed from "../src/components/Feed";
 import Modal from "../src/components/Modal";
 import useModal from "./hooks/modal";
@@ -50,6 +51,8 @@ const App = props => {
     getFavourite
   } = useMovies();
 
+  const { setFilter, filter, returnFilteredList } = useFilters();
+
   const { setModalMovie, modalMovie } = useModal();
 
   const displayFilters = [
@@ -64,7 +67,7 @@ const App = props => {
     {
       component: (
         <Link style={localStyles.link} to="/favourites">
-          {`FAVES (${favouriteList.length})`}
+          {`WATCHLIST (${favouriteList.length})`}
         </Link>
       ),
       id: "favourites"
@@ -85,6 +88,8 @@ const App = props => {
             searchMovies={searchMovies}
             clearSearch={clearSearch}
             NAV_HEIGHT={NAV_HEIGHT}
+            setFilter={setFilter}
+            filter={filter}
           />
           <Switch>
             <Route path="/" exact render={() => <LandingPage />} />
@@ -98,7 +103,7 @@ const App = props => {
                   popularList={popularList}
                   favouriteMovie={favouriteMovie}
                   isFavourite={isFavourite}
-                  favouriteList={favouriteList}
+                  favouriteList={returnFilteredList(favouriteList)}
                   navOffset={NAV_HEIGHT}
                   setRating={setRating}
                   setModalMovie={setModalMovie}
@@ -119,6 +124,7 @@ const App = props => {
                   deleteReview={deleteReview}
                   review={review}
                   getFavourite={getFavourite}
+                  setRating={setRating}
                 />
               )}
             />

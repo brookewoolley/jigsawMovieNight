@@ -7,10 +7,11 @@ import useCollapsible from "../../hooks/collapsible";
 import Collapsible from "../Collapsible";
 import WatchedSection from "../WatchedSection";
 import Review from "../Review";
+import RatingsButton from "../RatingsButton";
 
 const localStyles = {
   daddyDiv: {
-    position: "absolute",
+    position: "relative",
     zIndex: 3,
     display: "flex",
     flexDirection: "column",
@@ -22,7 +23,19 @@ const localStyles = {
     overflowY: "scroll"
   },
 
+  overlay: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 220,
+    zIndex: 0,
+    backgroundImage:
+      "linear-gradient(to top, rgba(255,255,255,1), 50%, rgba(255,255,255,0)"
+  },
+
   movieContainer: {
+    position: "relative",
     width: "100%",
     height: "100%",
     maxWidth: 500,
@@ -41,28 +54,35 @@ const localStyles = {
     flexDirection: "row",
     position: "relative",
     alignItems: "flex-start",
-    padding: 15
+    padding: 15,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    backgroundImage:
+      "linear-gradient(.75turn, rgba(15,214,175, 1), rgba(0,253,151,0.6)"
   },
 
   closeButton: {
-    height: 20,
+    height: 14,
     position: "absolute",
     right: 15,
-    top: 15
+    top: 15,
+    zIndex: 3
   },
 
   movieImage: {
     height: 220,
     top: 15,
     left: 15,
-    borderRadius: 5
+    borderRadius: 5,
+    zIndex: 4
   },
 
   movieDetails: {
     display: "flex",
     flexDirection: "column",
     paddingLeft: 16,
-    height: 220
+    height: 220,
+    zIndex: 2
   },
 
   detailsList: {
@@ -95,10 +115,20 @@ const localStyles = {
     fontWeight: 600,
     textTransform: "uppercase",
     letterSpacing: "1px"
+  },
+
+  star: {
+    color: "#FF6F68",
+    fontSize: 14
+  },
+
+  rating: {
+    marginLeft: 0
   }
 };
 
 const Modal = props => {
+  let releaseDate;
   const { movie, loading, onUpdate } = useMovie(
     props.match.params.id,
     props.getFavourite
@@ -106,10 +136,20 @@ const Modal = props => {
 
   const { isOpen, setIsOpen } = useCollapsible();
 
+  if (!movie) return null;
+  if (movie.release_date) {
+    releaseDate = new Date(movie.release_date).getFullYear();
+  }
+
+  const directorArray = movie.crew.filter(obj => obj.job === "Director");
+
+  console.log(directorArray);
+
   return movie ? (
     <div style={localStyles.daddyDiv}>
       <div style={localStyles.movieContainer}>
         <div style={localStyles.detailsContainer}>
+          <div style={localStyles.overlay} />
           <img
             style={localStyles.closeButton}
             src={closeButton}
@@ -122,11 +162,18 @@ const Modal = props => {
             alt={movie.title}
           />
           <div style={localStyles.movieDetails}>
-            <h2 style={localStyles.movieTitle}>{movie.title.toUpperCase()}</h2>
+            <h2 style={localStyles.movieTitle}>
+              {movie.title.toUpperCase()} ({releaseDate})
+            </h2>
             <ul style={localStyles.detailsList}>
               <li>
-                <strong style={localStyles.strong}>Release Date:</strong>{" "}
-                {movie.release_date}
+                <strong style={localStyles.strong}>Director:</strong>{" "}
+                {directorArray.map((director, index) => {
+                  if (index >= 1) {
+                    return `, ${director.name}`;
+                  }
+                  return director.name;
+                })}
               </li>
               <li>
                 <strong style={localStyles.strong}>Runtime:</strong>{" "}
@@ -137,6 +184,15 @@ const Modal = props => {
                 {movie.genres[0].name}, {movie.genres[1].name}
               </li>
             </ul>
+            <RatingsButton
+              setRating={rating => {
+                onUpdate();
+                props.setRating(movie, rating);
+              }}
+              rating={movie.rating}
+              starStyle={localStyles.star}
+              rateStyle={localStyles.rating}
+            />
             {!!props.getFavourite(props.match.params.id) && (
               <WatchedSection
                 movie={movie}
@@ -166,9 +222,7 @@ const Modal = props => {
               review={props.review}
               onDelete={() => props.deleteReview(movie)}
             />
-          ) : (
-            ""
-          )}
+          ) : null}
         </div>
       </div>
     </div>

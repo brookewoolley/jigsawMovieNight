@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../Button";
 
 const localStyles = {
-  button: {
+  buttonOn: {
     display: "flex",
     flexDirection: "row",
     fontSize: 12,
@@ -13,33 +13,50 @@ const localStyles = {
     justifyContent: "center",
     height: 30,
     width: 120,
-    marginTop: "auto"
-    // marginLeft: 20,
-    // marginRight: 20
+    marginTop: "auto",
+    zIndex: 5,
+    border: "1px solid #0fd6af"
+  },
+
+  buttonOff: {
+    display: "flex",
+    flexDirection: "row",
+    fontSize: 12,
+    padding: 0,
+    paddingLeft: 20,
+    paddingRight: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    height: 30,
+    width: 120,
+    marginTop: "auto",
+    zIndex: 5,
+    backgroundColor: "white",
+    color: "#0fd6af",
+    backgroundImage: "white",
+    border: "1px solid #0fd6af"
   },
 
   watchSymbol: {
     fontSize: 16,
-    marginBottom: 2,
-    marginRight: 2
+    marginRight: 4
   },
   symbolContainer: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between"
-    // width: "100%"
   }
 };
 
 const WatchedSection = ({ setWatched, movie }) => {
   return (
-    <Button onClick={() => setWatched(movie)} style={localStyles.button}>
+    <Button
+      onClick={() => setWatched(movie)}
+      style={!!movie.watched ? localStyles.buttonOn : localStyles.buttonOff}
+    >
       <span style={localStyles.symbolContainer}>
-        <span style={localStyles.watchSymbol}>
-          {!!movie.watched ? "-" : "+"}
-        </span>{" "}
-        <span>WATCHLIST</span>
+        <span>WATCHED</span>
       </span>
     </Button>
   );
