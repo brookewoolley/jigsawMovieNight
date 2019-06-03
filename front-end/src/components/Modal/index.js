@@ -61,7 +61,8 @@ const localStyles = {
   movieDetails: {
     display: "flex",
     flexDirection: "column",
-    paddingLeft: 16
+    paddingLeft: 16,
+    height: 220
   },
 
   detailsList: {

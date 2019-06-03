@@ -2,34 +2,46 @@ import React from "react";
 import Button from "../Button";
 
 const localStyles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    width: "100%"
-  },
-
-  buttonContainer: {
+  button: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-around",
-    padding: 10
+    fontSize: 12,
+    padding: 0,
+    paddingLeft: 20,
+    paddingRight: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    height: 30,
+    width: 120,
+    marginTop: "auto"
+    // marginLeft: 20,
+    // marginRight: 20
   },
 
-  button: {
-    fontSize: 12,
-    padding: 8
+  watchSymbol: {
+    fontSize: 16,
+    marginBottom: 2,
+    marginRight: 2
+  },
+  symbolContainer: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between"
+    // width: "100%"
   }
 };
 
 const WatchedSection = ({ setWatched, movie }) => {
   return (
-    <div style={localStyles.container}>
-      <div style={localStyles.buttonContainer}>
-        <Button onClick={() => setWatched(movie)} style={localStyles.button}>
-          {!!movie.watched ? "WATCHED" : "NEED TO WATCH"}
-        </Button>
-      </div>
-    </div>
+    <Button onClick={() => setWatched(movie)} style={localStyles.button}>
+      <span style={localStyles.symbolContainer}>
+        <span style={localStyles.watchSymbol}>
+          {!!movie.watched ? "-" : "+"}
+        </span>{" "}
+        <span>WATCHLIST</span>
+      </span>
+    </Button>
   );
 };
 
