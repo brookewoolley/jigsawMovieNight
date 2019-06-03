@@ -1,5 +1,4 @@
 import React from "react";
-import useDropdown from "../../hooks/dropdown.js";
 
 const localStyles = {
   container: {
@@ -26,14 +25,21 @@ const localStyles = {
   }
 };
 
-const Dropdown = ({ children, onClick }) => {
-  const { setIsDropped, isDropped } = useDropdown();
+const Dropdown = ({
+  children,
+  onClick,
+  setIsDropped,
+  isDropped,
+  value,
+  placeholder
+}) => {
   return (
     <div style={localStyles.container}>
       <button
         onClick={() => setIsDropped(!isDropped)}
         style={localStyles.dropdownHeader}
       >
+        <span>{value.length ? value : placeholder}</span>
         <span style={localStyles.button}>{isDropped ? "▲" : "▼"}</span>
       </button>
       <div style={localStyles.listItems} onClick={onClick}>

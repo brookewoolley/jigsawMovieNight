@@ -1,5 +1,6 @@
 import React from "react";
 import Dropdown from "../Dropdown";
+import useDropdown from "../../hooks/dropdown.js";
 
 const localStyles = {
   daddyDiv: {
@@ -29,19 +30,31 @@ const localStyles = {
 };
 
 const FeedFilter = ({ setFilter, filter }) => {
+  const { setIsDropped, isDropped } = useDropdown();
   return (
     <div style={localStyles.daddyDiv}>
       <div style={localStyles.container}>
-        <Dropdown>
+        <Dropdown
+          isDropped={isDropped}
+          setIsDropped={setIsDropped}
+          placeholder={"Select filter"}
+          value={filter}
+        >
           <div
             style={localStyles.filterItems}
-            onClick={() => setFilter("watched")}
+            onClick={() => {
+              setFilter("watched");
+              setIsDropped(!isDropped);
+            }}
           >
             Watched
           </div>
           <div
             style={localStyles.filterItems}
-            onClick={() => setFilter("notWatched")}
+            onClick={() => {
+              setFilter("notWatched");
+              setIsDropped(!isDropped);
+            }}
           >
             Need to Watch
           </div>
