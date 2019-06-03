@@ -5,22 +5,13 @@ const localStyles = {
   container: {
     display: "flex",
     flexDirection: "column",
-    width: "100%",
-    borderTop: "1px solid #C7C7CD",
-    borderBottom: "1px solid #C7C7CD"
+    width: "100%"
   },
 
   dropdownHeader: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
-    fontSize: 16,
-    alignItems: "center",
-    fontWeight: 700,
-    color: "black",
+    justifyContent: "flex-end",
     opacity: 0.6
   },
 
@@ -28,21 +19,26 @@ const localStyles = {
     border: 0,
     fontSize: 20,
     cursor: "pointer"
+  },
+
+  listItems: {
+    opacity: 0.6
   }
 };
 
 const Dropdown = ({ children, onClick }) => {
   const { setIsDropped, isDropped } = useDropdown();
-  console.log(children);
   return (
     <div style={localStyles.container}>
       <button
         onClick={() => setIsDropped(!isDropped)}
-        style={localStyles.collapsibleHeader}
+        style={localStyles.dropdownHeader}
       >
         <span style={localStyles.button}>{isDropped ? "▲" : "▼"}</span>
       </button>
-      <div onClick={onClick}>{isDropped && children}</div>
+      <div style={localStyles.listItems} onClick={onClick}>
+        {isDropped && children}
+      </div>
     </div>
   );
 };

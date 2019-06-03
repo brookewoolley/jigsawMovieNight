@@ -30,7 +30,7 @@ const localStyles = {
     textDecoration: "none",
     fontWeight: 700,
     letterSpacing: "2px",
-    fontSize: 14
+    fontSize: 12
   }
 };
 
@@ -67,7 +67,7 @@ const App = props => {
     {
       component: (
         <Link style={localStyles.link} to="/favourites">
-          {`WATCHLIST (${favouriteList.length})`}
+          {`MY LIST (${favouriteList.length})`}
         </Link>
       ),
       id: "favourites"
