@@ -23,6 +23,7 @@ const Feed = ({
   history,
   match
 }) => {
+  console.log("LIST --->", favouriteList);
   return (
     <div
       style={{
