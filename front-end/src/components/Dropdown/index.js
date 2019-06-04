@@ -4,25 +4,45 @@ const localStyles = {
   container: {
     display: "flex",
     flexDirection: "column",
-    width: "100%"
+    width: "100%",
+    position: "relative"
   },
 
   dropdownHeader: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "flex-end",
-    opacity: 0.6
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "white",
+    border: 0,
+    outline: "none",
+    width: "100%"
   },
 
   button: {
     border: 0,
-    fontSize: 20,
-    cursor: "pointer"
+    fontSize: 12,
+    cursor: "pointer",
+    color: "#C7C7CD"
   },
 
   listItems: {
-    opacity: 0.6
-  }
+    opacity: 0.8,
+    position: "absolute",
+    backgroundColor: "white",
+    top: 32,
+    left: 0,
+    right: 0
+  },
+
+  placeholder: {
+    opacity: 0.6,
+    marginRight: 10,
+    fontSize: 14,
+    padding: 4
+  },
+
+  icon: {}
 };
 
 const Dropdown = ({
@@ -31,15 +51,28 @@ const Dropdown = ({
   setIsDropped,
   isDropped,
   value,
-  placeholder
+  placeholder,
+  icon,
+  style,
+  containerStyle
 }) => {
   return (
-    <div style={localStyles.container}>
+    <div
+      style={{
+        ...localStyles.container,
+        ...containerStyle,
+        borderBottomLeftRadius: isDropped ? 0 : containerStyle.borderRadius,
+        borderBottomRightRadius: isDropped ? 0 : containerStyle.borderRadius
+      }}
+    >
       <button
         onClick={() => setIsDropped(!isDropped)}
         style={localStyles.dropdownHeader}
       >
-        <span>{value && value.length ? value : placeholder}</span>
+        <img style={{ ...localStyles.icon, ...style }} src={icon} alt={""} />
+        <span style={localStyles.placeholder}>
+          {value && value.length ? value : placeholder}
+        </span>
         <span style={localStyles.button}>{isDropped ? "▲" : "▼"}</span>
       </button>
       <div style={localStyles.listItems} onClick={onClick}>

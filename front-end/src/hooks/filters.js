@@ -10,15 +10,7 @@ import { useState } from "react";
 //rateAscending - shows all movies with highest user rating first
 //rateDescending - shows all movies with lowest user rating first
 
-export const filterSorters = {
-  watched: {
-    id: "watched",
-    name: "Watched"
-  },
-  notWatched: {
-    id: "notWatched",
-    name: "Movies to Watch"
-  },
+export const sorters = {
   alphaAscending: {
     id: "alphaAscending",
     name: "A-Z"
@@ -37,11 +29,22 @@ export const filterSorters = {
   },
   rateAscending: {
     id: "rateAscending",
-    name: "Your highest rated movies"
+    name: "Highest rated"
   },
   rateDescending: {
     id: "rateDescending",
-    name: "Your lowest rated movies"
+    name: "Lowest rated"
+  }
+};
+
+export const filters = {
+  watched: {
+    id: "watched",
+    name: "Watched"
+  },
+  notWatched: {
+    id: "notWatched",
+    name: "Movies to Watch"
   }
 };
 
@@ -50,9 +53,6 @@ const useFilterSorters = () => {
   const [sort, setSort] = useState({});
 
   const returnAlteredList = array => {
-    console.log("FILTER.ID --->", filter.id);
-    console.log("SORT.ID --->", sort.id);
-    console.log("FS--->", filterSorters.notWatched.name);
     return array
       .filter(item => {
         switch (filter.id) {

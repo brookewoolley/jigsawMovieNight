@@ -4,6 +4,18 @@ import Navbar from "../Navbar";
 import SearchForm from "../SearchForm";
 import FeedFilter from "../FeedFilter";
 
+const localStyles = {
+  container: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column"
+  },
+
+  smallerContainer: {
+    justifyContent: "center"
+  }
+};
+
 const ConnectedNavBar = ({
   displayFilters,
   value,
@@ -21,29 +33,33 @@ const ConnectedNavBar = ({
         path={"/(popular|favourites)"}
         render={props => (
           <Navbar height={NAV_HEIGHT} buttons={displayFilters} {...props}>
-            <Switch>
-              <Route
-                path={"/(popular|)"}
-                render={() => (
-                  <SearchForm
-                    value={value}
-                    searchMovies={searchMovies}
-                    onClear={clearSearch}
+            <div style={localStyles.container}>
+              <div style={localStyles.smallerContainer}>
+                <Switch>
+                  <Route
+                    path={"/(popular|)"}
+                    render={() => (
+                      <SearchForm
+                        value={value}
+                        searchMovies={searchMovies}
+                        onClear={clearSearch}
+                      />
+                    )}
                   />
-                )}
-              />
-              <Route
-                path={"/favourites"}
-                render={() => (
-                  <FeedFilter
-                    setFilter={setFilter}
-                    filter={filter}
-                    sort={sort}
-                    setSort={setSort}
+                  <Route
+                    path={"/favourites"}
+                    render={() => (
+                      <FeedFilter
+                        setFilter={setFilter}
+                        filter={filter}
+                        sort={sort}
+                        setSort={setSort}
+                      />
+                    )}
                   />
-                )}
-              />
-            </Switch>
+                </Switch>
+              </div>
+            </div>
           </Navbar>
         )}
       />

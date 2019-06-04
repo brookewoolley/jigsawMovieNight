@@ -23,7 +23,6 @@ const Feed = ({
   history,
   match
 }) => {
-  console.log("LIST --->", favouriteList);
   return (
     <div
       style={{
@@ -40,7 +39,7 @@ const Feed = ({
         )}
       </div>
       <div style={localStyles.container}>
-        {match.url === "/popular" && !!popularList.length && (
+        {match.url === "/popular" && popularList && !!popularList.length && (
           <ListOfMovies
             popularList={popularList}
             favouriteMovie={favouriteMovie}
