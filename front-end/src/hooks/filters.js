@@ -45,11 +45,14 @@ export const filterSorters = {
   }
 };
 
-const useFilters = () => {
-  const [filter, setFilter] = useState("");
-  const [sort, setSort] = useState("alphaAscending");
+const useFilterSorters = () => {
+  const [filter, setFilter] = useState({});
+  const [sort, setSort] = useState({});
 
-  const returnFilteredList = array => {
+  const returnAlteredList = array => {
+    console.log("FILTER.ID --->", filter.id);
+    console.log("SORT.ID --->", sort.id);
+    console.log("FS--->", filterSorters.notWatched.name);
     return array
       .filter(item => {
         switch (filter.id) {
@@ -98,10 +101,10 @@ const useFilters = () => {
   return {
     filter,
     setFilter,
-    returnFilteredList,
+    returnAlteredList,
     sort,
     setSort
   };
 };
 
-export default useFilters;
+export default useFilterSorters;

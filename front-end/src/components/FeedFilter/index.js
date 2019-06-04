@@ -1,6 +1,7 @@
 import React from "react";
 import Dropdown from "../Dropdown";
 import useDropdown from "../../hooks/dropdown.js";
+import { filterSorters } from "../../hooks/filters";
 
 const localStyles = {
   daddyDiv: {
@@ -29,34 +30,98 @@ const localStyles = {
   }
 };
 
-const FeedFilter = ({ setFilter, filter }) => {
-  const { setIsDropped, isDropped } = useDropdown();
+const FeedFilter = ({ setFilter, filter, sort, setSort }) => {
+  // const { isDropped, setIsDropped } = useDropdown();
+  const filterDropdown = useDropdown();
+  const sortDropdown = useDropdown();
+  console.log();
   return (
     <div style={localStyles.daddyDiv}>
       <div style={localStyles.container}>
         <Dropdown
-          isDropped={isDropped}
-          setIsDropped={setIsDropped}
+          isDropped={filterDropdown.isDropped}
+          setIsDropped={filterDropdown.setIsDropped}
           placeholder={"Select filter"}
-          value={filter}
+          value={filter.name}
         >
           <div
             style={localStyles.filterItems}
             onClick={() => {
-              setFilter("watched");
-              setIsDropped(!isDropped);
+              setFilter(filterSorters.watched);
+              filterDropdown.setIsDropped(!filterDropdown.isDropped);
             }}
           >
-            Watched
+            {filterSorters.watched.name}
           </div>
           <div
             style={localStyles.filterItems}
             onClick={() => {
-              setFilter("notWatched");
-              setIsDropped(!isDropped);
+              setFilter(filterSorters.notWatched);
+              filterDropdown.setIsDropped(!filterDropdown.isDropped);
             }}
           >
-            Need to Watch
+            {filterSorters.notWatched.name}
+          </div>
+        </Dropdown>
+        <Dropdown
+          isDropped={sortDropdown.isDropped}
+          setIsDropped={sortDropdown.setIsDropped}
+          placeholder={"Select sort"}
+          value={sort.name}
+        >
+          <div
+            style={localStyles.filterItems}
+            onClick={() => {
+              setSort(filterSorters.alphaAscending);
+              sortDropdown.setIsDropped(!sortDropdown.isDropped);
+            }}
+          >
+            {filterSorters.alphaAscending.name}
+          </div>
+          <div
+            style={localStyles.filterItems}
+            onClick={() => {
+              setSort(filterSorters.alphaDescending);
+              sortDropdown.setIsDropped(!sortDropdown.isDropped);
+            }}
+          >
+            {filterSorters.alphaDescending.name}
+          </div>
+          <div
+            style={localStyles.filterItems}
+            onClick={() => {
+              setSort(filterSorters.popAscending);
+              sortDropdown.setIsDropped(!sortDropdown.isDropped);
+            }}
+          >
+            {filterSorters.popAscending.name}
+          </div>
+          <div
+            style={localStyles.filterItems}
+            onClick={() => {
+              setSort(filterSorters.popDescending);
+              sortDropdown.setIsDropped(!sortDropdown.isDropped);
+            }}
+          >
+            {filterSorters.popDescending.name}
+          </div>
+          <div
+            style={localStyles.filterItems}
+            onClick={() => {
+              setSort(filterSorters.rateAscending);
+              sortDropdown.setIsDropped(!sortDropdown.isDropped);
+            }}
+          >
+            {filterSorters.rateAscending.name}
+          </div>
+          <div
+            style={localStyles.filterItems}
+            onClick={() => {
+              setSort(filterSorters.rateDescending);
+              sortDropdown.setIsDropped(!sortDropdown.isDropped);
+            }}
+          >
+            {filterSorters.rateDescending.name}
           </div>
         </Dropdown>
       </div>

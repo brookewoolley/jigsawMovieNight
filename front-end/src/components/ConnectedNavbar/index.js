@@ -11,7 +11,9 @@ const ConnectedNavBar = ({
   clearSearch,
   NAV_HEIGHT,
   setFilter,
-  filter
+  filter,
+  sort,
+  setSort
 }) => {
   return (
     <Switch>
@@ -33,7 +35,12 @@ const ConnectedNavBar = ({
               <Route
                 path={"/favourites"}
                 render={() => (
-                  <FeedFilter setFilter={setFilter} filter={filter} />
+                  <FeedFilter
+                    setFilter={setFilter}
+                    filter={filter}
+                    sort={sort}
+                    setSort={setSort}
+                  />
                 )}
               />
             </Switch>

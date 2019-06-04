@@ -39,7 +39,7 @@ const Dropdown = ({
         onClick={() => setIsDropped(!isDropped)}
         style={localStyles.dropdownHeader}
       >
-        <span>{value.length ? value : placeholder}</span>
+        <span>{value && value.length ? value : placeholder}</span>
         <span style={localStyles.button}>{isDropped ? "▲" : "▼"}</span>
       </button>
       <div style={localStyles.listItems} onClick={onClick}>
