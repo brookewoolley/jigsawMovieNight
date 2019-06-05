@@ -3,7 +3,6 @@ import useMovies from "../src/hooks/movies/index.js";
 import useFilters from "../src/hooks/filters/index.js";
 import Feed from "../src/components/Feed";
 import Modal from "../src/components/Modal";
-import useModal from "./hooks/modal/index.js";
 import ConnectedNavBar from "../src/components/ConnectedNavbar";
 import LandingPage from "../src/components/LandingPage";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
@@ -52,8 +51,6 @@ const App = props => {
   } = useMovies();
 
   const { setFilter, filter, returnAlteredList, sort, setSort } = useFilters();
-
-  const { setModalMovie, modalMovie } = useModal();
 
   const displayFilters = [
     {
@@ -108,7 +105,6 @@ const App = props => {
                   favouriteList={returnAlteredList(favouriteList)}
                   navOffset={NAV_HEIGHT}
                   setRating={setRating}
-                  setModalMovie={setModalMovie}
                   setWatched={setWatched}
                   {...props}
                 />
@@ -120,8 +116,6 @@ const App = props => {
                 <Modal
                   {...props}
                   setWatched={setWatched}
-                  modalMovie={modalMovie}
-                  setModalMovie={setModalMovie}
                   createReview={createReview}
                   deleteReview={deleteReview}
                   review={review}

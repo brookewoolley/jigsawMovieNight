@@ -18,9 +18,7 @@ const Feed = ({
   navOffset,
   rating,
   setRating,
-  setModalMovie,
   setWatched,
-  history,
   match
 }) => {
   return (
@@ -46,7 +44,6 @@ const Feed = ({
             isFavourite={isFavourite}
             variant={match.params[0]}
             rating={rating}
-            history={history}
           />
         )}
       </div>
@@ -59,9 +56,7 @@ const Feed = ({
             variant={match.params[0]}
             rating={rating}
             setRating={setRating}
-            setModalMovie={setModalMovie}
             setWatched={setWatched}
-            history={history}
           />
         )}
       </div>
