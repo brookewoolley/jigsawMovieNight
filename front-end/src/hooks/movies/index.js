@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { baseUrl, apiKey } from "../../config";
 
-const useMovies = () => {
+const useMovies = (initialState = []) => {
   const [value, setValue] = useState("");
   const [popularList, setPopularList] = useState([]);
-  const [favouriteList, setFavouriteList] = useState([]);
+  const [favouriteList, setFavouriteList] = useState(initialState);
   const [review, setReview] = useState("");
 
   const fetchPopularData = async () => {
@@ -35,8 +35,6 @@ const useMovies = () => {
   };
 
   const createReview = (movie, event) => {
-    setReview(event.target.value);
-
     const newFavourites = [...favouriteList].map(favouriteMovie => {
       if (favouriteMovie.id === movie.id) {
         favouriteMovie.review = event.target.value;
@@ -47,7 +45,6 @@ const useMovies = () => {
   };
 
   const deleteReview = movie => {
-    setReview("");
     const newFavourites = [...favouriteList].map(favouriteMovie => {
       if (favouriteMovie.id === movie.id) {
         delete favouriteMovie.review;

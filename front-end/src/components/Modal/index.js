@@ -200,9 +200,6 @@ const Modal = props => {
                   onUpdate();
                   props.setWatched(movie);
                 }}
-                createReview={props.createReview}
-                review={props.review}
-                deleteReview={props.deleteReview}
               />
             )}
           </div>
@@ -219,7 +216,7 @@ const Modal = props => {
           {movie.watched === true ? (
             <Review
               onReview={event => props.createReview(movie, event)}
-              review={props.review}
+              review={movie.review}
               onDelete={() => props.deleteReview(movie)}
             />
           ) : null}

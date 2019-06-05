@@ -118,7 +118,6 @@ const App = props => {
                   setWatched={setWatched}
                   createReview={createReview}
                   deleteReview={deleteReview}
-                  review={review}
                   getFavourite={getFavourite}
                   setRating={setRating}
                 />
