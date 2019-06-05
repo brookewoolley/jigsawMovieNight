@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { baseUrl, apiKey, backendUrl } from "../config";
+import { baseUrl, apiKey, backendUrl } from "../../config";
 import Promise from "bluebird";
 
 const useMovie = (movieId, getFavourite, http = axios) => {
@@ -11,7 +11,7 @@ const useMovie = (movieId, getFavourite, http = axios) => {
   const fetchMovieData = async event => {
     const { movie, cast } = await Promise.props({
       cast: http(`${baseUrl}movie/${movieId}/credits?api_key=${apiKey}`),
-      movie: http(`${backendUrl}films/${movieId}`)
+      movie: http(`${backendUrl}films/ById/${movieId}`)
     });
 
     const favouriteMovie = getFavourite(movieId);

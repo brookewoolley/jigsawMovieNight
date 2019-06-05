@@ -1,9 +1,9 @@
 import React from "react";
-import useMovies from "../src/hooks/movies";
-import useFilters from "../src/hooks/filters";
+import useMovies from "../src/hooks/movies/index.js";
+import useFilters from "../src/hooks/filters/index.js";
 import Feed from "../src/components/Feed";
 import Modal from "../src/components/Modal";
-import useModal from "./hooks/modal";
+import useModal from "./hooks/modal/index.js";
 import ConnectedNavBar from "../src/components/ConnectedNavbar";
 import LandingPage from "../src/components/LandingPage";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";

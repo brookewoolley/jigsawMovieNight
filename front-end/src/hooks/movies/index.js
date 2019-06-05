@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { baseUrl, apiKey } from "../config";
+import { baseUrl, apiKey } from "../../config";
 
 const useMovies = () => {
   const [value, setValue] = useState("");

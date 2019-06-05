@@ -1,6 +1,6 @@
 import React from "react";
 import Dropdown from "../Dropdown";
-import useDropdown from "../../hooks/dropdown.js";
+import useDropdown from "../../hooks/dropdown/index.js";
 import { sorters, filters } from "../../hooks/filters";
 import sortIcon from "../../images/sortIcon.png";
 import filterIcon from "../../images/filterIcon.png";

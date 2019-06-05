@@ -2,6 +2,10 @@
   "name": "front-end",
   "version": "0.1.0",
   "private": true,
+  "jest": {
+    "verbose": true,
+    "testURL": "http://localhost/"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "eslint": "^5.16.0",
@@ -18,6 +22,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "@testing-library/react": "^8.0.1",
     "babel-jest": "^22.1.0",
     "babel-plugin-styled-components": "^1.10.0",
     "babel-polyfill": "^6.26.0",
@@ -28,6 +33,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "jest": "^22.1.4",
     "react-addons-test-utils": "^15.6.2",
-    "react-test-renderer": "^15.6.2"
+    "react-hooks-testing-library": "^0.5.1",
+    "react-test-renderer": "^16.0.0-alpha.12"
   }
 }

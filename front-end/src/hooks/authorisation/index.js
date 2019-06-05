@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { backendUrl } from "../config";
+import { backendUrl } from "../../config";
 
 const useAuthorisation = history => {
   const [password, setPassword] = useState("");

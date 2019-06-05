@@ -69,6 +69,7 @@ const useFilterSorters = () => {
           default:
             return item;
         }
+        return null;
       })
       .sort((a, b) => {
         switch (sort.id) {
