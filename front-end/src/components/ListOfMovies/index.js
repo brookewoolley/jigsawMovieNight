@@ -22,7 +22,7 @@ const ListOfMovies = ({
             onFavouriteMovie={() => favouriteMovie(movie)}
             isFavourite={isFavourite(movie)}
             variant={variant}
-            onClick={() => history.push(`/movies/${movie.id}`)}
+            onClick={() => onClick(movie.id)}
             rating={movie.rating}
             setRating={rating => setRating(movie, rating)}
             setWatched={setWatched}

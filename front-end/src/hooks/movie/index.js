@@ -2,22 +2,37 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { baseUrl, apiKey, backendUrl } from "../../config";
 import Promise from "bluebird";
+import { headers } from "../../authHelpers";
 
-const useMovie = (movieId, getFavourite, http = axios) => {
+const useMovie = (movieId, getFavourite, variant, http = axios) => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [update, setUpdate] = useState(0);
 
-  const fetchMovieData = async event => {
-    const { movie, cast } = await Promise.props({
-      cast: http(`${baseUrl}movie/${movieId}/credits?api_key=${apiKey}`),
-      movie: http(`${baseUrl}movie/${movieId}?api_key=${apiKey}`)
-    });
+  const fetchMovieData = async () => {
+    try {
+      const { movie, cast } = await Promise.props({
+        cast: http(`${baseUrl}movie/${movieId}/credits?api_key=${apiKey}`),
+        movie: http({
+          method: "GET",
+          url:
+            backendUrl +
+            (variant === "favourites"
+              ? `favourites/${movieId}`
+              : `films/${movieId}`),
+          ...headers
+        })
+      });
 
-    const favouriteMovie = getFavourite(movieId);
+      console.log("--> movie", movie);
 
-    setMovie({ ...movie.data, ...cast.data, ...favouriteMovie });
-    setLoading(false);
+      const favouriteMovie = getFavourite(movieId);
+
+      setMovie({ ...movie.data, ...cast.data, ...favouriteMovie });
+      setLoading(false);
+    } catch (error) {
+      console.error("movieById not loading", error);
+    }
   };
 
   const onUpdate = () => {

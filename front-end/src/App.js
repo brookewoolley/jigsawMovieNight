@@ -120,6 +120,21 @@ const App = props => {
                   deleteReview={deleteReview}
                   getFavourite={getFavourite}
                   setRating={setRating}
+                  variant={"popular"}
+                />
+              )}
+            />
+            <Route
+              path={"/favourites/:id"}
+              render={props => (
+                <Modal
+                  {...props}
+                  setWatched={setWatched}
+                  createReview={createReview}
+                  deleteReview={deleteReview}
+                  getFavourite={getFavourite}
+                  setRating={setRating}
+                  variant={"favourites"}
                 />
               )}
             />

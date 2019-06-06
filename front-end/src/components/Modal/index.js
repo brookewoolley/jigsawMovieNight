@@ -128,10 +128,12 @@ const localStyles = {
 };
 
 const Modal = props => {
+  console.log("---> here's ya modal");
   let releaseDate;
   const { movie, loading, onUpdate } = useMovie(
     props.match.params.id,
-    props.getFavourite
+    props.getFavourite,
+    props.variant
   );
 
   const { isOpen, setIsOpen } = useCollapsible();

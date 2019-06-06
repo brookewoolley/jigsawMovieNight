@@ -1,17 +1,26 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { baseUrl, apiKey } from "../../config";
+import { baseUrl, apiKey, backendUrl } from "../../config";
+import { headers } from "../../authHelpers";
 
 const useMovies = (initialState = []) => {
   const [value, setValue] = useState("");
   const [popularList, setPopularList] = useState([]);
   const [favouriteList, setFavouriteList] = useState(initialState);
-  const [review, setReview] = useState("");
 
   const fetchPopularData = async () => {
-    const res = await axios(`${baseUrl}movie/popular?api_key=${apiKey}`);
+    try {
+      const params = {
+        method: "get",
+        url: backendUrl + "films",
+        ...headers
+      };
+      const { data } = await axios(params);
 
-    setPopularList(res.data.results);
+      setPopularList(data);
+    } catch (err) {
+      console.error("nahh mate", err);
+    }
   };
 
   useEffect(() => {

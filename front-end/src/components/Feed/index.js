@@ -62,7 +62,7 @@ const Feed = ({
             rating={rating}
             setRating={setRating}
             setWatched={setWatched}
-            history={history}
+            onClick={movieId => history.push(`/favourites/${movieId}`)}
           />
         )}
       </div>
