@@ -1,9 +1,9 @@
 import React from "react";
 import { IMG_PATH, COLLAPSIBLE_HEADER } from "../../config.js";
 import closeButton from "../../images/closeButton.png";
-import useMovie from "../../hooks/movie/index.js";
+import useMovie from "../../hooks/movie";
 import CastSection from "../CastSection";
-import useCollapsible from "../../hooks/collapsible/index.js";
+import useCollapsible from "../../hooks/collapsible";
 import Collapsible from "../Collapsible";
 import WatchedSection from "../WatchedSection";
 import Review from "../Review";

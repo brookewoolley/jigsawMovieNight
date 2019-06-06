@@ -53,7 +53,8 @@ const Movie = ({
   variant,
   rating,
   setRating,
-  movie
+  movie,
+  onClick
 }) => {
   return (
     <div style={localStyles.movie}>
@@ -66,7 +67,7 @@ const Movie = ({
         )}
       </div>
 
-      <img style={localStyles.movieImage} src={image} alt={title} />
+      <img style={localStyles.movieImage} src={image} alt={title} onClick={onClick}/>
       <div style={localStyles.movieDetails}>
         <h2 style={localStyles.movieTitle}>{title}</h2>
         <span style={localStyles.movieOverview}>{overview}</span>

@@ -11,7 +11,7 @@ const useMovie = (movieId, getFavourite, http = axios) => {
   const fetchMovieData = async event => {
     const { movie, cast } = await Promise.props({
       cast: http(`${baseUrl}movie/${movieId}/credits?api_key=${apiKey}`),
-      movie: http(`${backendUrl}films/ById/${movieId}`)
+      movie: http(`${baseUrl}movie/${movieId}?api_key=${apiKey}`)
     });
 
     const favouriteMovie = getFavourite(movieId);

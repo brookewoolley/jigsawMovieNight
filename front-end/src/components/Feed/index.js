@@ -19,7 +19,8 @@ const Feed = ({
   rating,
   setRating,
   setWatched,
-  match
+  match,
+  history
 }) => {
   return (
     <div
@@ -57,6 +58,7 @@ const Feed = ({
             rating={rating}
             setRating={setRating}
             setWatched={setWatched}
+            history={history}
           />
         )}
       </div>
