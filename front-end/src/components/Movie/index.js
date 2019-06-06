@@ -67,7 +67,12 @@ const Movie = ({
         )}
       </div>
 
-      <img style={localStyles.movieImage} src={image} alt={title} onClick={onClick}/>
+      <img
+        style={localStyles.movieImage}
+        src={image}
+        alt={title}
+        onClick={onClick}
+      />
       <div style={localStyles.movieDetails}>
         <h2 style={localStyles.movieTitle}>{title}</h2>
         <span style={localStyles.movieOverview}>{overview}</span>

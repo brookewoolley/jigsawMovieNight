@@ -19,7 +19,6 @@ const useMovies = (initialState = []) => {
   }, []);
 
   const searchMovies = async event => {
-    console.log("VALUE--->", event.target.value);
     setValue(event.target.value);
     if (!event.target.value) {
       fetchPopularData();
@@ -124,7 +123,6 @@ const useMovies = (initialState = []) => {
     setWatched,
     createReview,
     getFavourite,
-    review,
     deleteReview
   };
 };

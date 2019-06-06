@@ -8,7 +8,7 @@ const ListOfMovies = ({
   variant,
   setRating,
   setWatched,
-  history
+  onClick
 }) => {
   return (
     <div style={{ paddingLeft: 20, paddingRight: 20 }}>

@@ -11,7 +11,7 @@ import RatingsButton from "../RatingsButton";
 
 const localStyles = {
   daddyDiv: {
-    position: "relative",
+    position: "fixed",
     zIndex: 3,
     display: "flex",
     flexDirection: "column",

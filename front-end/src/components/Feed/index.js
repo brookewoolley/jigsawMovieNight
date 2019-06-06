@@ -22,6 +22,9 @@ const Feed = ({
   match,
   history
 }) => {
+  if (!window.localStorage.getItem("token")) {
+    history.push("/");
+  }
   return (
     <div
       style={{
@@ -45,6 +48,7 @@ const Feed = ({
             isFavourite={isFavourite}
             variant={match.params[0]}
             rating={rating}
+            onClick={movieId => history.push(`/movies/${movieId}`)}
           />
         )}
       </div>

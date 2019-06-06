@@ -46,7 +46,6 @@ const App = props => {
     setWatched,
     createReview,
     deleteReview,
-    review,
     getFavourite
   } = useMovies();
 
@@ -89,6 +88,7 @@ const App = props => {
             filter={filter}
             sort={sort}
             setSort={setSort}
+            history={props.history}
           />
           <Switch>
             <Route path="/" exact render={() => <LandingPage />} />
@@ -111,7 +111,7 @@ const App = props => {
               )}
             />
             <Route
-              path="/movies/:id"
+              path={"/movies/:id"}
               render={props => (
                 <Modal
                   {...props}

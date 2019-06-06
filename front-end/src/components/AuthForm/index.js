@@ -117,7 +117,6 @@ const AuthForm = ({
   error,
   onFocus
 }) => {
-  console.log("----> ERROR", error);
   return (
     <div style={localStyles.container}>
       <div style={localStyles.header}>
