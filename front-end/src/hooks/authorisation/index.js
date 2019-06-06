@@ -25,6 +25,7 @@ const useAuthorisation = history => {
       setLoading(false);
 
       window.localStorage.setItem("token", data.token);
+
       window.localStorage.setItem("username", data.username);
       history.push("/popular");
     } catch (err) {
