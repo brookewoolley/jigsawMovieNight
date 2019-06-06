@@ -29,9 +29,24 @@ test("user can add watched status to a movie", () => {
   expect(result.current.favouriteList[1].watched).toBe(true);
 });
 
-test("user can add review to a movie", () => {
+test("user can create review for a movie", () => {
   const { result } = renderHook(() => useMovies(fakeList));
   const event = { target: { value: "review" } };
   act(() => result.current.createReview(dummyMovie, event));
   expect(result.current.favouriteList[1].review).toEqual("review");
+});
+
+test("favourite movie is removed if favourite function is toggled", () => {
+  const { result } = renderHook(() => useMovies(fakeList));
+  act(() => result.current.favouriteMovie(newMovie));
+  act(() => result.current.favouriteMovie(newMovie));
+  expect(result.current.favouriteList).not.toContain(newMovie);
+});
+
+test("user can delete a review for a movie", () => {
+  const { result } = renderHook(() => useMovies(fakeList));
+  const event = { target: { value: "review" } };
+  act(() => result.current.createReview(dummyMovie, event));
+  act(() => result.current.deleteReview(dummyMovie));
+  expect(result.current.favouriteList[1].review).toBeUndefined();
 });
