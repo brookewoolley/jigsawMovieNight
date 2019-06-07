@@ -128,13 +128,23 @@ const localStyles = {
 };
 
 const Modal = props => {
-  console.log("---> here's ya modal");
-  let releaseDate;
-  const { movie, loading, onUpdate } = useMovie(
+  const {
+    movie,
+    loading,
+    onUpdate,
+    createReview,
+    deleteReview,
+    setWatched,
+    setRating
+  } = useMovie(
     props.match.params.id,
     props.getFavourite,
-    props.variant
+    props.variant,
+    props.setFavouriteList,
+    props.favouriteList
   );
+  console.log("---> here's ya modal");
+  let releaseDate;
 
   const { isOpen, setIsOpen } = useCollapsible();
 
@@ -189,7 +199,7 @@ const Modal = props => {
             <RatingsButton
               setRating={rating => {
                 onUpdate();
-                props.setRating(movie, rating);
+                setRating(movie, rating);
               }}
               rating={movie.rating}
               starStyle={localStyles.star}
@@ -200,7 +210,7 @@ const Modal = props => {
                 movie={movie}
                 setWatched={() => {
                   onUpdate();
-                  props.setWatched(movie);
+                  setWatched(movie);
                 }}
               />
             )}
@@ -217,9 +227,9 @@ const Modal = props => {
           </Collapsible>
           {movie.watched === true ? (
             <Review
-              onReview={event => props.createReview(movie, event)}
+              onReview={event => createReview(movie, event)}
               review={movie.review}
-              onDelete={() => props.deleteReview(movie)}
+              onDelete={() => deleteReview(movie)}
             />
           ) : null}
         </div>

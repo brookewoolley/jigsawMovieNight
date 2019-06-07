@@ -39,14 +39,12 @@ const App = props => {
     popularList,
     searchMovies,
     favouriteList,
+    setFavouriteList,
     favouriteMovie,
     isFavourite,
     clearSearch,
-    setRating,
-    setWatched,
-    createReview,
-    deleteReview,
-    getFavourite
+    getFavourite,
+    setMovieRating
   } = useMovies();
 
   const { setFilter, filter, returnAlteredList, sort, setSort } = useFilters();
@@ -104,8 +102,7 @@ const App = props => {
                   isFavourite={isFavourite}
                   favouriteList={returnAlteredList(favouriteList)}
                   navOffset={NAV_HEIGHT}
-                  setRating={setRating}
-                  setWatched={setWatched}
+                  setRating={setMovieRating}
                   {...props}
                 />
               )}
@@ -115,12 +112,9 @@ const App = props => {
               render={props => (
                 <Modal
                   {...props}
-                  setWatched={setWatched}
-                  createReview={createReview}
-                  deleteReview={deleteReview}
                   getFavourite={getFavourite}
-                  setRating={setRating}
                   variant={"popular"}
+                  setFavouriteList={setFavouriteList}
                 />
               )}
             />
@@ -129,11 +123,8 @@ const App = props => {
               render={props => (
                 <Modal
                   {...props}
-                  setWatched={setWatched}
-                  createReview={createReview}
-                  deleteReview={deleteReview}
                   getFavourite={getFavourite}
-                  setRating={setRating}
+                  setFavouriteList={setFavouriteList}
                   variant={"favourites"}
                 />
               )}
