@@ -94,14 +94,46 @@ const useMovie = (
     }
   };
 
-  const setWatched = movie => {
-    const newFavourites = [...favouriteList].map(favouriteMovie => {
-      if (favouriteMovie.id === movie.id) {
-        favouriteMovie.watched = !favouriteMovie.watched;
+  const postWatched = async movie => {
+    try {
+      const params = {
+        method: "post",
+        url: backendUrl + `favourites/watched`,
+        data: { movieId: movie.id, watchedStatus: true },
+        headers
+      };
+      await axios(params);
+    } catch (error) {
+      console.error("Unable to post watched status", error);
+    }
+  };
+
+  const setWatched = async movie => {
+    try {
+      if (!movie.watchedStatus) {
+        await postWatched(movie);
+        return setMovie({
+          ...movie,
+          watchedStatus: true
+        });
+      } else {
+        await postWatched(movie);
+        return setMovie({
+          ...movie,
+          watchedStatus: null
+        });
       }
-      return favouriteMovie;
-    });
-    setFavouriteList(newFavourites);
+
+      // const newFavourites = [...favouriteList].map(favouriteMovie => {
+      //   if (favouriteMovie.id === movie.id) {
+      //     favouriteMovie.watched = !favouriteMovie.watched;
+      //   }
+      //   return favouriteMovie;
+      // });
+      // setFavouriteList(newFavourites);
+    } catch (error) {
+      console.error("Unable to set Watched status", error);
+    }
   };
 
   return {

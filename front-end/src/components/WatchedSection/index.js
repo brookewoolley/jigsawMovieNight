@@ -33,7 +33,7 @@ const localStyles = {
     zIndex: 5,
     backgroundColor: "white",
     color: "#0fd6af",
-    backgroundImage: "white",
+    backgroundImage: "none",
     border: "1px solid #0fd6af"
   },
 
@@ -53,7 +53,9 @@ const WatchedSection = ({ setWatched, movie }) => {
   return (
     <Button
       onClick={() => setWatched(movie)}
-      style={!!movie.watched ? localStyles.buttonOn : localStyles.buttonOff}
+      style={
+        !!movie.watchedStatus ? localStyles.buttonOn : localStyles.buttonOff
+      }
     >
       <span style={localStyles.symbolContainer}>
         <span>WATCHED</span>

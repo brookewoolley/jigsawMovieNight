@@ -166,8 +166,7 @@ const useMovies = (initialState = []) => {
         url: backendUrl + `favourites/${movie.id}`,
         headers
       };
-      const { data } = await axios(params);
-      console.log(data);
+      await axios(params);
     } catch (error) {
       console.error("this movie is not in your list", error);
     }

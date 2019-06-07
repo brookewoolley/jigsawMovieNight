@@ -208,7 +208,6 @@ const Modal = props => {
               <WatchedSection
                 movie={movie}
                 setWatched={() => {
-                  onUpdate();
                   setWatched(movie);
                 }}
               />
@@ -224,7 +223,7 @@ const Modal = props => {
           >
             <CastSection castList={movie.cast} loading={loading} />
           </Collapsible>
-          {movie.watched === true ? (
+          {movie.watchedStatus === true ? (
             <Review
               onReview={event => createReview(movie, event)}
               review={movie.review}
