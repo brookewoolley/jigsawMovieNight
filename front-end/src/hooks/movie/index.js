@@ -10,6 +10,7 @@ const useMovie = (movieId, getFavourite, variant, http = axios) => {
   const [update, setUpdate] = useState(0);
 
   const fetchMovieData = async () => {
+    console.log(headers);
     try {
       const { movie, cast } = await Promise.props({
         cast: http(`${baseUrl}movie/${movieId}/credits?api_key=${apiKey}`),
@@ -20,11 +21,11 @@ const useMovie = (movieId, getFavourite, variant, http = axios) => {
             (variant === "favourites"
               ? `favourites/${movieId}`
               : `films/${movieId}`),
-          ...headers
+          headers
         })
       });
 
-      console.log("--> movie", movie);
+      console.log("--> movie fetch", movie);
 
       const favouriteMovie = getFavourite(movieId);
 

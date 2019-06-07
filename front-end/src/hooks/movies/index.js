@@ -9,11 +9,12 @@ const useMovies = (initialState = []) => {
   const [favouriteList, setFavouriteList] = useState(initialState);
 
   const fetchPopularData = async () => {
+    console.log(headers);
     try {
       const params = {
         method: "get",
         url: backendUrl + "films",
-        ...headers
+        headers
       };
       const { data } = await axios(params);
 
@@ -62,7 +63,25 @@ const useMovies = (initialState = []) => {
     setFavouriteList(newFavourites);
   };
 
+  const postFavouriteMovie = async movie => {
+    try {
+      const params = {
+        method: "post",
+        url: backendUrl + "favourites",
+        data: { movieId: movie.id },
+        headers
+      };
+      console.log(headers);
+      console.log("----post", params);
+      const { data } = await axios(params);
+      console.log(data);
+    } catch (err) {
+      console.error("no way mate, favourites", err);
+    }
+  };
+
   const favouriteMovie = movie => {
+    postFavouriteMovie(movie);
     const newFavourites = [...favouriteList, movie];
     isFavourite(movie)
       ? deleteFavouriteMovie(movie)
