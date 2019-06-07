@@ -10,9 +10,13 @@ const localStyles = {
     width: "100%",
     fontSize: 14,
     border: 0,
-    backgroundColor: BACKGROUND_COLOR
+    backgroundColor: BACKGROUND_COLOR,
+    outline: "none"
   },
   container: {
+    maxWidth: 500,
+    marginLeft: "auto",
+    marginRight: "auto",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",

@@ -19,15 +19,19 @@ const useMovies = () => {
   }, []);
 
   const searchMovies = async event => {
+    console.log("VALUE--->", event.target.value);
     setValue(event.target.value);
+    if (!event.target.value) {
+      fetchPopularData();
+    } else {
+      const res = await fetch(
+        `${baseUrl}search/movie?api_key=${apiKey}&query=${event.target.value}`
+      );
 
-    const res = await fetch(
-      `${baseUrl}search/movie?api_key=${apiKey}&query=${event.target.value}`
-    );
+      const parsedRes = await res.json();
 
-    const parsedRes = await res.json();
-
-    return setPopularList(parsedRes.results);
+      return setPopularList(parsedRes.results);
+    }
   };
 
   const createReview = (movie, event) => {

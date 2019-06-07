@@ -51,7 +51,7 @@ const App = props => {
     getFavourite
   } = useMovies();
 
-  const { setFilter, filter, returnFilteredList } = useFilters();
+  const { setFilter, filter, returnAlteredList, sort, setSort } = useFilters();
 
   const { setModalMovie, modalMovie } = useModal();
 
@@ -90,6 +90,8 @@ const App = props => {
             NAV_HEIGHT={NAV_HEIGHT}
             setFilter={setFilter}
             filter={filter}
+            sort={sort}
+            setSort={setSort}
           />
           <Switch>
             <Route path="/" exact render={() => <LandingPage />} />
@@ -103,7 +105,7 @@ const App = props => {
                   popularList={popularList}
                   favouriteMovie={favouriteMovie}
                   isFavourite={isFavourite}
-                  favouriteList={returnFilteredList(favouriteList)}
+                  favouriteList={returnAlteredList(favouriteList)}
                   navOffset={NAV_HEIGHT}
                   setRating={setRating}
                   setModalMovie={setModalMovie}
