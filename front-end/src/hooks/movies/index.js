@@ -41,6 +41,10 @@ const useMovies = (initialState = []) => {
   useEffect(() => {
     fetchPopularData();
     fetchFavouriteData();
+    // return () => {
+    //   console.log("------- does this happen>");
+    //   fetchFavouriteData().then(setFavouriteList([]));
+    // };
   }, []);
 
   const searchMovies = async event => {
@@ -130,9 +134,9 @@ const useMovies = (initialState = []) => {
     }
   };
 
-  const setMovieRating = (movie, rating) => {
+  const setMovieRating = async (movie, rating) => {
     try {
-      postRating(movie, rating);
+      await postRating(movie, rating);
       const newFavourites = [...favouriteList].map(favouriteMovie => {
         if (favouriteMovie.id === movie.id) {
           favouriteMovie.rating = rating;

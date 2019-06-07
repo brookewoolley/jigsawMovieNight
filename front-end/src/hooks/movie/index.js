@@ -31,11 +31,11 @@ const useMovie = (
         })
       });
 
-      console.log("--> movie fetch", movie.data);
+      console.log("--> movie fetch", { variant, date: movie.data });
 
-      const favouriteMovie = getFavourite(movieId);
+      // const favouriteMovie = getFavourite(movieId);
 
-      setMovie({ ...movie.data, ...cast.data, ...favouriteMovie });
+      setMovie({ ...movie.data, ...cast.data });
       setLoading(false);
     } catch (error) {
       console.error("movieById not loading", error);
@@ -67,14 +67,31 @@ const useMovie = (
     setFavouriteList(newFavourites);
   };
 
+  const postRating = async (movie, rating) => {
+    try {
+      const params = {
+        method: "post",
+        url: backendUrl + `favourites/rate`,
+        data: { movieId: movie.id, rating: rating },
+        headers
+      };
+      await axios(params);
+    } catch (error) {
+      console.error("Unable to post rating", error);
+    }
+  };
+
   const setRating = async (movie, rating) => {
-    const newFavourites = [...favouriteList].map(favouriteMovie => {
-      if (favouriteMovie.id === movie.id) {
-        favouriteMovie.rating = rating;
-      }
-      return favouriteMovie;
-    });
-    setFavouriteList(newFavourites);
+    try {
+      await postRating(movie, rating);
+
+      return setMovie({
+        ...movie,
+        rating
+      });
+    } catch (error) {
+      console.error("Unable to set rating on modal", error);
+    }
   };
 
   const setWatched = movie => {

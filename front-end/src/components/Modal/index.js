@@ -139,11 +139,11 @@ const Modal = props => {
   } = useMovie(
     props.match.params.id,
     props.getFavourite,
-    props.variant,
     props.setFavouriteList,
-    props.favouriteList
+    props.favouriteList,
+    props.variant
   );
-  console.log("---> here's ya modal");
+  console.log("---> here's ya modal", props);
   let releaseDate;
 
   const { isOpen, setIsOpen } = useCollapsible();
@@ -198,7 +198,6 @@ const Modal = props => {
             </ul>
             <RatingsButton
               setRating={rating => {
-                onUpdate();
                 setRating(movie, rating);
               }}
               rating={movie.rating}
