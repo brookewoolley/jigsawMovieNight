@@ -57,7 +57,7 @@ const Navbar = ({ children, height, buttons, match }) => {
     <div style={{ ...localStyles.container, height }}>
       <div style={localStyles.wrapper}>
         <div style={localStyles.leftIcons}>
-          <img style={localStyles.icon} src={clapper} />
+          <img style={localStyles.icon} src={clapper} alt="" />
           <div style={localStyles.username}>
             HI {window.localStorage.getItem("username").toUpperCase()}!
           </div>

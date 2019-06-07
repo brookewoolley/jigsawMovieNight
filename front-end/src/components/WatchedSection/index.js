@@ -1,39 +1,64 @@
 import React from "react";
-import Review from "../Review";
 import Button from "../Button";
 
 const localStyles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-    paddingTop: 20
-  },
-
-  buttonContainer: {
+  buttonOn: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-around",
-    padding: 10
+    fontSize: 12,
+    padding: 0,
+    paddingLeft: 20,
+    paddingRight: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    height: 30,
+    width: 120,
+    marginTop: "auto",
+    zIndex: 5,
+    border: "1px solid #0fd6af"
+  },
+
+  buttonOff: {
+    display: "flex",
+    flexDirection: "row",
+    fontSize: 12,
+    padding: 0,
+    paddingLeft: 20,
+    paddingRight: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    height: 30,
+    width: 120,
+    marginTop: "auto",
+    zIndex: 5,
+    backgroundColor: "white",
+    color: "#0fd6af",
+    backgroundImage: "white",
+    border: "1px solid #0fd6af"
+  },
+
+  watchSymbol: {
+    fontSize: 16,
+    marginRight: 4
+  },
+  symbolContainer: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between"
   }
 };
 
-const WatchedSection = ({ setWatched, movie, setReview }) => {
+const WatchedSection = ({ setWatched, movie }) => {
   return (
-    <div style={localStyles.container}>
-      {movie.watched === true ? (
-        <Review
-          onReview={event => setReview(movie, event.target.value)}
-          value={movie.review}
-        />
-      ) : (
-        <div style={localStyles.buttonContainer}>
-          <Button onClick={() => setWatched(movie)}>
-            I'VE WATCHED THIS MOVIE
-          </Button>
-        </div>
-      )}
-    </div>
+    <Button
+      onClick={() => setWatched(movie)}
+      style={!!movie.watched ? localStyles.buttonOn : localStyles.buttonOff}
+    >
+      <span style={localStyles.symbolContainer}>
+        <span>WATCHED</span>
+      </span>
+    </Button>
   );
 };
 

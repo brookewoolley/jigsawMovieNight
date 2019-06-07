@@ -12,24 +12,26 @@ const ListOfMovies = ({
 }) => {
   return (
     <div style={{ paddingLeft: 20, paddingRight: 20 }}>
-      {popularList.map(movie => {
-        return (
-          <Movie
-            key={movie.id}
-            title={movie.title}
-            overview={movie.overview}
-            image={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-            onFavouriteMovie={() => favouriteMovie(movie)}
-            isFavourite={isFavourite(movie)}
-            variant={variant}
-            rating={movie.rating}
-            setRating={rating => setRating(movie, rating)}
-            setModalMovie={() => history.push(`/movies/${movie.id}`)}
-            setWatched={setWatched}
-            movie={movie}
-          />
-        );
-      })}
+      {popularList
+        .map(movie => {
+          return (
+            <Movie
+              key={movie.id}
+              title={movie.title}
+              overview={movie.overview}
+              image={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              onFavouriteMovie={() => favouriteMovie(movie)}
+              isFavourite={isFavourite(movie)}
+              variant={variant}
+              rating={movie.rating}
+              setRating={rating => setRating(movie, rating)}
+              setModalMovie={() => history.push(`/movies/${movie.id}`)}
+              setWatched={setWatched}
+              movie={movie}
+            />
+          );
+        })
+        .reverse()}
     </div>
   );
 };

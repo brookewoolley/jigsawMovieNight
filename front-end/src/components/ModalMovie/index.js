@@ -124,7 +124,9 @@ const ModalMovie = props => {
               onUpdate();
               props.setWatched(movie);
             }}
-            setReview={props.setReview}
+            createReview={props.createReview}
+            review={props.review}
+            deleteReview={props.deleteReview}
           />
         )}
       </div>

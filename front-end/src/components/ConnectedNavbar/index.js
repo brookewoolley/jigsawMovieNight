@@ -2,13 +2,16 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Navbar from "../Navbar";
 import SearchForm from "../SearchForm";
+import FeedFilter from "../FeedFilter";
 
 const ConnectedNavBar = ({
   displayFilters,
   value,
   searchMovies,
   clearSearch,
-  NAV_HEIGHT
+  NAV_HEIGHT,
+  setFilter,
+  filter
 }) => {
   return (
     <Switch>
@@ -25,6 +28,12 @@ const ConnectedNavBar = ({
                     searchMovies={searchMovies}
                     onClear={clearSearch}
                   />
+                )}
+              />
+              <Route
+                path={"/favourites"}
+                render={() => (
+                  <FeedFilter setFilter={setFilter} filter={filter} />
                 )}
               />
             </Switch>

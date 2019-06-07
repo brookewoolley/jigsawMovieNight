@@ -6,6 +6,7 @@ const useMovies = () => {
   const [value, setValue] = useState("");
   const [popularList, setPopularList] = useState([]);
   const [favouriteList, setFavouriteList] = useState([]);
+  const [review, setReview] = useState("");
 
   const fetchPopularData = async () => {
     const res = await axios(`${baseUrl}movie/popular?api_key=${apiKey}`);
@@ -29,10 +30,33 @@ const useMovies = () => {
     return setPopularList(parsedRes.results);
   };
 
+  const createReview = (movie, event) => {
+    setReview(event.target.value);
+
+    const newFavourites = [...favouriteList].map(favouriteMovie => {
+      if (favouriteMovie.id === movie.id) {
+        favouriteMovie.review = event.target.value;
+      }
+      return favouriteMovie;
+    });
+    setFavouriteList(newFavourites);
+  };
+
+  const deleteReview = movie => {
+    setReview("");
+    const newFavourites = [...favouriteList].map(favouriteMovie => {
+      if (favouriteMovie.id === movie.id) {
+        delete favouriteMovie.review;
+      }
+      return favouriteMovie;
+    });
+    setFavouriteList(newFavourites);
+  };
+
   const favouriteMovie = movie => {
     const newFavourites = [...favouriteList, movie];
     isFavourite(movie)
-      ? alert("Already in your favourites")
+      ? deleteFavouriteMovie(movie)
       : setFavouriteList(newFavourites);
   };
 
@@ -68,16 +92,6 @@ const useMovies = () => {
     setFavouriteList(newFavourites);
   };
 
-  const setReview = (movie, review) => {
-    const newFavourites = [...favouriteList].map(favouriteMovie => {
-      if (favouriteMovie.id === movie.id) {
-        favouriteMovie.review = review;
-      }
-      return favouriteMovie;
-    });
-    setFavouriteList(newFavourites);
-  };
-
   const getFavourite = id => {
     return favouriteList.filter(movie => {
       if (movie.id.toString() === id) {
@@ -85,6 +99,16 @@ const useMovies = () => {
       }
       return null;
     })[0];
+  };
+
+  const deleteFavouriteMovie = movie => {
+    const newFavourites = favouriteList.filter(favouriteMovie => {
+      if (favouriteMovie.id !== movie.id) {
+        return favouriteMovie;
+      }
+      return null;
+    });
+    setFavouriteList(newFavourites);
   };
 
   return {
@@ -97,8 +121,10 @@ const useMovies = () => {
     clearSearch,
     setRating,
     setWatched,
-    setReview,
-    getFavourite
+    createReview,
+    getFavourite,
+    review,
+    deleteReview
   };
 };
 

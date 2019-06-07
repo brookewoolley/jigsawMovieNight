@@ -12,9 +12,9 @@ const localStyles = {
   }
 };
 
-const StarButton = ({ isFilled, onClick }) => {
+const StarButton = ({ isFilled, onClick, style }) => {
   return (
-    <button style={localStyles.button} onClick={onClick}>
+    <button style={{ ...localStyles.button, ...style }} onClick={onClick}>
       <span>{isFilled ? "★" : "☆"}</span>
     </button>
   );

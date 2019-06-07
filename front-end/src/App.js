@@ -1,7 +1,8 @@
 import React from "react";
 import useMovies from "../src/hooks/movies";
+import useFilters from "../src/hooks/filters";
 import Feed from "../src/components/Feed";
-import ModalMovie from "../src/components/ModalMovie";
+import Modal from "../src/components/Modal";
 import useModal from "./hooks/modal";
 import ConnectedNavBar from "../src/components/ConnectedNavbar";
 import LandingPage from "../src/components/LandingPage";
@@ -29,7 +30,7 @@ const localStyles = {
     textDecoration: "none",
     fontWeight: 700,
     letterSpacing: "2px",
-    fontSize: 14
+    fontSize: 12
   }
 };
 
@@ -44,9 +45,13 @@ const App = props => {
     clearSearch,
     setRating,
     setWatched,
-    setReview,
+    createReview,
+    deleteReview,
+    review,
     getFavourite
   } = useMovies();
+
+  const { setFilter, filter, returnFilteredList } = useFilters();
 
   const { setModalMovie, modalMovie } = useModal();
 
@@ -62,7 +67,7 @@ const App = props => {
     {
       component: (
         <Link style={localStyles.link} to="/favourites">
-          {`FAVES (${favouriteList.length})`}
+          {`MY LIST (${favouriteList.length})`}
         </Link>
       ),
       id: "favourites"
@@ -83,6 +88,8 @@ const App = props => {
             searchMovies={searchMovies}
             clearSearch={clearSearch}
             NAV_HEIGHT={NAV_HEIGHT}
+            setFilter={setFilter}
+            filter={filter}
           />
           <Switch>
             <Route path="/" exact render={() => <LandingPage />} />
@@ -96,7 +103,7 @@ const App = props => {
                   popularList={popularList}
                   favouriteMovie={favouriteMovie}
                   isFavourite={isFavourite}
-                  favouriteList={favouriteList}
+                  favouriteList={returnFilteredList(favouriteList)}
                   navOffset={NAV_HEIGHT}
                   setRating={setRating}
                   setModalMovie={setModalMovie}
@@ -108,13 +115,16 @@ const App = props => {
             <Route
               path="/movies/:id"
               render={props => (
-                <ModalMovie
+                <Modal
                   {...props}
                   setWatched={setWatched}
                   modalMovie={modalMovie}
                   setModalMovie={setModalMovie}
-                  setReview={setReview}
+                  createReview={createReview}
+                  deleteReview={deleteReview}
+                  review={review}
                   getFavourite={getFavourite}
+                  setRating={setRating}
                 />
               )}
             />
