@@ -1,5 +1,5 @@
-import { baseUrl, apiKey } from "../config";
-import React, { useState, useEffect } from "react";
+import { baseUrl, apiKey } from "../../config";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const usePopularMovies = () => {

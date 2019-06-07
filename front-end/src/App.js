@@ -1,9 +1,8 @@
 import React from "react";
-import useMovies from "../src/hooks/movies";
-import useFilters from "../src/hooks/filters";
+import useMovies from "../src/hooks/movies/index.js";
+import useFilters from "../src/hooks/filters/index.js";
 import Feed from "../src/components/Feed";
 import Modal from "../src/components/Modal";
-import useModal from "./hooks/modal";
 import ConnectedNavBar from "../src/components/ConnectedNavbar";
 import LandingPage from "../src/components/LandingPage";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
@@ -47,13 +46,10 @@ const App = props => {
     setWatched,
     createReview,
     deleteReview,
-    review,
     getFavourite
   } = useMovies();
 
   const { setFilter, filter, returnAlteredList, sort, setSort } = useFilters();
-
-  const { setModalMovie, modalMovie } = useModal();
 
   const displayFilters = [
     {
@@ -92,6 +88,7 @@ const App = props => {
             filter={filter}
             sort={sort}
             setSort={setSort}
+            history={props.history}
           />
           <Switch>
             <Route path="/" exact render={() => <LandingPage />} />
@@ -108,25 +105,36 @@ const App = props => {
                   favouriteList={returnAlteredList(favouriteList)}
                   navOffset={NAV_HEIGHT}
                   setRating={setRating}
-                  setModalMovie={setModalMovie}
                   setWatched={setWatched}
                   {...props}
                 />
               )}
             />
             <Route
-              path="/movies/:id"
+              path={"/movies/:id"}
               render={props => (
                 <Modal
                   {...props}
                   setWatched={setWatched}
-                  modalMovie={modalMovie}
-                  setModalMovie={setModalMovie}
                   createReview={createReview}
                   deleteReview={deleteReview}
-                  review={review}
                   getFavourite={getFavourite}
                   setRating={setRating}
+                  variant={"popular"}
+                />
+              )}
+            />
+            <Route
+              path={"/favourites/:id"}
+              render={props => (
+                <Modal
+                  {...props}
+                  setWatched={setWatched}
+                  createReview={createReview}
+                  deleteReview={deleteReview}
+                  getFavourite={getFavourite}
+                  setRating={setRating}
+                  variant={"favourites"}
                 />
               )}
             />

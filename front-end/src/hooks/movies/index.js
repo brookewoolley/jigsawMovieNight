@@ -1,17 +1,26 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { baseUrl, apiKey } from "../config";
+import { baseUrl, apiKey, backendUrl } from "../../config";
+import { headers } from "../../authHelpers";
 
-const useMovies = () => {
+const useMovies = (initialState = []) => {
   const [value, setValue] = useState("");
   const [popularList, setPopularList] = useState([]);
-  const [favouriteList, setFavouriteList] = useState([]);
-  const [review, setReview] = useState("");
+  const [favouriteList, setFavouriteList] = useState(initialState);
 
   const fetchPopularData = async () => {
-    const res = await axios(`${baseUrl}movie/popular?api_key=${apiKey}`);
+    try {
+      const params = {
+        method: "get",
+        url: backendUrl + "films",
+        ...headers
+      };
+      const { data } = await axios(params);
 
-    setPopularList(res.data.results);
+      setPopularList(data);
+    } catch (err) {
+      console.error("nahh mate", err);
+    }
   };
 
   useEffect(() => {
@@ -19,7 +28,6 @@ const useMovies = () => {
   }, []);
 
   const searchMovies = async event => {
-    console.log("VALUE--->", event.target.value);
     setValue(event.target.value);
     if (!event.target.value) {
       fetchPopularData();
@@ -35,8 +43,6 @@ const useMovies = () => {
   };
 
   const createReview = (movie, event) => {
-    setReview(event.target.value);
-
     const newFavourites = [...favouriteList].map(favouriteMovie => {
       if (favouriteMovie.id === movie.id) {
         favouriteMovie.review = event.target.value;
@@ -47,7 +53,6 @@ const useMovies = () => {
   };
 
   const deleteReview = movie => {
-    setReview("");
     const newFavourites = [...favouriteList].map(favouriteMovie => {
       if (favouriteMovie.id === movie.id) {
         delete favouriteMovie.review;
@@ -127,7 +132,6 @@ const useMovies = () => {
     setWatched,
     createReview,
     getFavourite,
-    review,
     deleteReview
   };
 };

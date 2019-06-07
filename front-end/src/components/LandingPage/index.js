@@ -7,7 +7,6 @@ const localStyles = {
   container: {
     display: "flex",
     flexDirection: "column",
-    // justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
     height: "100vh",
@@ -16,6 +15,14 @@ const localStyles = {
     right: 0,
     backgroundImage:
       "linear-gradient(to bottom, rgba(15,214,175, 1), 20%, rgba(0,253,151,0.5)"
+  },
+  wrapper: {
+    display: "flex",
+    flexDirection: "column",
+    maxWidth: 500,
+    alignItems: "center",
+    width: "100%",
+    height: "100vh"
   },
   link: {
     color: "black",
@@ -50,33 +57,35 @@ const localStyles = {
 const LandingPage = () => {
   return (
     <div style={localStyles.container}>
-      <div style={localStyles.clapper}>
-        <img src={clapper} alt={""} />
-      </div>
-      <div style={localStyles.title}>
-        <span>movio</span>
-      </div>
-      <div style={localStyles.buttons}>
-        <Link style={localStyles.link} to="/signup">
-          <Button
-            style={{
-              marginBottom: 20
-            }}
-          >
-            Sign Up
-          </Button>
-        </Link>
-        <Link style={localStyles.link} to="/login">
-          <Button
-            style={{
-              backgroundImage: "none",
-              backgroundColor: "white",
-              color: "#0FD6AF"
-            }}
-          >
-            Login
-          </Button>
-        </Link>
+      <div style={localStyles.wrapper}>
+        <div style={localStyles.clapper}>
+          <img src={clapper} alt={""} />
+        </div>
+        <div style={localStyles.title}>
+          <span>movio</span>
+        </div>
+        <div style={localStyles.buttons}>
+          <Link style={localStyles.link} to="/signup">
+            <Button
+              style={{
+                marginBottom: 20
+              }}
+            >
+              Sign Up
+            </Button>
+          </Link>
+          <Link style={localStyles.link} to="/login">
+            <Button
+              style={{
+                backgroundImage: "none",
+                backgroundColor: "white",
+                color: "#0FD6AF"
+              }}
+            >
+              Login
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );

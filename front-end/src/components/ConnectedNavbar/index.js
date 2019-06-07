@@ -25,8 +25,12 @@ const ConnectedNavBar = ({
   setFilter,
   filter,
   sort,
-  setSort
+  setSort,
+  history
 }) => {
+  if (!window.localStorage.getItem("token")) {
+    history.push("/");
+  }
   return (
     <Switch>
       <Route
