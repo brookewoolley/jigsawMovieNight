@@ -131,17 +131,11 @@ const Modal = props => {
   const {
     movie,
     loading,
-    onUpdate,
     createReview,
     deleteReview,
     setWatched,
     setRating
-  } = useMovie(
-    props.match.params.id,
-    props.setFavouriteList,
-    props.favouriteList,
-    props.variant
-  );
+  } = useMovie(props.match.params.id, props.variant);
   let releaseDate;
 
   const { isOpen, setIsOpen } = useCollapsible();
@@ -204,7 +198,7 @@ const Modal = props => {
                 )}
               </li>
             </ul>
-            {props.isFavourite(props.match.params.id) && (
+            {props.variant === "favourites" && (
               <RatingsButton
                 setRating={rating => {
                   setRating(movie, rating);
@@ -214,7 +208,7 @@ const Modal = props => {
                 rateStyle={localStyles.rating}
               />
             )}
-            {props.isFavourite(props.match.params.id) && (
+            {props.variant === "favourites" && (
               <WatchedSection
                 movie={movie}
                 setWatched={() => {

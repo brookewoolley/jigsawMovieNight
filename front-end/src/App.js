@@ -114,9 +114,8 @@ const App = props => {
               render={props => (
                 <Modal
                   {...props}
-                  isFavourite={isFavourite}
-                  variant={"popular"}
                   setFavouriteList={setFavouriteList}
+                  variant={"popular"}
                 />
               )}
             />
@@ -125,7 +124,6 @@ const App = props => {
               render={props => (
                 <Modal
                   {...props}
-                  isFavourite={isFavourite}
                   setFavouriteList={setFavouriteList}
                   variant={"favourites"}
                 />
