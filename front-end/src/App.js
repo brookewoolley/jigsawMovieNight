@@ -43,8 +43,9 @@ const App = props => {
     favouriteMovie,
     isFavourite,
     clearSearch,
-    getFavourite,
-    setMovieRating
+    setMovieRating,
+    getPopularFeed,
+    getFavouriteFeed
   } = useMovies();
 
   const { setFilter, filter, returnAlteredList, sort, setSort } = useFilters();
@@ -71,7 +72,6 @@ const App = props => {
   if (!window.localStorage.getItem("token")) {
     props.history.push("/");
   }
-
   return (
     <Router>
       <div style={localStyles.container}>
@@ -103,6 +103,8 @@ const App = props => {
                   favouriteList={returnAlteredList(favouriteList)}
                   navOffset={NAV_HEIGHT}
                   setRating={setMovieRating}
+                  getFavouriteFeed={getFavouriteFeed}
+                  getPopularFeed={getPopularFeed}
                   {...props}
                 />
               )}
@@ -112,7 +114,7 @@ const App = props => {
               render={props => (
                 <Modal
                   {...props}
-                  getFavourite={getFavourite}
+                  isFavourite={isFavourite}
                   variant={"popular"}
                   setFavouriteList={setFavouriteList}
                 />
@@ -123,7 +125,7 @@ const App = props => {
               render={props => (
                 <Modal
                   {...props}
-                  getFavourite={getFavourite}
+                  isFavourite={isFavourite}
                   setFavouriteList={setFavouriteList}
                   variant={"favourites"}
                 />

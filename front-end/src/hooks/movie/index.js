@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import * as axios from "axios";
 import { baseUrl, apiKey, backendUrl } from "../../config";
 import Promise from "bluebird";
 import { headers } from "../../authHelpers";
 
 const useMovie = (
   movieId,
-  getFavourite,
   setFavouriteList,
   favouriteList,
   variant,
@@ -16,7 +15,6 @@ const useMovie = (
   const [loading, setLoading] = useState(true);
 
   const fetchMovieData = async () => {
-    console.log(headers);
     try {
       const { movie, cast } = await Promise.props({
         cast: http(`${baseUrl}movie/${movieId}/credits?api_key=${apiKey}`),
@@ -30,11 +28,6 @@ const useMovie = (
           headers
         })
       });
-
-      console.log("--> movie fetch", { variant, date: movie.data });
-
-      // const favouriteMovie = getFavourite(movieId);
-
       setMovie({ ...movie.data, ...cast.data });
       setLoading(false);
     } catch (error) {
@@ -47,24 +40,69 @@ const useMovie = (
     return setMovie(null);
   }, []);
 
-  const createReview = (movie, event) => {
-    const newFavourites = [...favouriteList].map(favouriteMovie => {
-      if (favouriteMovie.id === movie.id) {
-        favouriteMovie.review = event.target.value;
+  const createReview = async (movie, event) => {
+    try {
+      console.log("event--->", event);
+      if (!movie.review) {
+        postReview(movie, event.target.value);
+        console.log("post review executed");
+        return setMovie({
+          ...movie,
+          event
+        });
+      } else {
+        patchUpdate(movie, { review: event.target.value });
+        return setMovie({
+          ...movie,
+          event
+        });
       }
-      return favouriteMovie;
-    });
-    setFavouriteList(newFavourites);
+    } catch (error) {
+      console.error("Sorry mate, couldn't leave a review", error);
+    }
   };
 
-  const deleteReview = movie => {
-    const newFavourites = [...favouriteList].map(favouriteMovie => {
-      if (favouriteMovie.id === movie.id) {
-        delete favouriteMovie.review;
-      }
-      return favouriteMovie;
-    });
-    setFavouriteList(newFavourites);
+  const postReview = async (movie, review) => {
+    console.log("postReview--->", review);
+    try {
+      const params = {
+        method: "post",
+        url: backendUrl + `favourites/review`,
+        data: { movieId: movie.id, review: review },
+        headers
+      };
+      const res = await axios(params);
+      console.log(res);
+    } catch (error) {
+      console.error("sorry mate, couldn't leave a review", error);
+    }
+  };
+
+  const patchUpdate = async (movie, body) => {
+    try {
+      const params = {
+        method: "patch",
+        url: backendUrl + `favourites`,
+        data: { movieId: movie.id, ...body },
+        headers
+      };
+      await axios(params);
+    } catch (error) {}
+  };
+
+  const deleteReview = async movie => {
+    console.log("before--->", movie);
+    try {
+      patchUpdate(movie, { review: null });
+
+      return setMovie({
+        ...movie,
+        review: null
+      });
+    } catch (error) {
+      console.error("sorry mate, couldn't delete your review", error);
+    }
+    console.log("after--->", movie);
   };
 
   const postRating = async (movie, rating) => {

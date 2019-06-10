@@ -38,15 +38,6 @@ const useMovies = (initialState = []) => {
     }
   };
 
-  useEffect(() => {
-    fetchPopularData();
-    fetchFavouriteData();
-    // return () => {
-    //   console.log("------- does this happen>");
-    //   fetchFavouriteData().then(setFavouriteList([]));
-    // };
-  }, []);
-
   const searchMovies = async event => {
     setValue(event.target.value);
     if (!event.target.value) {
@@ -61,26 +52,6 @@ const useMovies = (initialState = []) => {
       return setPopularList(parsedRes.results);
     }
   };
-
-  // const createReview = (movie, event) => {
-  //   const newFavourites = [...favouriteList].map(favouriteMovie => {
-  //     if (favouriteMovie.id === movie.id) {
-  //       favouriteMovie.review = event.target.value;
-  //     }
-  //     return favouriteMovie;
-  //   });
-  //   setFavouriteList(newFavourites);
-  // };
-
-  // const deleteReview = movie => {
-  //   const newFavourites = [...favouriteList].map(favouriteMovie => {
-  //     if (favouriteMovie.id === movie.id) {
-  //       delete favouriteMovie.review;
-  //     }
-  //     return favouriteMovie;
-  //   });
-  //   setFavouriteList(newFavourites);
-  // };
 
   const postFavouriteMovie = async movie => {
     try {
@@ -115,6 +86,39 @@ const useMovies = (initialState = []) => {
     return !!result.length;
   };
 
+  const deleteFavouriteMovie = async movie => {
+    try {
+      const params = {
+        method: "delete",
+        url: backendUrl + "favourites",
+        data: { movieId: movie.id },
+        headers
+      };
+      await axios(params);
+      const newFavourites = favouriteList.filter(favouriteMovie => {
+        if (favouriteMovie.id !== movie.id) {
+          return favouriteMovie;
+        }
+        return null;
+      });
+      setFavouriteList(newFavourites);
+    } catch (error) {
+      console.error("sorry mate, couldn't delete it", error);
+    }
+  };
+
+  const getPopularFeed = () => {
+    return useEffect(() => {
+      fetchPopularData();
+    }, []);
+  };
+
+  const getFavouriteFeed = () => {
+    return useEffect(() => {
+      fetchFavouriteData();
+    }, [favouriteList.length]);
+  };
+
   const clearSearch = () => {
     setValue("");
     fetchPopularData();
@@ -137,6 +141,7 @@ const useMovies = (initialState = []) => {
   const setMovieRating = async (movie, rating) => {
     try {
       await postRating(movie, rating);
+
       const newFavourites = [...favouriteList].map(favouriteMovie => {
         if (favouriteMovie.id === movie.id) {
           favouriteMovie.rating = rating;
@@ -149,39 +154,6 @@ const useMovies = (initialState = []) => {
     }
   };
 
-  // const setWatched = movie => {
-  //   const newFavourites = [...favouriteList].map(favouriteMovie => {
-  //     if (favouriteMovie.id === movie.id) {
-  //       favouriteMovie.watched = !favouriteMovie.watched;
-  //     }
-  //     return favouriteMovie;
-  //   });
-  //   setFavouriteList(newFavourites);
-  // };
-
-  const getFavourite = async movie => {
-    try {
-      const params = {
-        method: "get",
-        url: backendUrl + `favourites/${movie.id}`,
-        headers
-      };
-      await axios(params);
-    } catch (error) {
-      console.error("this movie is not in your list", error);
-    }
-  };
-
-  const deleteFavouriteMovie = movie => {
-    const newFavourites = favouriteList.filter(favouriteMovie => {
-      if (favouriteMovie.id !== movie.id) {
-        return favouriteMovie;
-      }
-      return null;
-    });
-    setFavouriteList(newFavourites);
-  };
-
   return {
     value,
     popularList,
@@ -192,7 +164,8 @@ const useMovies = (initialState = []) => {
     isFavourite,
     clearSearch,
     setMovieRating,
-    getFavourite
+    getPopularFeed,
+    getFavouriteFeed
   };
 };
 

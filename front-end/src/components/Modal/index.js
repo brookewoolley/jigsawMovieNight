@@ -138,7 +138,6 @@ const Modal = props => {
     setRating
   } = useMovie(
     props.match.params.id,
-    props.getFavourite,
     props.setFavouriteList,
     props.favouriteList,
     props.variant
@@ -203,7 +202,7 @@ const Modal = props => {
               starStyle={localStyles.star}
               rateStyle={localStyles.rating}
             />
-            {!!props.getFavourite(props.match.params.id) && (
+            {!props.isFavourite(props.match.params.id) && (
               <WatchedSection
                 movie={movie}
                 setWatched={() => {
