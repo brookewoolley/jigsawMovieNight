@@ -7,7 +7,6 @@ const ListOfMovies = ({
   isFavourite,
   variant,
   setRating,
-  setWatched,
   onClick
 }) => {
   return (
@@ -25,7 +24,6 @@ const ListOfMovies = ({
             onClick={() => onClick(movie.id)}
             rating={movie.rating}
             setRating={rating => setRating(movie, rating)}
-            setWatched={setWatched}
             movie={movie}
           />
         );

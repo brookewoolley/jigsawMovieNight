@@ -39,14 +39,13 @@ const App = props => {
     popularList,
     searchMovies,
     favouriteList,
+    setFavouriteList,
     favouriteMovie,
     isFavourite,
     clearSearch,
-    setRating,
-    setWatched,
-    createReview,
-    deleteReview,
-    getFavourite
+    setMovieRating,
+    getPopularFeed,
+    getFavouriteFeed
   } = useMovies();
 
   const { setFilter, filter, returnAlteredList, sort, setSort } = useFilters();
@@ -73,7 +72,6 @@ const App = props => {
   if (!window.localStorage.getItem("token")) {
     props.history.push("/");
   }
-
   return (
     <Router>
       <div style={localStyles.container}>
@@ -104,8 +102,9 @@ const App = props => {
                   isFavourite={isFavourite}
                   favouriteList={returnAlteredList(favouriteList)}
                   navOffset={NAV_HEIGHT}
-                  setRating={setRating}
-                  setWatched={setWatched}
+                  setRating={setMovieRating}
+                  getFavouriteFeed={getFavouriteFeed}
+                  getPopularFeed={getPopularFeed}
                   {...props}
                 />
               )}
@@ -115,12 +114,9 @@ const App = props => {
               render={props => (
                 <Modal
                   {...props}
-                  setWatched={setWatched}
-                  createReview={createReview}
-                  deleteReview={deleteReview}
-                  getFavourite={getFavourite}
-                  setRating={setRating}
+                  isFavourite={isFavourite}
                   variant={"popular"}
+                  setFavouriteList={setFavouriteList}
                 />
               )}
             />
@@ -129,11 +125,8 @@ const App = props => {
               render={props => (
                 <Modal
                   {...props}
-                  setWatched={setWatched}
-                  createReview={createReview}
-                  deleteReview={deleteReview}
-                  getFavourite={getFavourite}
-                  setRating={setRating}
+                  isFavourite={isFavourite}
+                  setFavouriteList={setFavouriteList}
                   variant={"favourites"}
                 />
               )}

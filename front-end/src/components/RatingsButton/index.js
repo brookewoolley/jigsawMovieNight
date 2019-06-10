@@ -10,7 +10,6 @@ const localStyles = {
 const stars = [1, 2, 3, 4, 5];
 
 const RatingsButton = ({ setRating, rating, rateStyle, starStyle }) => {
-  console.log("---> RATING", rating);
   return (
     <div style={{ ...localStyles.movieButton, ...rateStyle }}>
       {stars.map(item => (

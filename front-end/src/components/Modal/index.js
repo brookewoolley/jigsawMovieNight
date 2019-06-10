@@ -128,13 +128,21 @@ const localStyles = {
 };
 
 const Modal = props => {
-  console.log("---> here's ya modal");
-  let releaseDate;
-  const { movie, loading, onUpdate } = useMovie(
+  const {
+    movie,
+    loading,
+    onUpdate,
+    createReview,
+    deleteReview,
+    setWatched,
+    setRating
+  } = useMovie(
     props.match.params.id,
-    props.getFavourite,
+    props.setFavouriteList,
+    props.favouriteList,
     props.variant
   );
+  let releaseDate;
 
   const { isOpen, setIsOpen } = useCollapsible();
 
@@ -144,9 +152,8 @@ const Modal = props => {
   }
 
   const directorArray = movie.crew.filter(obj => obj.job === "Director");
-
-  console.log(directorArray);
-
+  const genresArray = movie.genres.map(genre => genre);
+  console.log("movie--->", movie);
   return movie ? (
     <div style={localStyles.daddyDiv}>
       <div style={localStyles.movieContainer}>
@@ -182,25 +189,36 @@ const Modal = props => {
                 {movie.runtime} minutes
               </li>
               <li>
-                <strong style={localStyles.strong}>Genre:</strong>{" "}
-                {movie.genres[0].name}, {movie.genres[1].name}
+                {movie.genres.length ? (
+                  <span>
+                    <strong style={localStyles.strong}>Genre: </strong>
+                    {genresArray.map((genre, index) => {
+                      if (index >= 1) {
+                        return `, ${genre.name}`;
+                      }
+                      return genre.name;
+                    })}
+                  </span>
+                ) : (
+                  ""
+                )}
               </li>
             </ul>
-            <RatingsButton
-              setRating={rating => {
-                onUpdate();
-                props.setRating(movie, rating);
-              }}
-              rating={movie.rating}
-              starStyle={localStyles.star}
-              rateStyle={localStyles.rating}
-            />
-            {!!props.getFavourite(props.match.params.id) && (
+            {props.isFavourite(props.match.params.id) && (
+              <RatingsButton
+                setRating={rating => {
+                  setRating(movie, rating);
+                }}
+                rating={movie.rating}
+                starStyle={localStyles.star}
+                rateStyle={localStyles.rating}
+              />
+            )}
+            {props.isFavourite(props.match.params.id) && (
               <WatchedSection
                 movie={movie}
                 setWatched={() => {
-                  onUpdate();
-                  props.setWatched(movie);
+                  setWatched(movie);
                 }}
               />
             )}
@@ -215,11 +233,11 @@ const Modal = props => {
           >
             <CastSection castList={movie.cast} loading={loading} />
           </Collapsible>
-          {movie.watched === true ? (
+          {movie.watchedStatus === true ? (
             <Review
-              onReview={event => props.createReview(movie, event)}
+              onReview={event => createReview(movie, event)}
               review={movie.review}
-              onDelete={() => props.deleteReview(movie)}
+              onDelete={() => deleteReview(movie)}
             />
           ) : null}
         </div>

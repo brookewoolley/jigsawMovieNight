@@ -20,10 +20,22 @@ const Feed = ({
   setRating,
   setWatched,
   match,
-  history
+  history,
+  getPopularFeed,
+  getFavouriteFeed
 }) => {
   if (!window.localStorage.getItem("token")) {
     history.push("/");
+  }
+
+  if (match.url === "/popular") {
+    getPopularFeed();
+    getFavouriteFeed();
+  }
+
+  if (match.url === "/favourites") {
+    getPopularFeed();
+    getFavouriteFeed();
   }
   return (
     <div

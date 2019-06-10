@@ -26,7 +26,10 @@ const ConnectedNavBar = ({
   filter,
   sort,
   setSort,
-  history
+  history,
+  match,
+  getFavouriteFeed,
+  getPopularFeed
 }) => {
   if (!window.localStorage.getItem("token")) {
     history.push("/");
