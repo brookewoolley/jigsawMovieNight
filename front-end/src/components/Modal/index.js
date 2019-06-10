@@ -152,7 +152,7 @@ const Modal = props => {
   }
 
   const directorArray = movie.crew.filter(obj => obj.job === "Director");
-
+  console.log("movie--->", movie);
   return movie ? (
     <div style={localStyles.daddyDiv}>
       <div style={localStyles.movieContainer}>
@@ -188,10 +188,14 @@ const Modal = props => {
                 {movie.runtime} minutes
               </li>
               <li>
-                <strong style={localStyles.strong}>Genre:</strong>{" "}
-                {movie.genres.length
-                  ? `${movie.genres[0].name}, ${movie.genres[1].name}`
-                  : ""}
+                {movie.genres.length ? (
+                  <span>
+                    <strong style={localStyles.strong}>Genre:</strong>
+                    `${movie.genres[0].name}, ${movie.genres[1].name}`
+                  </span>
+                ) : (
+                  ""
+                )}
               </li>
             </ul>
             <RatingsButton

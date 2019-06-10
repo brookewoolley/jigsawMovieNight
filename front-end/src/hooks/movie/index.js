@@ -42,20 +42,19 @@ const useMovie = (
 
   const createReview = async (movie, event) => {
     try {
-      console.log("event--->", event);
+      console.log("event--->", event.target.value);
       if (!movie.review) {
-        postReview(movie, event.target.value);
-        console.log("post review executed");
-        return setMovie({
+        setMovie({
           ...movie,
-          event
+          review: event.target.value
         });
+        return await postReview(movie, event.target.value);
       } else {
-        patchUpdate(movie, { review: event.target.value });
-        return setMovie({
+        setMovie({
           ...movie,
-          event
+          review: event.target.value
         });
+        return await patchUpdate(movie, { review: event.target.value });
       }
     } catch (error) {
       console.error("Sorry mate, couldn't leave a review", error);
@@ -79,6 +78,7 @@ const useMovie = (
   };
 
   const patchUpdate = async (movie, body) => {
+    console.log("BODY BOY", body);
     try {
       const params = {
         method: "patch",
@@ -87,17 +87,19 @@ const useMovie = (
         headers
       };
       await axios(params);
-    } catch (error) {}
+    } catch (error) {
+      console.error("sorry mate, couldn't PATCH", error);
+    }
   };
 
   const deleteReview = async movie => {
     console.log("before--->", movie);
     try {
-      patchUpdate(movie, { review: null });
+      patchUpdate(movie, { review: "" });
 
       return setMovie({
         ...movie,
-        review: null
+        review: ""
       });
     } catch (error) {
       console.error("sorry mate, couldn't delete your review", error);
