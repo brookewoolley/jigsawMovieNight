@@ -4,13 +4,7 @@ import { baseUrl, apiKey, backendUrl } from "../../config";
 import Promise from "bluebird";
 import { headers } from "../../authHelpers";
 
-const useMovie = (
-  movieId,
-  setFavouriteList,
-  favouriteList,
-  variant,
-  http = axios
-) => {
+const useMovie = (movieId, variant, http = axios) => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -163,14 +157,6 @@ const useMovie = (
           watchedStatus: null
         });
       }
-
-      // const newFavourites = [...favouriteList].map(favouriteMovie => {
-      //   if (favouriteMovie.id === movie.id) {
-      //     favouriteMovie.watched = !favouriteMovie.watched;
-      //   }
-      //   return favouriteMovie;
-      // });
-      // setFavouriteList(newFavourites);
     } catch (error) {
       console.error("Unable to set Watched status", error);
     }

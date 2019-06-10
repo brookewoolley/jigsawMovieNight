@@ -152,6 +152,7 @@ const Modal = props => {
   }
 
   const directorArray = movie.crew.filter(obj => obj.job === "Director");
+  const genresArray = movie.genres.map(genre => genre);
   console.log("movie--->", movie);
   return movie ? (
     <div style={localStyles.daddyDiv}>
@@ -190,23 +191,30 @@ const Modal = props => {
               <li>
                 {movie.genres.length ? (
                   <span>
-                    <strong style={localStyles.strong}>Genre:</strong>
-                    `${movie.genres[0].name}, ${movie.genres[1].name}`
+                    <strong style={localStyles.strong}>Genre: </strong>
+                    {genresArray.map((genre, index) => {
+                      if (index >= 1) {
+                        return `, ${genre.name}`;
+                      }
+                      return genre.name;
+                    })}
                   </span>
                 ) : (
                   ""
                 )}
               </li>
             </ul>
-            <RatingsButton
-              setRating={rating => {
-                setRating(movie, rating);
-              }}
-              rating={movie.rating}
-              starStyle={localStyles.star}
-              rateStyle={localStyles.rating}
-            />
-            {!props.isFavourite(props.match.params.id) && (
+            {props.isFavourite(props.match.params.id) && (
+              <RatingsButton
+                setRating={rating => {
+                  setRating(movie, rating);
+                }}
+                rating={movie.rating}
+                starStyle={localStyles.star}
+                rateStyle={localStyles.rating}
+              />
+            )}
+            {props.isFavourite(props.match.params.id) && (
               <WatchedSection
                 movie={movie}
                 setWatched={() => {

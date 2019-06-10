@@ -34,6 +34,10 @@ export const sorters = {
   rateDescending: {
     id: "rateDescending",
     name: "Lowest rated"
+  },
+  clearSort: {
+    id: null,
+    name: "Clear Sort"
   }
 };
 
@@ -45,6 +49,10 @@ export const filters = {
   notWatched: {
     id: "notWatched",
     name: "Movies to Watch"
+  },
+  clearFilter: {
+    id: null,
+    name: "Clear filter"
   }
 };
 
