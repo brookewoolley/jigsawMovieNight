@@ -143,7 +143,6 @@ const Modal = props => {
     props.favouriteList,
     props.variant
   );
-  console.log("---> here's ya modal", props);
   let releaseDate;
 
   const { isOpen, setIsOpen } = useCollapsible();
@@ -154,8 +153,6 @@ const Modal = props => {
   }
 
   const directorArray = movie.crew.filter(obj => obj.job === "Director");
-
-  console.log(directorArray);
 
   return movie ? (
     <div style={localStyles.daddyDiv}>
@@ -193,7 +190,9 @@ const Modal = props => {
               </li>
               <li>
                 <strong style={localStyles.strong}>Genre:</strong>{" "}
-                {movie.genres[0].name}, {movie.genres[1].name}
+                {movie.genres.length
+                  ? `${movie.genres[0].name}, ${movie.genres[1].name}`
+                  : ""}
               </li>
             </ul>
             <RatingsButton
