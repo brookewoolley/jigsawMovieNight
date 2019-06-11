@@ -30,6 +30,7 @@ const Feed = ({
 
   if (match.url === "/popular") {
     getPopularFeed();
+    console.log("popularFeed regenerated");
     getFavouriteFeed();
   }
 
@@ -37,6 +38,7 @@ const Feed = ({
     getPopularFeed();
     getFavouriteFeed();
   }
+
   return (
     <div
       style={{

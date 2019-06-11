@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import * as axios from "axios";
-import { baseUrl, apiKey, backendUrl } from "../../config";
-import Promise from "bluebird";
+import { backendUrl } from "../../config";
 import { headers } from "../../authHelpers";
 
 const useMovie = (movieId, variant, http = axios) => {
@@ -10,19 +9,18 @@ const useMovie = (movieId, variant, http = axios) => {
 
   const fetchMovieData = async () => {
     try {
-      const { movie, cast } = await Promise.props({
-        cast: http(`${baseUrl}movie/${movieId}/credits?api_key=${apiKey}`),
-        movie: http({
-          method: "GET",
-          url:
-            backendUrl +
-            (variant === "favourites"
-              ? `favourites/${movieId}`
-              : `films/${movieId}`),
-          headers
-        })
-      });
-      setMovie({ ...movie.data, ...cast.data });
+      const params = {
+        method: "GET",
+        url:
+          backendUrl +
+          (variant === "favourites"
+            ? `favourites/${movieId}`
+            : `films/${movieId}`),
+        headers
+      };
+      const movie = await http(params);
+      console.log("movie", movie);
+      setMovie(movie.data);
       setLoading(false);
     } catch (error) {
       console.error("movieById not loading", error);
@@ -32,11 +30,10 @@ const useMovie = (movieId, variant, http = axios) => {
   useEffect(() => {
     fetchMovieData();
     return setMovie(null);
-  }, []);
+  }, [movieId]);
 
   const createReview = async (movie, event) => {
     try {
-      console.log("event--->", event.target.value);
       if (!movie.review) {
         setMovie({
           ...movie,
@@ -56,7 +53,6 @@ const useMovie = (movieId, variant, http = axios) => {
   };
 
   const postReview = async (movie, review) => {
-    console.log("postReview--->", review);
     try {
       const params = {
         method: "post",
@@ -64,7 +60,7 @@ const useMovie = (movieId, variant, http = axios) => {
         data: { movieId: movie.id, review: review },
         headers
       };
-      const res = await axios(params);
+      const res = await http(params);
       console.log(res);
     } catch (error) {
       console.error("sorry mate, couldn't leave a review", error);
@@ -72,7 +68,6 @@ const useMovie = (movieId, variant, http = axios) => {
   };
 
   const patchUpdate = async (movie, body) => {
-    console.log("BODY BOY", body);
     try {
       const params = {
         method: "patch",
@@ -87,7 +82,6 @@ const useMovie = (movieId, variant, http = axios) => {
   };
 
   const deleteReview = async movie => {
-    console.log("before--->", movie);
     try {
       patchUpdate(movie, { review: "" });
 
@@ -98,7 +92,6 @@ const useMovie = (movieId, variant, http = axios) => {
     } catch (error) {
       console.error("sorry mate, couldn't delete your review", error);
     }
-    console.log("after--->", movie);
   };
 
   const postRating = async (movie, rating) => {
@@ -136,8 +129,9 @@ const useMovie = (movieId, variant, http = axios) => {
         data: { movieId: movie.id, watchedStatus: true },
         headers
       };
-      await axios(params);
+      await http(params);
     } catch (error) {
+      console.log("THIS TEST DIDN'T ACTUALLY PASS");
       console.error("Unable to post watched status", error);
     }
   };

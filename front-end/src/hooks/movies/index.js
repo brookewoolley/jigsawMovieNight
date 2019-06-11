@@ -110,6 +110,7 @@ const useMovies = (initialState = []) => {
   const getPopularFeed = () => {
     return useEffect(() => {
       fetchPopularData();
+      console.log("fetchPopularData executed");
     }, []);
   };
 
