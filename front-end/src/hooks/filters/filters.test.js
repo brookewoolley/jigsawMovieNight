@@ -28,7 +28,9 @@ test("returns watched array", () => {
 test("returns notwatched array", () => {
   const { result } = renderHook(() => useFilterSorters());
 
-  act(() => result.current.setFilter({ id: "notWatched" }));
+  act(() => {
+    result.current.setFilter({ id: "notWatched" });
+  });
 
   expect(result.current.returnAlteredList(array)).toEqual([
     { title: "fake film 3", watched: false, popularity: 2, rating: 0 }
@@ -38,7 +40,9 @@ test("returns notwatched array", () => {
 test("returns alphabetically sorted array, A-Z", () => {
   const { result } = renderHook(() => useFilterSorters());
 
-  act(() => result.current.setSort({ id: "alphaAscending" }));
+  act(() => {
+    result.current.setSort({ id: "alphaAscending" });
+  });
 
   expect(result.current.returnAlteredList(array)).toEqual([
     { title: "fake film 3", watched: false, popularity: 2, rating: 0 },
@@ -51,7 +55,9 @@ test("returns alphabetically sorted array, A-Z", () => {
 test("returns alphabetically sorted array, Z-A", () => {
   const { result } = renderHook(() => useFilterSorters());
 
-  act(() => result.current.setSort({ id: "alphaDescending" }));
+  act(() => {
+    result.current.setSort({ id: "alphaDescending" });
+  });
 
   expect(result.current.returnAlteredList(array)).toEqual([
     { title: "fake movie 2", watched: true, popularity: 5, rating: 5 },
@@ -64,7 +70,9 @@ test("returns alphabetically sorted array, Z-A", () => {
 test("returns popularity sorted array, ascending", () => {
   const { result } = renderHook(() => useFilterSorters());
 
-  act(() => result.current.setSort({ id: "popAscending" }));
+  act(() => {
+    result.current.setSort({ id: "popAscending" });
+  });
 
   expect(result.current.returnAlteredList(array)).toEqual([
     { title: "fake movie 2", watched: true, popularity: 5, rating: 5 },
@@ -77,7 +85,9 @@ test("returns popularity sorted array, ascending", () => {
 test("returns popularity sorted array, descending", () => {
   const { result } = renderHook(() => useFilterSorters());
 
-  act(() => result.current.setSort({ id: "popDescending" }));
+  act(() => {
+    result.current.setSort({ id: "popDescending" });
+  });
 
   expect(result.current.returnAlteredList(array)).toEqual([
     { title: "fake film 4", watched: true, popularity: 1, rating: 4 },

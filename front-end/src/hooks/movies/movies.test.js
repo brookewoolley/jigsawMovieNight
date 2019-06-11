@@ -6,7 +6,12 @@ let fakeList = [
   { title: "fake film 3", watched: false, popularity: 2, id: 2 }
 ];
 
-let dummyMovie = { title: "fake film 3", watched: false, popularity: 2, id: 2 };
+let dummyMovie = {
+  title: "fake film 3",
+  watchedStatus: false,
+  popularity: 2,
+  id: 2
+};
 
 let newMovie = { title: "fake film 4", watched: false, popularity: 3, id: 4 };
 

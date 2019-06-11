@@ -18,9 +18,8 @@ const useMovie = (movieId, variant, http = axios) => {
             : `films/${movieId}`),
         headers
       };
-      const movie = await http(params);
-      console.log("movie", movie);
-      setMovie(movie.data);
+      const { data } = await http(params);
+      setMovie(data);
       setLoading(false);
     } catch (error) {
       console.error("movieById not loading", error);
@@ -60,8 +59,7 @@ const useMovie = (movieId, variant, http = axios) => {
         data: { movieId: movie.id, review: review },
         headers
       };
-      const res = await http(params);
-      console.log(res);
+      await http(params);
     } catch (error) {
       console.error("sorry mate, couldn't leave a review", error);
     }
