@@ -32,16 +32,24 @@ const localStyles = {
   movieDetails: {
     position: "absolute",
     fontFamily: "Helvetica",
+    width: "100%",
     bottom: 0,
     backgroundImage: "linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)",
     color: "white",
-    padding: 10,
+    padding: 5,
     paddingTop: 20,
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    marginBottom: 2
   },
   movieTitle: { margin: 5 },
-  movieOverview: { fontSize: 12 }
+  movieOverview: {
+    fontSize: 12,
+    display: "flex",
+    alignItems: "center",
+    padding: 5,
+    marginRight: 5
+  }
 };
 
 const Movie = ({

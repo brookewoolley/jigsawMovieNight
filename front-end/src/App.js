@@ -72,6 +72,12 @@ const App = props => {
   if (!window.localStorage.getItem("token")) {
     props.history.push("/");
   }
+
+  if (props.history.location.pathname === "/popular") {
+    getPopularFeed();
+    getFavouriteFeed();
+  }
+
   return (
     <Router>
       <div style={localStyles.container}>
