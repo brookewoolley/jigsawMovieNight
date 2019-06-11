@@ -1,9 +1,12 @@
-import { renderHook, act } from "react-hooks-testing-library";
+import { renderHook, act} from "react-hooks-testing-library";
 import useMovies from "./";
+import { mockHttp } from "../../__mocks__/mockAxios";
+import { backendUrl } from "../../config";
+import { headers } from "../../authHelpers";
 
 let fakeList = [
   { title: "fake movie 1", watched: true, popularity: 3, id: 1 },
-  { title: "fake film 3", watched: false, popularity: 2, id: 2 }
+  { title: "fake film 4", watched: false, popularity: 2, id: 4 }
 ];
 
 let dummyMovie = {
@@ -13,31 +16,41 @@ let dummyMovie = {
   id: 2
 };
 
+let mockFavouriteParams = {
+  method: "post",
+  url: backendUrl + "favourites",
+  data: { movieId: 2 },
+  headers
+}
+
+let mockRatingParams = {
+  method: "post",
+  url: backendUrl + "favourites/rate",
+  data: { movieId: 2, rating: 3 },
+  headers
+}
+
+
 let newMovie = { title: "fake film 4", watched: false, popularity: 3, id: 4 };
 
-xtest("user can add a movie to their list", async () => {
-  try {
-    const { result, waitForNextUpdate } = renderHook(() => useMovies(fakeList));
-    result.current.favouriteMovie(newMovie);
-    await waitForNextUpdate();
-    expect(result.current.favouriteList[2].title).toBe("fake film 4");
-  } finally {
-    console.error("couldn't favouriteMovie");
-  }
+test("user can add a movie to their list", async () => {
+    const { result } = renderHook(() => useMovies(fakeList, mockHttp));
+    act(() => result.current.favouriteMovie(dummyMovie));
+    expect(mockHttp).toHaveBeenCalledWith(mockFavouriteParams);
+    console.log(result.current.favouriteList);
+    expect(result.current.favouriteList).toContain(dummyMovie);
+
 });
 
-xtest("user can add a rating to a movie", async () => {
-  try {
-    const { result, waitForNextUpdate } = renderHook(() => useMovies(fakeList));
-    result.current.setMovieRating(dummyMovie, 3);
-    await waitForNextUpdate();
-    expect(result.current.favouriteList[1].rating).toEqual(3);
-  } finally {
-    console.error("couldn't setMovieRating");
-  }
+test("user can add a rating to a movie", () => {
+    const { result } = renderHook(() => useMovies(fakeList, mockHttp));
+    act(() => result.current.setMovieRating(dummyMovie, 3));
+    expect(mockHttp).toHaveBeenCalledWith(mockRatingParams);
+    console.log(result.current.favouriteList);
+    expect(result.current.favouriteList[0].rating).toEqual(3);
 });
 
-xtest("favourite movie is removed if favourite function is toggled", () => {
+test("favourite movie is removed if favourite function is toggled", () => {
   const { result } = renderHook(() => useMovies(fakeList));
   act(() => result.current.favouriteMovie(newMovie));
   act(() => result.current.favouriteMovie(newMovie));

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import * as axios from "axios";
 import { baseUrl, apiKey, backendUrl } from "../../config";
 import { headers } from "../../authHelpers";
 
-const useMovies = (initialState = []) => {
+const useMovies = (initialState = [], http = axios) => {
   const [value, setValue] = useState("");
   const [popularList, setPopularList] = useState([]);
   const [favouriteList, setFavouriteList] = useState(initialState);
@@ -15,7 +15,7 @@ const useMovies = (initialState = []) => {
         url: backendUrl + "films",
         headers
       };
-      const { data } = await axios(params);
+      const { data } = await http(params);
 
       setPopularList(data);
     } catch (err) {
@@ -30,7 +30,7 @@ const useMovies = (initialState = []) => {
         url: backendUrl + "favourites",
         headers
       };
-      const { data } = await axios(params);
+      const { data } = await http(params);
 
       setFavouriteList(data);
     } catch (err) {
@@ -61,7 +61,7 @@ const useMovies = (initialState = []) => {
         data: { movieId: movie.id },
         headers
       };
-      await axios(params);
+      await http(params);
     } catch (err) {
       console.error("no way mate, favourites", err);
     }
@@ -71,7 +71,7 @@ const useMovies = (initialState = []) => {
     try {
       await postFavouriteMovie(movie);
       const newFavourites = [...favouriteList, movie];
-      isFavourite(movie)
+      return isFavourite(movie)
         ? deleteFavouriteMovie(movie)
         : setFavouriteList(newFavourites);
     } catch (error) {
@@ -94,7 +94,7 @@ const useMovies = (initialState = []) => {
         data: { movieId: movie.id },
         headers
       };
-      await axios(params);
+      await http(params);
       const newFavourites = favouriteList.filter(favouriteMovie => {
         if (favouriteMovie.id !== movie.id) {
           return favouriteMovie;
@@ -133,7 +133,7 @@ const useMovies = (initialState = []) => {
         data: { movieId: movie.id, rating: rating },
         headers
       };
-      await axios(params);
+      await http(params);
     } catch (error) {
       console.error("Unable to post rating", error);
     }
